@@ -1,0 +1,4 @@
+
+function which () {
+  /usr/bin/which $1 | xargs -i ls -l {}
+}

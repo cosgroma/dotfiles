@@ -1,0 +1,12 @@
+
+function which () {
+  /usr/bin/which $1 | xargs -I {} ls -l {}
+}
+
+alias git='hub'
+
+alias chrome='open -a /Applications/Google\ Chrome.app'
+
+alias ftp-amd='lftp -u cosgroma,Pgatour60 192.168.2.58'
+
+export ANDROID_HOME="/Applications/Android Studio.app/sdk"

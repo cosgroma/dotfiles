@@ -1,9 +1,13 @@
 . ~/bin/bash_colors.sh
 
 # Add paths that should have been there by default
-export PATH=${PATH}:/usr/local/bin
+export PATH=/usr/local/bin:${PATH}
 export PATH="~/bin:$PATH"
 export PATH="$PATH:~/.gem/ruby/1.8/bin"
+
+# PATH="/usr/local/sbin:/usr/local/bin:/Applications/Android Studio.app/sdk/tools:/Applications/Android Studio.app/sdk/platform-tools:${PATH}"
+# export PATH
+
 
 # Add postgres to the path
 export PATH=$PATH:/usr/local/pgsql/bin
@@ -16,12 +20,17 @@ alias ll='ls -lG'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export GREP_OPTIONS="--color"
 
+export CLICOLOR=1
+alias grep='grep --color -E'
+
 # Erase duplicates in history
 export HISTCONTROL=erasedups
 # Store 10k history entries
 export HISTSIZE=10000
 # Append to the history file when exiting instead of overwriting it
 shopt -s histappend
+
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # Git prompt components
 function minutes_since_last_commit {
@@ -50,6 +59,8 @@ grb_git_prompt() {
 }
 PS1="\h:\W\$(grb_git_prompt) \u\$ "
 
+#PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;37m\]@\h \[\033[01;33m\]\T \[\033[01;36m\]\w \$ \[\e[0m\]"
+
 activate_virtualenv() {
     if [ -f env/bin/activate ]; then . env/bin/activate;
     elif [ -f ../env/bin/activate ]; then . ../env/bin/activate;
@@ -63,6 +74,17 @@ python_module_dir () {
         print _.dirname(_.realpath(${1}.__file__[:-1]))"
         )"
 }
+
+if [ "$(uname)" == "Darwin" ]; then
+  echo "OK! OSX!"
+  source ~/.osxbash
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  echo "YAY! LINUX!"
+  source ~/.debbash
+elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+  echo "FUCK! WINDOWS!"
+  source ~/.cygbash
+fi
 
 source ~/bin/git-completion.bash
 
@@ -94,4 +116,11 @@ extract () {
 mktar() { tar cvf  "${1%%/}.tar"     "${1%%/}/"; }
 mktgz() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 mktbz() { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
+
+
+alias show='find . -name "*.*"'
+alias ls='ls -lhG'
+alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
+
+alias timestamp='date +%Y%m%d%H%M%S'
 
