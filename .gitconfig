@@ -1,6 +1,6 @@
 [user]
-    name = Gary Bernhardt
-    email = gary.bernhardt@gmail.com
+    name = Mathew Cosgrove
+    email = cosgroma@gmail.com
 [diff]
 [color]
     ui = auto
@@ -42,7 +42,7 @@
     ra = !git r --all
     l = "!. ~/.githelpers && pretty_git_log"
     la = !git l --all
-
+    tree = !git log --oneline --graph --decorate --all
 [merge]
     tool = vimdiff
 
