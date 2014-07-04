@@ -14,13 +14,13 @@ export PATH=$PATH:/usr/local/pgsql/bin
 export PATH=$PATH:/Library/PostgreSQL/8.3/bin
 
 # Unbreak broken, non-colored terminal
-export TERM='xterm-color'
+export TERM='xterm-256color'
 alias ls='ls -G'
 alias ll='ls -lG'
-export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
-export GREP_OPTIONS="--color"
+# export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+# export GREP_OPTIONS="--color"
 
-export CLICOLOR=1
+#export CLICOLOR=1
 alias grep='grep --color -E'
 
 # Erase duplicates in history
@@ -75,17 +75,6 @@ python_module_dir () {
         )"
 }
 
-if [ "$(uname)" == "Darwin" ]; then
-  echo "OK! OSX!"
-  source ~/.osxbash
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  echo "YAY! LINUX!"
-  source ~/.debbash
-elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
-  echo "FUCK! WINDOWS!"
-  source ~/.cygbash
-fi
-
 source ~/bin/git-completion.bash
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
@@ -124,3 +113,18 @@ alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --a
 
 alias timestamp='date +%Y%m%d%H%M%S'
 
+# # Setup for /bin/ls to support color, the alias is in /etc/bashrc.
+# if [ -f "$HOME/.dircolors" ] ; then
+#     eval $(dircolors -b $HOME/.dircolors)
+# fi
+
+if [ "$(uname)" == "Darwin" ]; then
+  echo "OK! OSX!"
+  source ~/.osxbash
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  echo "YAY! LINUX!"
+  source ~/.debbash
+elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+  echo "FUCK! WINDOWS!"
+  source ~/.cygbash
+fi
