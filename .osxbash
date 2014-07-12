@@ -16,8 +16,16 @@ export PATH=/usr/local/bin:/usr/local/share/python:$PATH
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages
 alias reset='exec /bin/bash -l'
 
-for s in $(find ~/workspace/scripts -name "*.sh")
-do
+for s in $(find ~/workspace/scripts -name "*.sh"); do
   echo "sourcing: " $s
   source $s
 done
+
+ # $(find $workspace/web -name "*.git" |  rev | cut -d. -f2- | rev)
+
+function make_repo_list() {
+  cur_list=$(find $workspace/web -name "*.git" |  rev | cut -d. -f2- | rev)
+  for i in ${cur_list[*]}; do
+    echo $i
+  done
+}
