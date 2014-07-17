@@ -1,17 +1,17 @@
 . ~/bin/bash_colors.sh
 
 # Add paths that should have been there by default
-export PATH=/usr/local/bin:${PATH}
-export PATH="~/bin:$PATH"
-export PATH="$PATH:~/.gem/ruby/1.8/bin"
+# export PATH=/usr/local/bin:${PATH}
+# export PATH="~/bin:$PATH"
+# export PATH="$PATH:~/.gem/ruby/1.8/bin"
 
 # PATH="/usr/local/sbin:/usr/local/bin:/Applications/Android Studio.app/sdk/tools:/Applications/Android Studio.app/sdk/platform-tools:${PATH}"
 # export PATH
 
 
 # Add postgres to the path
-export PATH=$PATH:/usr/local/pgsql/bin
-export PATH=$PATH:/Library/PostgreSQL/8.3/bin
+# export PATH=$PATH:/usr/local/pgsql/bin
+# export PATH=$PATH:/Library/PostgreSQL/8.3/bin
 
 # Unbreak broken, non-colored terminal
 export TERM='xterm-color'
@@ -32,7 +32,7 @@ shopt -s histappend
 
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
-# Git prompt components
+# # Git prompt components
 function minutes_since_last_commit {
     now=`date +%s`
     last_commit=`git log --pretty=format:'%at' -1`
@@ -40,26 +40,38 @@ function minutes_since_last_commit {
     minutes_since_last_commit=$((seconds_since_last_commit/60))
     echo $minutes_since_last_commit
 }
-grb_git_prompt() {
-    local g="$(__gitdir)"
-    if [ -n "$g" ]; then
-        local MINUTES_SINCE_LAST_COMMIT=`minutes_since_last_commit`
-        if [ "$MINUTES_SINCE_LAST_COMMIT" -gt 30 ]; then
-            local COLOR=${RED}
-        elif [ "$MINUTES_SINCE_LAST_COMMIT" -gt 10 ]; then
-            local COLOR=${YELLOW}
-        else
-            local COLOR=${GREEN}
-        fi
-        local SINCE_LAST_COMMIT="${COLOR}$(minutes_since_last_commit)m${NORMAL}"
-        # The __git_ps1 function inserts the current git branch where %s is
-        local GIT_PROMPT=`__git_ps1 "(%s|${SINCE_LAST_COMMIT})"`
-        echo ${GIT_PROMPT}
-    fi
-}
-PS1="\h:\W\$(grb_git_prompt) \u\$ "
+# grb_git_prompt() {
+#     local g="$(__gitdir)"
+#     if [ -n "$g" ]; then
+#         # local MINUTES_SINCE_LAST_COMMIT=`minutes_since_last_commit`
+#         # if [ "$MINUTES_SINCE_LAST_COMMIT" -gt 30 ]; then
+#         #     local COLOR=${RED}
+#         # elif [ "$MINUTES_SINCE_LAST_COMMIT" -gt 10 ]; then
+#         #     local COLOR=${YELLOW}
+#         # else
+#         #     local COLOR=${GREEN}
+#         # fi
+#         # local SINCE_LAST_COMMIT="${COLOR}$(minutes_since_last_commit)m${NORMAL}"
+#         # The __git_ps1 function inserts the current git branch where %s is
+#         local GIT_PROMPT=`__git_ps1 "(%s)"`
+#         echo ${GIT_PROMPT}
+#     fi
+# }
+# PS1="\h:\W\$(grb_git_prompt) \u\$ "
+#export PS1='$(__git_ps1) \w\$ '
+# export PS1='\h:\W $(git status 2>/dev/null) \u\$'
 
-#PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;37m\]@\h \[\033[01;33m\]\T \[\033[01;36m\]\w \$ \[\e[0m\]"
+
+#export PS1="\[$(tput bold)\]\[$(tput setaf 6)\]\t \[$(tput setaf 2)\][\[$(tput setaf 3)\]\u\[$(tput setaf 1)\]@\[$(tput setaf 3)\]\h \[$(tput setaf 6)\]\W\[$(tput setaf 2)\]]\[$(tput setaf 4)\]\\$ \[$(tput sgr0)\]"
+
+# function git_cb() {
+#   # git status --porcelain&>/dev/null;
+#   if  git status --porcelain&>/dev/null; then
+#     echo "$(git branch | grep '\*' | cut -d' ' -f2)"
+#   fi;
+# }
+# (\$(git_cb))
+export PS1="\[\033[01;32m\]\u\[\033[01;37m\]@\h \[\033[01;33m\]\T \w\[\033[38;5;40m\]\[\e[0m\] \$ "
 
 activate_virtualenv() {
     if [ -f env/bin/activate ]; then . env/bin/activate;
@@ -75,20 +87,9 @@ python_module_dir () {
         )"
 }
 
-if [ "$(uname)" == "Darwin" ]; then
-  echo "OK! OSX!"
-  source ~/.osxbash
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  echo "YAY! LINUX!"
-  source ~/.debbash
-elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
-  echo "FUCK! WINDOWS!"
-  source ~/.cygbash
-fi
+# source ~/bin/git-completion.bash
 
-source ~/bin/git-completion.bash
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+# PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 # Easy extract
 extract () {
@@ -118,9 +119,18 @@ mktgz() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 mktbz() { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
 
 
+if [ "$(uname)" == "Darwin" ]; then
+  echo "OK! OSX!"
+  source ~/.osxbash
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  echo "YAY! LINUX!"
+  source ~/.debbash
+else
+  echo "FUCK! WINDOWS!"
+  source ~/.cygbash
+fi
+
 alias show='find . -name "*.*"'
 alias ls='ls -lhG'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
-
 alias timestamp='date +%Y%m%d%H%M%S'
-
