@@ -2,12 +2,11 @@
 
 # Add paths that should have been there by default
 export PATH=/usr/local/bin:${PATH}
-export PATH="~/bin:$PATH"
-export PATH="$PATH:~/.gem/ruby/1.8/bin"
+export PATH="$HOME/bin:$PATH"
+export PATH="$PATH:$HOME/.gem/ruby/1.8/bin"
 
 # PATH="/usr/local/sbin:/usr/local/bin:/Applications/Android Studio.app/sdk/tools:/Applications/Android Studio.app/sdk/platform-tools:${PATH}"
 # export PATH
-
 
 # Add postgres to the path
 export PATH=$PATH:/usr/local/pgsql/bin
@@ -57,11 +56,29 @@ grb_git_prompt() {
         echo ${GIT_PROMPT}
     fi
 }
-PS1="\h:\W \u\$ "
 
-export PS1="\[$(tput bold)\]\[$(tput setaf 6)\]\t \[$(tput setaf 2)\][\[$(tput setaf 3)\]\u\[$(tput setaf 1)\]@\[$(tput setaf 3)\]\h \[$(tput setaf 6)\]\W\[$(tput setaf 2)\]]\[$(tput setaf 4)\] \$(grb_git_prompt)\\$\[$(tput sgr0)\] "
+#export PS1="\[$(tput bold)\]\[$(tput setaf 6)\]\t \[$(tput setaf 2)\][\[$(tput setaf 3)\]\u\[$(tput setaf 1)\]@\[$(tput setaf 3)\]\h \[$(tput setaf 6)\]\W\[$(tput setaf 2)\]]\[$(tput setaf 4)\] \$(grb_git_prompt)\\$\[$(tput sgr0)\] "
 
 #PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;37m\]@\h \[\033[01;33m\]\T \[\033[01;36m\]\w \$ \[\e[0m\]"
+
+
+PROMPT_INFO="\[\e[38;5;15m\]\u\[\e[38;5;160m\]@\[\e[38;5;249m\]\h \
+\[\e[38;5;160m\][\[\e[00;34m\]\W\[\e[38;5;160m\]] \
+\[\e[0m\]\$(grb_git_prompt)\
+\[\e[00;33m\]{\$?} \
+\[\e[0m\]\$ ";
+
+function get_columns {
+  echo -n $(($COLUMNS-9))
+}
+
+DIGITS="\[\e[38;5;160m\]"
+BORDER="\[\033[1;37m\]"
+CLOCK="\[\033[s\033[1;\$(echo -n \$(get_columns))H\]$BORDER[$DIGITS\$(date +%H:%M:%S)$BORDER]\[\033[u\]"
+
+export PS1="$CLOCK$PROMPT_INFO"
+export PS2='> '
+export PS4='+ '
 
 activate_virtualenv() {
     if [ -f env/bin/activate ]; then . env/bin/activate;
@@ -114,6 +131,10 @@ alias ls='ls -lhG'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 
 alias timestamp='date +%Y%m%d%H%M%S'
+
+
+
+
 
 # # Setup for /bin/ls to support color, the alias is in /etc/bashrc.
 # if [ -f "$HOME/.dircolors" ] ; then

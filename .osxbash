@@ -3,18 +3,10 @@ function which () {
   /usr/bin/which $1 | xargs -I {} ls -l {}
 }
 
-alias git='hub'
-
-alias chrome='open -a /Applications/Google\ Chrome.app'
-
-alias ftp-amd='lftp -u cosgroma,Pgatour60 192.168.2.58'
-
 export ANDROID_HOME="/Applications/Android Studio.app/sdk"
-
 export PATH=/usr/local/bin:/usr/local/share/python:$PATH
-
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages
-alias reset='exec /bin/bash -l'
+
 
 for s in $(find ~/workspace/scripts -name "*.sh"); do
   echo "sourcing: " $s
@@ -23,9 +15,36 @@ done
 
  # $(find $workspace/web -name "*.git" |  rev | cut -d. -f2- | rev)
 
-function make_repo_list() {
-  cur_list=$(find $workspace/web -name "*.git" |  rev | cut -d. -f2- | rev)
-  for i in ${cur_list[*]}; do
-    echo $i
-  done
-}
+alias reset='exec /bin/bash -l'
+alias git='hub'
+alias chrome='open -a /Applications/Google\ Chrome.app'
+alias ftp-amd='lftp -u cosgroma,Pgatour60 192.168.2.58'
+
+source /Users/cosgroma/workspace/apps/git-forest/git-forest.sh
+
+###########
+# git-forest configuration and setup
+#############
+
+# if [ -d "/Volumes/PATRIOT" ]; then
+#   # Control will enter here if $DIRECTORY exists.
+
+# fi
+
+
+set_configuration /Users/cosgroma/workspace/config/user_conf.forest
+set_repo_list /Users/cosgroma/workspace/config/sergeant.forest
+
+
+# declare -A matrix
+# num_rows=4
+# num_columns=5
+
+# for ((i=1;i<=num_rows;i++)) do
+#     for ((j=1;j<=num_columns;j++)) do
+#         matrix[$i,$j]=$RANDOM
+#     done
+# done
+
+alias pypacks='cd /usr/local/Cellar/python/2.7.8/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/'
+

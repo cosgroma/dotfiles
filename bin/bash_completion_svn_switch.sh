@@ -1,0 +1,1 @@
+/Users/cosgroma/workspace/utils/misc-cli-tools/bash_completion_svn_switch.sh
