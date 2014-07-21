@@ -3,10 +3,42 @@ function which () {
   /usr/bin/which $1 | xargs -I {} ls -l {}
 }
 
-alias git='hub'
-
-alias chrome='open -a /Applications/Google\ Chrome.app'
-
-alias ftp-amd='lftp -u cosgroma,Pgatour60 192.168.2.58'
-
 export ANDROID_HOME="/Applications/Android Studio.app/sdk"
+export PATH=/usr/local/bin:/usr/local/share/python:$PATH
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages
+
+# for s in $(find ~/workspace/scripts -name "*.sh"); do
+#   echo "sourcing: " $s
+#   source $s
+# done
+
+ # $(find $workspace/web -name "*.git" |  rev | cut -d. -f2- | rev)
+
+source /Users/cosgroma/workspace/apps/git-forest/git-forest.sh
+set_configuration /Users/cosgroma/workspace/config/user_conf.forest
+set_repo_list /Users/cosgroma/workspace/config/sergeant.forest
+
+###########
+# git-forest configuration and setup
+#############
+
+# if [ -d "/Volumes/PATRIOT" ]; then
+#   # Control will enter here if $DIRECTORY exists.
+
+# fi
+
+# declare -A matrix
+# num_rows=4
+# num_columns=5
+
+# for ((i=1;i<=num_rows;i++)) do
+#     for ((j=1;j<=num_columns;j++)) do
+#         matrix[$i,$j]=$RANDOM
+#     done
+# done
+
+alias reset='exec /bin/bash -l'
+alias git='hub'
+alias chrome='open -a /Applications/Google\ Chrome.app'
+alias ftp-amd='lftp -u cosgroma,Pgatour60 192.168.2.58'
+alias pypacks='cd /usr/local/Cellar/python/2.7.8/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/'

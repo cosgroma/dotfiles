@@ -3,8 +3,6 @@ echo "Loading Cygwin bashrc"
 source /cygdrive/e/workspace/apps/git-forest/git-forest.sh
 set_configuration /cygdrive/e/workspace/config/user_conf.forest
 set_repo_list /cygdrive/e/workspace/config/sergeant.forest
-show_configuration
-set_remote_target usb
 
 source ~/.proxybash
 
@@ -102,6 +100,9 @@ function make_c_project() {
 
 test_proxy
 
+USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_RET_STAT$PS1_PROMPT_RST"
+
+# export PS1="[\u@\h] -> "
 alias hexdump='od -txa -w16 -Ax'
 alias ls='ls --color=auto'
 alias work='cd /cygdrive/e/workspace'
