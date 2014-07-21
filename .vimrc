@@ -89,7 +89,7 @@ set ruler
 " Height of the command bar
 set cmdheight=2
 
-<<<<<<< HEAD
+
 " A buffer becomes hidden when it is abandoned
 set hid
 
@@ -165,9 +165,9 @@ set ffs=unix,dos,mac
 set nobackup
 set nowb
 set noswapfile
-=======
+
 " call pathogen#incubate()
->>>>>>> a0add53b6d447c68bbe5c727d66f137311c7265c
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -263,7 +263,7 @@ set viminfo^=%
 " Always show the status line
 set laststatus=2
 
-<<<<<<< HEAD
+
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
@@ -325,7 +325,7 @@ map <leader>cc :botright cope<cr>
 map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
 map <leader>n :cn<cr>
 map <leader>p :cp<cr>
-=======
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -555,7 +555,6 @@ function! AlternateForCurrentFile()
   return new_file
 endfunction
 nnoremap <leader>. :call OpenTestAlternate()<cr>
->>>>>>> a0add53b6d447c68bbe5c727d66f137311c7265c
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
