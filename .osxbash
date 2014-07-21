@@ -21,6 +21,8 @@ alias chrome='open -a /Applications/Google\ Chrome.app'
 alias ftp-amd='lftp -u cosgroma,Pgatour60 192.168.2.58'
 
 source /Users/cosgroma/workspace/apps/git-forest/git-forest.sh
+set_configuration /Users/cosgroma/workspace/config/user_conf.forest
+set_repo_list /Users/cosgroma/workspace/config/sergeant.forest
 
 ###########
 # git-forest configuration and setup
@@ -30,11 +32,6 @@ source /Users/cosgroma/workspace/apps/git-forest/git-forest.sh
 #   # Control will enter here if $DIRECTORY exists.
 
 # fi
-
-
-set_configuration /Users/cosgroma/workspace/config/user_conf.forest
-set_repo_list /Users/cosgroma/workspace/config/sergeant.forest
-
 
 # declare -A matrix
 # num_rows=4

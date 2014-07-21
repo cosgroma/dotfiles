@@ -132,10 +132,6 @@ alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --a
 
 alias timestamp='date +%Y%m%d%H%M%S'
 
-
-
-
-
 # # Setup for /bin/ls to support color, the alias is in /etc/bashrc.
 # if [ -f "$HOME/.dircolors" ] ; then
 #     eval $(dircolors -b $HOME/.dircolors)
@@ -150,4 +146,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
   echo "FUCK! WINDOWS!"
   source ~/.cygbash
+fi
+if $(python -c "" &> /dev/null); then 
+    python -c "import this;"
 fi
