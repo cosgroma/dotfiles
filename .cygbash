@@ -1,9 +1,5 @@
 echo "Loading Cygwin bashrc"
 
-source /cygdrive/e/workspace/apps/git-forest/git-forest.sh
-set_configuration /cygdrive/e/workspace/config/user_conf.forest
-list_set /cygdrive/e/workspace/config/sergeant.forest
-
 source ~/.proxybash
 
 export TERM='xterm-256color'
@@ -85,17 +81,6 @@ function venv() {
 }
 function rstenv() {
     export PATH=$DEF_PATH
-}
-
-function make_c_project() {
-  mkdir $1; cd $1;
-  mkdir build;
-  mkdir doc;
-  mkdir include;
-  mkdir src;
-  mkdir test;
-  cp /cygdrive/e/workspace/sergeant/utils/makefile/* build/;
-  sed -i 's/PROG_NAME/$1/g' build/config.mk
 }
 
 test_proxy

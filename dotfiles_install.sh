@@ -28,7 +28,7 @@ function dotfiles_install() {
       echo "re-enter:"
       read -s -p "" temp
       if [[ "$userpass" == "$temp" ]]; then
-        echo "Password accepted"
+        echo "password set"
         cont=1
       else
         echo "ERROR: passwords don't match" 1>&2
@@ -38,22 +38,22 @@ function dotfiles_install() {
     userpass64=$(echo $userpass | base64)
   fi
 
-  echo "workspace=$workspace" > .userrc
-  echo "name=$name" >> .userrc
+  echo "workspace=\"$workspace\"" > .userrc
+  echo "user=$(whoami)" >> .userrc
+  echo "name=\"$name\"" >> .userrc
   echo "email=$email" >> .userrc
   echo "userpass64=$userpass64" >> .userrc
 
-  sed -e "s/user_name/$name/g" -e "s/user_email/$email/g" .gitconfig_default > .testgitconfig
+  sed -e "s/user_name/$name/g" -e "s/user_email/$email/g" .gitconfig_default > .gitconfig
 
-  #rm_links
-  #set_links
+  rm_links
+  set_links
   exec /bin/bash -l
 }
 
 function set_links() {
   ln -s $workspace/utils/dotfiles/.ackrc ~/.ackrc;
   ln -s $workspace/utils/dotfiles/.autotest ~/.autotest;
-  ln -s $workspace/utils/dotfiles/.vimrc ~/.badvimrc;
   ln -s $workspace/utils/dotfiles/.bashrc ~/.bashrc;
   ln -s $workspace/utils/dotfiles/.emacs ~/.emacs;
   ln -s $workspace/utils/dotfiles/.emacs-lisp ~/.emacs-lisp;
@@ -69,14 +69,15 @@ function set_links() {
   ln -s $workspace/utils/dotfiles/.rvmrc ~/.rvmrc;
   ln -s $workspace/utils/dotfiles/.screenrc ~/.screenrc;
   ln -s $workspace/utils/dotfiles/.tmux.conf ~/.tmux.conf;
+  ln -s $workspace/utils/dotfiles/.userrc ~/.userrc;
+  ln -s $workspace/utils/dotfiles/.vim ~/.vim;
+  ln -s $workspace/utils/dotfiles/.vimrc ~/.badvimrc;
   ln -s $workspace/utils/dotfiles/.vimrc ~/.vimrc;
   ln -s $workspace/utils/dotfiles/.zprofile ~/.zprofile;
   ln -s $workspace/utils/dotfiles/.zsh ~/.zsh;
   ln -s $workspace/utils/dotfiles/.zshenv ~/.zshenv;
   ln -s $workspace/utils/dotfiles/.zshrc ~/.zshrc;
-  ln -s $workspace/utils/dotfiles/.vim ~/.vim;
   ln -s $workspace/utils/dotfiles/bin ~/bin;
-  ln -s $workspace/utils/dotfiles/.userrc ~/.userrc;
 }
 
 function rm_links() {
@@ -87,7 +88,7 @@ function rm_links() {
   mv ~/.badvimrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.bashrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.emacs  ~/.oldrcs/$dirstamp/ 2>/dev/null;
-  mv ~/.emacs -lisp ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.emacs-lisp ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.gemrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.getmail  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.gitconfig  ~/.oldrcs/$dirstamp/ 2>/dev/null;
@@ -95,11 +96,12 @@ function rm_links() {
   mv ~/.gitmodules  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.hgrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.mutt  ~/.oldrcs/$dirstamp/ 2>/dev/null;
-  mv ~/.offlineimap .py ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.offlineimap.py ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.offlineimaprc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.rvmrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.screenrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
-  mv ~/.tmux .conf ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.tmux.conf ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.userrc  ~/.oldrcs/$dirstamp/ 2>/dev/.userrc;
   mv ~/.vim  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.vimrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.zprofile  ~/.oldrcs/$dirstamp/ 2>/dev/null;
@@ -107,5 +109,4 @@ function rm_links() {
   mv ~/.zshenv  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.zshrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/bin  ~/.oldrcs/$dirstamp/ 2>/dev/null;
-  mv ~/.userrc  ~/.oldrcs/$dirstamp/ 2>/dev/.userrc;
 }

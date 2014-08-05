@@ -41,11 +41,18 @@ mktar() { tar cvf  "${1%%/}.tar"     "${1%%/}/"; }
 mktgz() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 mktbz() { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
 
-source ~/.ps1rc
+function make_c_project() {
+  mkdir $1; cd $1;
+  mkdir build;
+  mkdir doc;
+  mkdir include;
+  mkdir src;
+  mkdir test;
+  cp $workspace/sergeant/utils/makefile/* build/;
+  sed -i 's/PROG_NAME/$1/g' build/config.mk
+}
 
-export PS1="$USR_PROMPT"
-export PS2='> '
-export PS4='+ '
+source ~/.ps1rc
 
 # Unbreak broken, non-colored terminal
 export TERM='xterm-256color'
@@ -60,6 +67,10 @@ alias timestamp='date +%Y%m%d%H%M%S'
 
 source $workspace/utils/markdown/markdown.sh
 
+source $workspace/apps/git-forest/git-forest.sh
+set_configuration $workspace/config/user_conf.forest
+list_set $workspace/config/sergeant.forest
+
 if [ "$(uname)" == "Darwin" ]; then
   echo "OK! OSX!"
   source $workspace/utils/dotfiles/.osxbash
@@ -70,5 +81,9 @@ else
   echo "FUCK! WINDOWS!"
   source $workspace/utils/dotfiles/.cygbash
 fi
+
+export PS1="$USR_PROMPT"
+export PS2='> '
+export PS4='+ '
 
 
