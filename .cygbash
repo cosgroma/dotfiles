@@ -2,7 +2,7 @@ echo "Loading Cygwin bashrc"
 
 source /cygdrive/e/workspace/apps/git-forest/git-forest.sh
 set_configuration /cygdrive/e/workspace/config/user_conf.forest
-set_repo_list /cygdrive/e/workspace/config/sergeant.forest
+list_set /cygdrive/e/workspace/config/sergeant.forest
 
 source ~/.proxybash
 
@@ -94,7 +94,7 @@ function make_c_project() {
   mkdir include;
   mkdir src;
   mkdir test;
-  cp /cygdrive/e/workspace/utils/makefile/* build/;
+  cp /cygdrive/e/workspace/sergeant/utils/makefile/* build/;
   sed -i 's/PROG_NAME/$1/g' build/config.mk
 }
 
@@ -109,3 +109,4 @@ alias work='cd /cygdrive/e/workspace'
 alias cpmk='cp /cygdrive/e/workspace/utils/Makefile-template/Makefile .'
 alias python='python -i'
 alias reset='exec /bin/bash -l'
+alias git-prune='for f in $(git ls-files --deleted); do git rm $f; done;'

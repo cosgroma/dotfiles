@@ -72,6 +72,6 @@ alias ls='ls -lhG --color=auto'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 alias timestamp='date +%Y%m%d%H%M%S'
 
-show_configuration
-set_remote_target usb
+# show_configuration
+# remote_set usb
 

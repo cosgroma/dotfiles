@@ -1,4 +1,4 @@
 #!/bin/bash
 
-export http_proxy=http://cosgrma:Pgatour95@centralproxy.northgrum.com:80/
-export https_proxy=http://cosgrma:Pgatour95@westproxy.northgrum.com:80/
+export http_proxy=http://cosgrma:Pgatour96@centralproxy.northgrum.com:80/
+export https_proxy=http://cosgrma:Pgatour96@westproxy.northgrum.com:80/
