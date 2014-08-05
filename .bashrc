@@ -1,5 +1,7 @@
 . ~/bin/bash_colors.sh
 
+source ~/.userrc
+
 # Add paths that should have been there by default
 export PATH=/usr/local/bin:${PATH}
 export PATH="$HOME/bin:$PATH"
@@ -105,7 +107,7 @@ alias ls='ls -lhG'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 alias timestamp='date +%Y%m%d%H%M%S'
 
-source ~/.userrc
+source $workspace/utils/markdown/markdown.sh
 
 if [ "$(uname)" == "Darwin" ]; then
   echo "OK! OSX!"
