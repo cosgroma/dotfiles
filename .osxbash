@@ -22,7 +22,7 @@ alias ftp-amd='lftp -u cosgroma,Pgatour60 192.168.2.58'
 
 source /Users/cosgroma/workspace/apps/git-forest/git-forest.sh
 set_configuration /Users/cosgroma/workspace/config/user_conf.forest
-set_repo_list /Users/cosgroma/workspace/config/sergeant.forest
+list_set /Users/cosgroma/workspace/config/sergeant.forest
 
 ###########
 # git-forest configuration and setup
@@ -42,6 +42,8 @@ set_repo_list /Users/cosgroma/workspace/config/sergeant.forest
 #         matrix[$i,$j]=$RANDOM
 #     done
 # done
+
+
 
 alias pypacks='cd /usr/local/Cellar/python/2.7.8/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/'
 

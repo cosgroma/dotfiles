@@ -137,6 +137,10 @@ alias timestamp='date +%Y%m%d%H%M%S'
 #     eval $(dircolors -b $HOME/.dircolors)
 # fi
 
+
+
+
+#if [[ -t "$fd" || -p /dev/stdin ]]; then
 if [ "$(uname)" == "Darwin" ]; then
   echo "OK! OSX!"
   source ~/.osxbash
@@ -147,6 +151,9 @@ elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
   echo "FUCK! WINDOWS!"
   source ~/.cygbash
 fi
-if $(python -c "" &> /dev/null); then 
-    python -c "import this;"
+if $(python -c "" &> /dev/null); then
+  python -c "import this;"
 fi
+# else
+#   echo non-interactive
+#fi
