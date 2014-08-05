@@ -4,6 +4,8 @@ export PATH=/usr/local/bin:${PATH}
 export PATH="$HOME/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/ruby/1.8/bin"
 
+source ~/.userrc
+
 # Erase duplicates in history
 export HISTCONTROL=erasedups
 # Store 10k history entries
@@ -41,22 +43,6 @@ mktbz() { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
 
 source ~/.ps1rc
 
-if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  echo "YAY! LINUX!"
-  source ~/.debbash
-elif [ "$(uname)" == "Darwin" ]; then
-  echo "OK! OSX!"
-  source ~/.osxbash
-  source ~/bin/git-completion.bash
-else
-  echo "FUCK! WINDOWS!"
-  source ~/.cygbash
-fi
-
-# if $(python -c "" &> /dev/null); then
-#     python -c "import this;"
-# fi
-
 export PS1="$USR_PROMPT"
 export PS2='> '
 export PS4='+ '
@@ -64,14 +50,25 @@ export PS4='+ '
 # Unbreak broken, non-colored terminal
 export TERM='xterm-256color'
 
-
+alias ls='ls -G'
 alias ll='ls -lG'
 alias grep='grep --color -E'
 alias show='find . -name "*.*"'
-alias ls='ls -lhG --color=auto'
+alias ls='ls -lhG'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 alias timestamp='date +%Y%m%d%H%M%S'
 
-# show_configuration
-# remote_set usb
+source $workspace/utils/markdown/markdown.sh
+
+if [ "$(uname)" == "Darwin" ]; then
+  echo "OK! OSX!"
+  source $workspace/utils/dotfiles/.osxbash
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  echo "YAY! LINUX!"
+  source $workspace/utils/dotfiles/.debbash
+else
+  echo "FUCK! WINDOWS!"
+  source $workspace/utils/dotfiles/.cygbash
+fi
+
 

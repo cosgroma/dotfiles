@@ -14,9 +14,11 @@ export PYTHONPATH=/usr/local/lib/python2.7/site-packages
 
  # $(find $workspace/web -name "*.git" |  rev | cut -d. -f2- | rev)
 
+source ~/bin/git-completion.bash
+
 source /Users/cosgroma/workspace/apps/git-forest/git-forest.sh
 set_configuration /Users/cosgroma/workspace/config/user_conf.forest
-set_repo_list /Users/cosgroma/workspace/config/sergeant.forest
+list_set /Users/cosgroma/workspace/config/sergeant.forest
 
 ###########
 # git-forest configuration and setup
@@ -36,6 +38,13 @@ set_repo_list /Users/cosgroma/workspace/config/sergeant.forest
 #         matrix[$i,$j]=$RANDOM
 #     done
 # done
+
+if $(python -c "" &> /dev/null); then
+  python -c "import this;"
+fi
+# else
+#   echo non-interactive
+#fi
 
 alias reset='exec /bin/bash -l'
 alias git='hub'

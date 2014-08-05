@@ -1,6 +1,6 @@
 [user]
-    name = Mathew Cosgrove
-    email = cosgroma@gmail.com
+    name = user_name
+    email = user_email
 [diff]
 [color]
     ui = auto
@@ -43,7 +43,7 @@
     l = "!. ~/.githelpers && pretty_git_log"
     la = !git l --all
     tree = !git log --oneline --graph --decorate --all
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 [merge]
     tool = vimdiff
 
