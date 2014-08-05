@@ -31,6 +31,7 @@
 /.fonts
 /.freemind
 /.gdb_history
+/.gitconfig
 /.gem
 /.getmail/gmail.log
 /.getmail/oldmail-pop.gmail.com-995-gary.bernhardt@gmail.com
@@ -73,6 +74,7 @@
 /.toot
 /.tox
 /.trc
+/.userrc
 /.vim-fuf-data
 /.vim-tmp
 /.vim/.netrwhist

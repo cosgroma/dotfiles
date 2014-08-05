@@ -3,24 +3,10 @@
 # Add paths that should have been there by default
 export PATH=/usr/local/bin:${PATH}
 export PATH="$HOME/bin:$PATH"
-export PATH="$PATH:$HOME/.gem/ruby/1.8/bin"
-
-# PATH="/usr/local/sbin:/usr/local/bin:/Applications/Android Studio.app/sdk/tools:/Applications/Android Studio.app/sdk/platform-tools:${PATH}"
-# export PATH
-
-# Add postgres to the path
-export PATH=$PATH:/usr/local/pgsql/bin
-export PATH=$PATH:/Library/PostgreSQL/8.3/bin
 
 # Unbreak broken, non-colored terminal
 export TERM='xterm-256color'
-alias ls='ls -G'
-alias ll='ls -lG'
-# export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
-# export GREP_OPTIONS="--color"
 
-#export CLICOLOR=1
-alias grep='grep --color -E'
 
 # Erase duplicates in history
 export HISTCONTROL=erasedups
@@ -57,10 +43,6 @@ grb_git_prompt() {
     fi
 }
 
-#export PS1="\[$(tput bold)\]\[$(tput setaf 6)\]\t \[$(tput setaf 2)\][\[$(tput setaf 3)\]\u\[$(tput setaf 1)\]@\[$(tput setaf 3)\]\h \[$(tput setaf 6)\]\W\[$(tput setaf 2)\]]\[$(tput setaf 4)\] \$(grb_git_prompt)\\$\[$(tput sgr0)\] "
-
-#PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;37m\]@\h \[\033[01;33m\]\T \[\033[01;36m\]\w \$ \[\e[0m\]"
-
 
 PROMPT_INFO="\[\e[38;5;15m\]\u\[\e[38;5;160m\]@\[\e[38;5;249m\]\h \
 \[\e[38;5;160m\][\[\e[00;34m\]\W\[\e[38;5;160m\]] \
@@ -80,14 +62,6 @@ export PS1="$CLOCK$PROMPT_INFO"
 export PS2='> '
 export PS4='+ '
 
-activate_virtualenv() {
-    if [ -f env/bin/activate ]; then . env/bin/activate;
-    elif [ -f ../env/bin/activate ]; then . ../env/bin/activate;
-    elif [ -f ../../env/bin/activate ]; then . ../../env/bin/activate;
-    elif [ -f ../../../env/bin/activate ]; then . ../../../env/bin/activate;
-    fi
-}
-
 python_module_dir () {
     echo "$(python -c "import os.path as _, ${1}; \
         print _.dirname(_.realpath(${1}.__file__[:-1]))"
@@ -95,8 +69,6 @@ python_module_dir () {
 }
 
 source ~/bin/git-completion.bash
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 # Easy extract
 extract () {
@@ -125,35 +97,24 @@ mktar() { tar cvf  "${1%%/}.tar"     "${1%%/}/"; }
 mktgz() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 mktbz() { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
 
-
+alias ls='ls -G'
+alias ll='ls -lG'
+alias grep='grep --color -E'
 alias show='find . -name "*.*"'
 alias ls='ls -lhG'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
-
 alias timestamp='date +%Y%m%d%H%M%S'
 
-# # Setup for /bin/ls to support color, the alias is in /etc/bashrc.
-# if [ -f "$HOME/.dircolors" ] ; then
-#     eval $(dircolors -b $HOME/.dircolors)
-# fi
+source ~/.userrc
 
-
-
-
-#if [[ -t "$fd" || -p /dev/stdin ]]; then
 if [ "$(uname)" == "Darwin" ]; then
   echo "OK! OSX!"
-  source ~/.osxbash
+  source $workspace/utils/dotfiles/.osxbash
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
   echo "YAY! LINUX!"
-  source ~/.debbash
-elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+  source $workspace/utils/dotfiles/.debbash
+else
   echo "FUCK! WINDOWS!"
-  source ~/.cygbash
+  source source $workspace/utils/dotfiles/.cygbash
 fi
-if $(python -c "" &> /dev/null); then
-  python -c "import this;"
-fi
-# else
-#   echo non-interactive
-#fi
+

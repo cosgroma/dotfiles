@@ -15,11 +15,6 @@ done
 
  # $(find $workspace/web -name "*.git" |  rev | cut -d. -f2- | rev)
 
-alias reset='exec /bin/bash -l'
-alias git='hub'
-alias chrome='open -a /Applications/Google\ Chrome.app'
-alias ftp-amd='lftp -u cosgroma,Pgatour60 192.168.2.58'
-
 source /Users/cosgroma/workspace/apps/git-forest/git-forest.sh
 set_configuration /Users/cosgroma/workspace/config/user_conf.forest
 list_set /Users/cosgroma/workspace/config/sergeant.forest
@@ -43,7 +38,15 @@ list_set /Users/cosgroma/workspace/config/sergeant.forest
 #     done
 # done
 
+if $(python -c "" &> /dev/null); then
+  python -c "import this;"
+fi
+# else
+#   echo non-interactive
+#fi
 
-
+alias reset='exec /bin/bash -l'
+alias git='hub'
+alias chrome='open -a /Applications/Google\ Chrome.app'
+alias ftp-amd='lftp -u cosgroma,Pgatour60 192.168.2.58'
 alias pypacks='cd /usr/local/Cellar/python/2.7.8/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/'
-
