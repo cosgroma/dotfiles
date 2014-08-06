@@ -68,7 +68,7 @@ alias timestamp='date +%Y%m%d%H%M%S'
 source $workspace/utils/markdown/markdown.sh
 
 source $workspace/apps/git-forest/git-forest.sh
-set_configuration $workspace/config/user_conf.forest
+configuration_set $workspace/config/user_conf.forest
 list_set $workspace/config/sergeant.forest
 
 if [ "$(uname)" == "Darwin" ]; then
@@ -85,5 +85,7 @@ fi
 export PS1="$USR_PROMPT"
 export PS2='> '
 export PS4='+ '
+
+
 
 
