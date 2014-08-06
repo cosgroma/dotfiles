@@ -1,10 +1,10 @@
-. ~/bin/bash_colors.sh
+. /home/$(whoami)/bin/bash_colors.sh
 
 export PATH=/usr/local/bin:${PATH}
 export PATH="$HOME/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/ruby/1.8/bin"
 
-source ~/.userrc
+source /home/$(whoami)/.userrc
 
 # Erase duplicates in history
 export HISTCONTROL=erasedups
@@ -52,7 +52,7 @@ function make_c_project() {
   sed -i 's/PROG_NAME/$1/g' build/config.mk
 }
 
-source ~/.ps1rc
+source /home/$(whoami)/.ps1rc
 
 # Unbreak broken, non-colored terminal
 export TERM='xterm-256color'
