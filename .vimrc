@@ -646,3 +646,31 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+
+
+
+
+syntax on
+set backspace=2
+set ruler
+set nu
+set expandtab
+set sw=2
+set ts=2
+
+if has('gui_running')
+	set guifont=Consolas:h9:cANSI
+  colorscheme molokai
+else
+  colorscheme molokai
+endif
+
+execute pathogen#infect()
+filetype plugin indent on
+
+map <C-n> :NERDTreeToggle<CR>
+
+
+
+
+
