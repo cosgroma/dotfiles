@@ -1,4 +1,4 @@
-. ~/bin/bash_colors.sh
+. ~/usr/bin/bash_colors.sh
 
 export PATH=/usr/local/bin:${PATH}
 export PATH="$HOME/bin:$PATH"
