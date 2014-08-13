@@ -1,7 +1,7 @@
 
 . /home/$(whoami)/usr/bin/bash_colors.sh
 export PATH=/usr/local/bin:${PATH}
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/dfbin:$HOME/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/ruby/1.8/bin"
 
 source /home/$(whoami)/.userrc

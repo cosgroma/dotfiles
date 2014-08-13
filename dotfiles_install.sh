@@ -80,7 +80,7 @@ function set_links() {
   ln -s $workspace/utils/dotfiles/.zsh ~/.zsh;
   ln -s $workspace/utils/dotfiles/.zshenv ~/.zshenv;
   ln -s $workspace/utils/dotfiles/.zshrc ~/.zshrc;
-  ln -s $workspace/utils/dotfiles/bin ~/bin;
+  ln -s $workspace/utils/dotfiles/bin ~/dfbin;
 }
 
 function rm_links() {
@@ -114,5 +114,5 @@ function rm_links() {
   mv ~/.zsh  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.zshenv  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.zshrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
-  mv ~/bin  ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/dfbin  ~/.oldrcs/$dirstamp/ 2>/dev/null;
 }
