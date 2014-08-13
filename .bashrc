@@ -1,5 +1,5 @@
 
-. /home/$(whoami)/bin/bash_colors.sh
+. /home/$(whoami)/usr/bin/bash_colors.sh
 export PATH=/usr/local/bin:${PATH}
 export PATH="$HOME/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/ruby/1.8/bin"
