@@ -1,10 +1,10 @@
-. ~/usr/bin/bash_colors.sh
 
+. /home/$(whoami)/bin/bash_colors.sh
 export PATH=/usr/local/bin:${PATH}
 export PATH="$HOME/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/ruby/1.8/bin"
 
-source ~/.userrc
+source /home/$(whoami)/.userrc
 
 # Erase duplicates in history
 export HISTCONTROL=erasedups
@@ -52,21 +52,23 @@ function make_c_project() {
   sed -i 's/PROG_NAME/$1/g' build/config.mk
 }
 
-source ~/.ps1rc
+source /home/$(whoami)/.ps1rc
 
 # Unbreak broken, non-colored terminal
 export TERM='xterm-256color'
 
+alias ls='ls -G'
 alias ll='ls -lG'
 alias grep='grep --color -E'
 alias show='find . -name "*.*"'
 alias ls='ls -lhG'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 alias timestamp='date +%Y%m%d%H%M%S'
+
 source $workspace/utils/markdown/markdown.sh
 
 source $workspace/apps/git-forest/git-forest.sh
-set_configuration $workspace/config/user_conf.forest
+configuration_set $workspace/config/user_conf.forest
 list_set $workspace/config/sergeant.forest
 
 if [ "$(uname)" == "Darwin" ]; then
@@ -82,5 +84,7 @@ fi
 export PS1="$USR_PROMPT"
 export PS2='> '
 export PS4='+ '
+
+
 
 
