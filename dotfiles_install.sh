@@ -63,6 +63,7 @@ function set_links() {
   ln -s $workspace/utils/dotfiles/.githelpers ~/.githelpers;
   ln -s $workspace/utils/dotfiles/.gitmodules ~/.gitmodules;
   ln -s $workspace/utils/dotfiles/.hgrc ~/.hgrc;
+  ls -s $workspace/utils/dotfiles/.minttyrc ~/.minttyrc;
   ln -s $workspace/utils/dotfiles/.mutt ~/.mutt;
   ln -s $workspace/utils/dotfiles/.proxybash ~/.proxybash;
   ln -s $workspace/utils/dotfiles/.ps1rc ~/.ps1rc;
@@ -97,6 +98,7 @@ function rm_links() {
   mv ~/.githelpers  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.gitmodules  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.hgrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.minttyrc ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.mutt  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.proxybash ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.ps1rc ~/.oldrcs/$dirstamp/ 2>/dev/null;
