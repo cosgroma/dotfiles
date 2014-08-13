@@ -25,5 +25,5 @@ source ~/.proxybash
 
 alias ls='ls --color=auto'
 alias work='cd ~/workspace'
-alias reset='exec /bin/bash -l'
+alias reset='exec bash -l'
 alias xenv='source /apps/xilinx147/14.7/ISE_DS/settings64.sh'
