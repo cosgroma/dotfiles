@@ -48,7 +48,7 @@ function dotfiles_install() {
 
   rm_links
   set_links
-  exec /bin/bash -l
+  exec bash -l
 }
 
 function set_links() {
