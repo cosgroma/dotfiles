@@ -64,6 +64,7 @@ alias show='find . -name "*.*"'
 alias ls='ls -lhG'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 alias timestamp='date +%Y%m%d%H%M%S'
+alias make-list="make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'"
 
 source $workspace/utils/markdown/markdown.sh
 
