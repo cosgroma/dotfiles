@@ -48,7 +48,7 @@ function dotfiles_install() {
 
   rm_links
   set_links
-  exec bash -l
+  exec /bin/bash -l
 }
 
 function set_links() {
@@ -63,7 +63,10 @@ function set_links() {
   ln -s $workspace/utils/dotfiles/.githelpers ~/.githelpers;
   ln -s $workspace/utils/dotfiles/.gitmodules ~/.gitmodules;
   ln -s $workspace/utils/dotfiles/.hgrc ~/.hgrc;
+  ls -s $workspace/utils/dotfiles/.minttyrc ~/.minttyrc;
   ln -s $workspace/utils/dotfiles/.mutt ~/.mutt;
+  ln -s $workspace/utils/dotfiles/.proxybash ~/.proxybash;
+  ln -s $workspace/utils/dotfiles/.ps1rc ~/.ps1rc;
   ln -s $workspace/utils/dotfiles/.offlineimap.py ~/.offlineimap.py;
   ln -s $workspace/utils/dotfiles/.offlineimaprc ~/.offlineimaprc;
   ln -s $workspace/utils/dotfiles/.rvmrc ~/.rvmrc;
@@ -95,7 +98,10 @@ function rm_links() {
   mv ~/.githelpers  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.gitmodules  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.hgrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.minttyrc ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.mutt  ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.proxybash ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.ps1rc ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.offlineimap.py ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.offlineimaprc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.rvmrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
