@@ -68,7 +68,6 @@ alias timestamp='date +%Y%m%d%H%M%S'
 source $workspace/utils/markdown/markdown.sh
 
 source $workspace/apps/git-forest/git-forest.sh
-#configuration_set $workspace/config/user_conf.forest
 configuration_set $workspace/config/user_conf.forest
 list_set $workspace/config/sergeant.forest
 
@@ -76,7 +75,6 @@ if [ "$(uname)" == "Darwin" ]; then
   echo "OK! OSX!"
   source $workspace/utils/dotfiles/.osxbash
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  echo "YAY! LINUX!"
   source $workspace/utils/dotfiles/.debbash
 else
   echo "FUCK! WINDOWS!"
