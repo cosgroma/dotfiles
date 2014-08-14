@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 export PATH=/usr/local/bin:${PATH}
 export PATH="$HOME/dfbin:$HOME/bin:$PATH"
@@ -55,8 +55,6 @@ function make_c_project() {
   sed -i 's/PROG_NAME/$1/g' build/config.mk
 }
 
-
-
 # Unbreak broken, non-colored terminal
 export TERM='xterm-256color'
 
@@ -67,6 +65,7 @@ alias show='find . -name "*.*"'
 alias ls='ls -lhG'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 alias timestamp='date +%Y%m%d%H%M%S'
+alias exit='sh ~/dfbin/see-you.sh; sleep 2; exit'
 
 function make-list() {
   make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'
@@ -79,8 +78,9 @@ configuration_set $workspace/config/user_conf.forest
 list_set $workspace/config/sergeant.forest
 
 if [ "$(uname)" == "Darwin" ]; then
-  echo "OK! OSX!"
   source $workspace/utils/dotfiles/.osxbash
+elif [ $(uname -n) == "AMDP2X4945"]; then
+  source $workspace/utils/dotfiles/.mintbash
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
   source $workspace/utils/dotfiles/.debbash
 else

@@ -1,0 +1,25 @@
+
+source /home/cosgroma/workspace/apps/git-forest/git-forest.sh
+set_configuration /home/cosgroma/workspace/config/user_conf.forest
+list_set /home/cosgroma/workspace/config/sergeant.forest
+
+export LD_LIBRARY_PATH=/usr/local/lib
+
+alias ls='ls --color=auto'
+alias c='clear' 
+alias celar='clear' 
+alias dca='deluge-console add' 
+alias dci='deluge-console info' 
+alias dnldng='deluge-console info | grep -B 2 Downloading' 
+alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate --all' 
+alias grep='grep --color -E' 
+alias ll='ls -lG' 
+alias ls='ls --color=auto' 
+alias lsusr='cat /etc/passwd | grep /home |cut -d: -f1' 
+alias mplayer='mplayer -fs' 
+alias pip-update='pip freeze --local | grep -v '\''^\-e'\'' | cut -d = -f 1 | xargs pip install -U' 
+alias show='find . -name "*.*"' 
+alias timestamp='date +%Y%m%d%H%M%S' 
+alias w2d='python /home/cosgroma/Dropbox/workspace/eclipse_workspace/what_to_download/src/what_to_download.py'
+
+alias xenv='source /opt/Xilinx/14.6/ISE_DS/settings64.sh'
