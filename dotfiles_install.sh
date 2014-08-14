@@ -64,7 +64,7 @@ function set_links() {
   ln -s $workspace/utils/dotfiles/.githelpers ~/.githelpers;
   ln -s $workspace/utils/dotfiles/.gitmodules ~/.gitmodules;
   ln -s $workspace/utils/dotfiles/.hgrc ~/.hgrc;
-  ls -s $workspace/utils/dotfiles/.minttyrc ~/.minttyrc;
+  ln -s $workspace/utils/dotfiles/.minttyrc ~/.minttyrc;
   ln -s $workspace/utils/dotfiles/.mutt ~/.mutt;
   ln -s $workspace/utils/dotfiles/.proxybash ~/.proxybash;
   ln -s $workspace/utils/dotfiles/.ps1rc ~/.ps1rc;

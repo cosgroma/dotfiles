@@ -86,7 +86,7 @@ list_set $workspace/config/sergeant.forest
 
 if [ "$(uname)" == "Darwin" ]; then
   source $workspace/utils/dotfiles/.osxbash
-elif [ $(uname -n) == "AMDP2X4945"]; then
+elif [ "$(uname -n)" == "AMDP2X4945" ]; then
   source $workspace/utils/dotfiles/.mintbash
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
   source $workspace/utils/dotfiles/.debbash
