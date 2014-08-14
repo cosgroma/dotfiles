@@ -75,6 +75,14 @@ function make-list() {
   make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'
 }
 
+function yo() {
+  if type ruby &>/dev/null; then
+    ruby ~/dfbin/shellshock.rb;
+  else
+    source ~/dfbin/see-you.sh;
+  fi
+}
+
 source $workspace/utils/markdown/markdown.sh
 
 source $workspace/apps/git-forest/git-forest.sh
