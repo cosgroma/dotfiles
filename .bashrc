@@ -1,7 +1,7 @@
 
-. /home/$(whoami)/bin/bash_colors.sh
+. /home/$(whoami)/usr/bin/bash_colors.sh
 export PATH=/usr/local/bin:${PATH}
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/dfbin:$HOME/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/ruby/1.8/bin"
 
 source /home/$(whoami)/.userrc
@@ -64,7 +64,10 @@ alias show='find . -name "*.*"'
 alias ls='ls -lhG'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 alias timestamp='date +%Y%m%d%H%M%S'
-alias make-list="make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'"
+
+function make-list() {
+  make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'
+}
 
 source $workspace/utils/markdown/markdown.sh
 
