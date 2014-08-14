@@ -55,6 +55,7 @@ function set_links() {
   ln -s $workspace/utils/dotfiles/.ackrc ~/.ackrc;
   ln -s $workspace/utils/dotfiles/.autotest ~/.autotest;
   ln -s $workspace/utils/dotfiles/.bashrc ~/.bashrc;
+  ln -s $workspace/utils/dotfiles/.bash_logout ~/.bash_logout;
   ln -s $workspace/utils/dotfiles/.emacs ~/.emacs;
   ln -s $workspace/utils/dotfiles/.emacs-lisp ~/.emacs-lisp;
   ln -s $workspace/utils/dotfiles/.gemrc ~/.gemrc;
@@ -90,6 +91,7 @@ function rm_links() {
   mv ~/.autotest  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.badvimrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.bashrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.bash_logout  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.emacs  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.emacs-lisp ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.gemrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
