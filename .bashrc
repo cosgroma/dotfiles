@@ -4,6 +4,11 @@ export PATH=/usr/local/bin:${PATH}
 export PATH="$HOME/dfbin:$HOME/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/ruby/1.8/bin"
 
+# if ! shopt login_shell; then
+#   echo "chaning to login shell"
+#   SHELL=/home/cosgrma/bin/bash /home/cosgrma/bin/bash --noprofile --verbose --login -c "source ~/.bashrc"
+# fi
+
 source ~/dfbin/bash_colors.sh
 source ~/.userrc
 source ~/dfbin/git-completion.bash
@@ -65,14 +70,6 @@ alias show='find . -name "*.*"'
 alias ls='ls -lhG'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 alias timestamp='date +%Y%m%d%H%M%S'
-
-# function exit() {
-#   if hash ruby 2>/dev/null; then
-#     ruby ~/dfbin/shellshock.rb; sleep 2; exit
-#   else
-#     source ~/dfbin/see-you.sh; sleep 2; exit
-#   fi
-# }
 
 function make-list() {
   make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'
