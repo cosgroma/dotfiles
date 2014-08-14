@@ -90,7 +90,7 @@ function rstenv() {
 
 test_proxy
 
-USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_RET_STAT$PS1_PROMPT_RST"
+USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_PROMPT_RST"
 
 
 function python() {
