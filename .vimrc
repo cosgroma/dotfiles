@@ -675,7 +675,7 @@ if &term =~ 'xterm-256color'
   " solid underscore
   let &t_SI .= "\<Esc>[4 q"
   " solid block
-  let &t_EI .= "\<Esc>[0 q"
+  let &t_EI .= "\<Esc>[1 q"
   " 1 or 0 -> blinking block
   " 3 -> blinking underscore
   " Recent versions of xterm (282 or above) also support
