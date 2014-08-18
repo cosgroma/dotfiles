@@ -1,10 +1,18 @@
+#!/bin/bash
 
-. /home/$(whoami)/bin/bash_colors.sh
 export PATH=/usr/local/bin:${PATH}
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/dfbin:$HOME/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/ruby/1.8/bin"
 
-source /home/$(whoami)/.userrc
+# if ! shopt login_shell; then
+#   echo "chaning to login shell"
+#   SHELL=/home/cosgrma/bin/bash /home/cosgrma/bin/bash --noprofile --verbose --login -c "source ~/.bashrc"
+# fi
+
+source ~/dfbin/bash_colors.sh
+source ~/.userrc
+source ~/dfbin/git-completion.bash
+source ~/.ps1rc
 
 # Erase duplicates in history
 export HISTCONTROL=erasedups
@@ -57,8 +65,6 @@ function make_c_project() {
   sed -i 's/PROG_NAME/$1/g' build/config.mk
 }
 
-source /home/$(whoami)/.ps1rc
-
 # Unbreak broken, non-colored terminal
 export TERM='xterm-256color'
 
@@ -70,6 +76,18 @@ alias ls='ls -lhG'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 alias timestamp='date +%Y%m%d%H%M%S'
 
+function make-list() {
+  make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'
+}
+
+function yo() {
+  if type ruby &>/dev/null; then
+    ruby ~/dfbin/shellshock.rb;
+  else
+    source ~/dfbin/see-you.sh;
+  fi
+}
+
 source $workspace/utils/markdown/markdown.sh
 
 source $workspace/apps/git-forest/git-forest.sh
@@ -77,10 +95,10 @@ configuration_set $workspace/config/user_conf.forest
 list_set $workspace/config/sergeant.forest
 
 if [ "$(uname)" == "Darwin" ]; then
-  echo "OK! OSX!"
   source $workspace/utils/dotfiles/.osxbash
+elif [ "$(uname -n)" == "AMDP2X4945" ]; then
+  source $workspace/utils/dotfiles/.mintbash
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  echo "YAY! LINUX!"
   source $workspace/utils/dotfiles/.debbash
 else
   echo "FUCK! WINDOWS!"

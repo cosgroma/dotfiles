@@ -55,6 +55,7 @@ function set_links() {
   ln -s $workspace/utils/dotfiles/.ackrc ~/.ackrc;
   ln -s $workspace/utils/dotfiles/.autotest ~/.autotest;
   ln -s $workspace/utils/dotfiles/.bashrc ~/.bashrc;
+  ln -s $workspace/utils/dotfiles/.bash_logout ~/.bash_logout;
   ln -s $workspace/utils/dotfiles/.emacs ~/.emacs;
   ln -s $workspace/utils/dotfiles/.emacs-lisp ~/.emacs-lisp;
   ln -s $workspace/utils/dotfiles/.gemrc ~/.gemrc;
@@ -63,6 +64,7 @@ function set_links() {
   ln -s $workspace/utils/dotfiles/.githelpers ~/.githelpers;
   ln -s $workspace/utils/dotfiles/.gitmodules ~/.gitmodules;
   ln -s $workspace/utils/dotfiles/.hgrc ~/.hgrc;
+  ln -s $workspace/utils/dotfiles/.minttyrc ~/.minttyrc;
   ln -s $workspace/utils/dotfiles/.mutt ~/.mutt;
   ln -s $workspace/utils/dotfiles/.proxybash ~/.proxybash;
   ln -s $workspace/utils/dotfiles/.ps1rc ~/.ps1rc;
@@ -79,7 +81,7 @@ function set_links() {
   ln -s $workspace/utils/dotfiles/.zsh ~/.zsh;
   ln -s $workspace/utils/dotfiles/.zshenv ~/.zshenv;
   ln -s $workspace/utils/dotfiles/.zshrc ~/.zshrc;
-  ln -s $workspace/utils/dotfiles/bin ~/bin;
+  ln -s $workspace/utils/dotfiles/bin ~/dfbin;
 }
 
 function rm_links() {
@@ -89,6 +91,7 @@ function rm_links() {
   mv ~/.autotest  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.badvimrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.bashrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.bash_logout  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.emacs  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.emacs-lisp ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.gemrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
@@ -97,6 +100,7 @@ function rm_links() {
   mv ~/.githelpers  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.gitmodules  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.hgrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.minttyrc ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.mutt  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.proxybash ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.ps1rc ~/.oldrcs/$dirstamp/ 2>/dev/null;
@@ -112,5 +116,5 @@ function rm_links() {
   mv ~/.zsh  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.zshenv  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.zshrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
-  mv ~/bin  ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/dfbin  ~/.oldrcs/$dirstamp/ 2>/dev/null;
 }

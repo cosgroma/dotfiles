@@ -1,50 +1,18 @@
+#!/bin/bash
 
 function which () {
   /usr/bin/which $1 | xargs -I {} ls -l {}
 }
 
+if $(python -c "" &> /dev/null); then
+  python -c "import this;"
+fi
+
 export ANDROID_HOME="/Applications/Android Studio.app/sdk"
 export PATH=/usr/local/bin:/usr/local/share/python:$PATH
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages
 
-# for s in $(find ~/workspace/scripts -name "*.sh"); do
-#   echo "sourcing: " $s
-#   source $s
-# done
-
- # $(find $workspace/web -name "*.git" |  rev | cut -d. -f2- | rev)
-
-source ~/bin/git-completion.bash
-
-source /Users/cosgroma/workspace/apps/git-forest/git-forest.sh
-set_configuration /Users/cosgroma/workspace/config/user_conf.forest
-list_set /Users/cosgroma/workspace/config/sergeant.forest
-
-###########
-# git-forest configuration and setup
-#############
-
-# if [ -d "/Volumes/PATRIOT" ]; then
-#   # Control will enter here if $DIRECTORY exists.
-
-# fi
-
-# declare -A matrix
-# num_rows=4
-# num_columns=5
-
-# for ((i=1;i<=num_rows;i++)) do
-#     for ((j=1;j<=num_columns;j++)) do
-#         matrix[$i,$j]=$RANDOM
-#     done
-# done
-
-if $(python -c "" &> /dev/null); then
-  python -c "import this;"
-fi
-# else
-#   echo non-interactive
-#fi
+USR_PROMPT="$CLOCK$PS1_USER_HOST$PS1_WORK_DIR$PS1_GIT_STAT$PS1_PROMPT_RST"
 
 alias reset='exec /bin/bash -l'
 alias git='hub'

@@ -1,4 +1,32 @@
 
+function aalias(){
+  echo "alias $1='$(fc -ln -2 | head -1 | sed "1s/^[[:space:]]*//")'" >> ~/.debbash
+}
+
 function which () {
   /usr/bin/which $1 | xargs -i ls -l {}
 }
+
+function exit() {
+  if type ruby 2>/dev/null; then
+    ruby ~/dfbin/shellshock.rb; sleep 2; builtin exit
+  else
+    source ~/dfbin/see-you.sh; sleep 2; builtin exit
+  fi
+}
+
+export LD_LIBRARY_PATH=/home/cosgrma/lib:/home/cosgrma/lib64:$LD_LIBRARY_PATH
+export PATH=$PATH:/home/cosgrma/bin::/home/cosgrma/usr/bin
+export CLICOLOR=1
+export PATH=$PATH:/apps/mentor/modelsim/10.1a/modeltech/bin:/apps/mentor/modelsim/10.1a/modeltech/gcc:/apps/xilinx/ISE_DS/common/bin/lin64:/apps/xilinx/ISE_DS/ISE/sysgen/bin:/apps/xilinx/ISE_DS/PlanAhead/bin:/apps/xilinx/ISE_DS/ISE/bin/lin64:/apps/xilinx/ISE_DS/ISE/sysgen/util:/apps/xilinx/ISE_DS/EDK/bin/lin64:/apps/xilinx/ISE_DS/EDK/gnu/microblaze/lin64/bin:/apps/xilinx/ISE_DS/EDK/gnu/powerpc-eabi/lin64/bin:/apps/synplicity/fpga_e201103sp2/bin:/apps/identify/linux/identify_e201103sp1-1/bin:/apps/libero/Libero/bin:/apps/cadence/tools.lnx86/pcb/bin:/apps/cadence/tools.lnx86/specctra/bin:/apps/cadence/tools.lnx86/bin:/apps/cadence/tools.lnx86/fet/bin:/usr/local:/usr/lib:/usr/local/bin:.:/apps/EDA:/usr/local:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/apps/altera/quartus/bin:/apps/altera/nios2eds/bin:/apps/altera/nios2eds/sdk2/bin
+
+USR_PROMPT="$CLOCK$PS1_USER_HOST$PS1_WORK_DIR$PS1_GIT_STAT$PS1_PROMPT_RST"
+
+
+
+source ~/.proxybash
+
+alias ls='ls --color=auto'
+alias work='cd ~/workspace'
+alias reset='exec bash -l'
+alias xenv='source /apps/xilinx147/14.7/ISE_DS/settings64.sh'
