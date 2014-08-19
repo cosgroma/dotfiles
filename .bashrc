@@ -23,9 +23,6 @@ shopt -s histappend
 
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r;"
 
-function setTitle() {
-  echo -ne "\033]2;"$(pwd)"\007"
-}
 
 # Easy extract
 extract () {

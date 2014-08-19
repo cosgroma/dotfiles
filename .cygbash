@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Loading Cygwin bashrc"
 
 source ~/.proxybash
@@ -84,13 +86,18 @@ function venv() {
   export WIND_COMPONENTS_LIBNAMES=ip_net2-6.9
   export WIND_VXCONFIG=C:\\Apps\\workbench3.3\\components\\ip_net2-6.9\\osconfig\\vxworks
 }
+
 function rstenv() {
     export PATH=$DEF_PATH
 }
 
+function setTitle() {
+  echo -ne "\033]2;"$(pwd)"\007"
+}
+
 test_proxy
 
-USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_PROMPT_RST"
+USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_PROMPT_RST$PS1_CYGWIN_TITLE"
 
 
 function python() {
@@ -111,6 +118,8 @@ function python() {
   # /cygdrive/c/Python27/python.exe
   # /cygdrive/c/Python27/python.exe $(cygpath -aw $@)
 }
+
+
 # export PS1="[\u@\h] -> "
 alias hexdump='od -txa -w16 -Ax'
 alias ls='ls --color=auto'
