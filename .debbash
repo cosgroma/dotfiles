@@ -22,7 +22,7 @@ export PATH=$PATH:/apps/mentor/modelsim/10.1a/modeltech/bin:/apps/mentor/modelsi
 
 USR_PROMPT="$CLOCK$PS1_USER_HOST$PS1_WORK_DIR$PS1_GIT_STAT$PS1_PROMPT_RST"
 
-
+export XILINXD_LICENSE_FILE=28039@rsemd1-btriad1.nges.northgrum.com:28039@rsemd1-btriad2.nges.northgrum.com:28039@rsemd1-btriad3.nges.northgrum.com
 
 source ~/.proxybash
 
