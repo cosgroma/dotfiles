@@ -86,8 +86,8 @@ function yo() {
 source $workspace/utils/markdown/markdown.sh
 
 source $workspace/apps/git-forest/git-forest.sh
-configuration_set $workspace/config/user_conf.forest
-list_set $workspace/config/sergeant.forest
+configuration_set $workspace/apps/git-forest/user_conf.forest
+list_set $workspace/sergeant/seed/sergeant.forest
 
 if [ "$(uname)" == "Darwin" ]; then
   source $workspace/utils/dotfiles/.osxbash
