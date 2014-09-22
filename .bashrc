@@ -67,6 +67,7 @@ export TERM='xterm-256color'
 
 alias ls='ls -G'
 alias ll='ls -lG'
+alias la='ls -laG'
 alias grep='grep --color -E'
 alias show='find . -name "*.*"'
 alias ls='ls -lhG'
