@@ -25,6 +25,28 @@ function subl {
     /cygdrive/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe $(cygpath -aw $1)
 }
 
+function chpasswd() {
+  local userpass
+  local temp
+  cont=0;
+  while [[ $cont == 0 ]]; do
+    echo "New Password: "
+    read -s -p "" userpass
+    echo "Re-enter:"
+    read -s -p "" temp
+    if [[ "$userpass" == "$temp" ]]; then
+      echo "password set"
+      cont=1
+    else
+      echo "ERROR: passwords don't match" 1>&2
+      echo "try again..."
+    fi
+  done
+  userpass64=$(echo $userpass | base64)
+  echo "userpass64=$userpass64" >> .userrc
+
+}
+
 function xenv() {
   if [[ -z $xil_version ]]; then
     echo "what is the xilinx version? (14.X)"
