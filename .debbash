@@ -30,3 +30,5 @@ alias ls='ls --color=auto'
 alias work='cd ~/workspace'
 alias reset='exec bash -l'
 alias xenv='source /apps/xilinx147/14.7/ISE_DS/settings64.sh'
+
+export LM_LICENSE_FILE=28041@rsemd1-btriad1.NGES.Northgrum.com,28041@rsemd1-btriad2
