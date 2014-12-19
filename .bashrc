@@ -52,12 +52,15 @@ mktbz() { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
 function make_c_project() {
   mkdir $1; cd $1;
   mkdir build;
+  mkdir config;
   mkdir doc;
-  mkdir include;
   mkdir src;
-  mkdir test;
-  cp $workspace/sergeant/utils/makefile/* build/;
-  sed -i 's/PROG_NAME/$1/g' build/config.mk
+  mkdir tests;
+  mkdir deploy;
+  cp $workspace/utils/makefile/makefile .;
+  cp $workspace/utils/makefile/config.mk config/;
+  cp $workspace/utils/makefile/config.mk config/;
+  sed -i '' 's/PROG_NAME/$1/g' config/config.mk
 }
 
 # Unbreak broken, non-colored terminal
@@ -107,3 +110,6 @@ export PS4='+ '
 
 
 
+
+PERL_MB_OPT="--install_base \"/Users/cosgroma/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/cosgroma/perl5"; export PERL_MM_OPT;
