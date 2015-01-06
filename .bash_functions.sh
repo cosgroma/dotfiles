@@ -96,28 +96,28 @@ function rstenv() {
     export PATH=$DEF_PATH
 }
 
-function python() {
-  case $(uname) in
-    Darwin|Linux)
-      /usr/local/bin/python ${@}
-      ;;
-    *)
-      declare -a cmd_list
-      local i=0
-      for arg in ${@}; do
-        if [[ -e $arg ]]; then
-          cmd_list[$i]=$(cygpath -aw $arg)
-        else
-          cmd_list[$i]=$arg
-        fi
-        i=$(($i + 1))
-      done;
-      /cygdrive/c/Python27/python.exe ${cmd_list[@]}
-      # for c in ${cmd_list[*]}; do
-      #   echo $c
-      # done;
-      # /cygdrive/c/Python27/python.exe
-      # /cygdrive/c/Python27/python.exe $(cygpath -aw $@)
-      ;;
-  esac
-}
+# function python() {
+#   case $(uname) in
+#     Darwin|Linux)
+#       /usr/local/bin/python ${@}
+#       ;;
+#     *)
+#       declare -a cmd_list
+#       local i=0
+#       for arg in ${@}; do
+#         if [[ -e $arg ]]; then
+#           cmd_list[$i]=$(cygpath -aw $arg)
+#         else
+#           cmd_list[$i]=$arg
+#         fi
+#         i=$(($i + 1))
+#       done;
+#       /cygdrive/c/Python27/python.exe ${cmd_list[@]}
+#       # for c in ${cmd_list[*]}; do
+#       #   echo $c
+#       # done;
+#       # /cygdrive/c/Python27/python.exe
+#       # /cygdrive/c/Python27/python.exe $(cygpath -aw $@)
+#       ;;
+#   esac
+# }
