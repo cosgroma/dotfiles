@@ -1,18 +1,18 @@
 #!/bin/bash
 
-export PATH=/usr/local/bin:${PATH}
-export PATH="$HOME/dfbin:$HOME/bin:$PATH"
-export PATH="$PATH:$HOME/.gem/ruby/1.8/bin"
-
-# if ! shopt login_shell; then
-#   echo "chaning to login shell"
-#   SHELL=/home/cosgrma/bin/bash /home/cosgrma/bin/bash --noprofile --verbose --login -c "source ~/.bashrc"
-# fi
+## Source user settings
+source ~/.userrc
 
 source ~/dfbin/bash_colors.sh
-source ~/.userrc
 source ~/dfbin/git-completion.bash
-source ~/.ps1rc
+
+source ~/.aliases.sh
+source ~/.bash_functions.sh
+source ~/.pathdef.sh
+
+# Unbreak broken, non-colored terminal
+export TERM='xterm-256color'
+export CLICOLOR=1
 
 # Erase duplicates in history
 export HISTCONTROL=erasedups
@@ -24,89 +24,25 @@ shopt -s histappend
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r;"
 
 
-# Easy extract
-extract () {
-  if [ -f $1 ] ; then
-      case $1 in
-          *.tar.bz2)   tar xvjf $1    ;;
-          *.tar.gz)    tar xvzf $1    ;;
-          *.bz2)       bunzip2 $1     ;;
-          *.rar)       rar x $1       ;;
-          *.gz)        gunzip $1      ;;
-          *.tar)       tar xvf $1     ;;
-          *.tbz2)      tar xvjf $1    ;;
-          *.tgz)       tar xvzf $1    ;;
-          *.zip)       unzip $1       ;;
-          *.Z)         uncompress $1  ;;
-          *.7z)        7z x $1        ;;
-          *)           echo "don't know how to extract '$1'..." ;;
-      esac
-  else
-      echo "'$1' is not a valid file!"
-  fi
-}
+source ~/.ps1_components.sh
 
-# # Creates an archive from given directory
-mktar() { tar cvf  "${1%%/}.tar"     "${1%%/}/"; }
-mktgz() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
-mktbz() { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
 
-function make_c_project() {
-  mkdir $1; cd $1;
-  mkdir build;
-  mkdir doc;
-  mkdir include;
-  mkdir src;
-  mkdir test;
-  cp $workspace/sergeant/utils/makefile/* build/;
-  sed -i 's/PROG_NAME/$1/g' build/config.mk
-}
+# source $workspace/apps/git-forest/git-forest.sh
+# configuration_set $workspace/config/user_conf.forest
+# list_set $workspace/sergeant/seed/sergeant.forest
 
-# Unbreak broken, non-colored terminal
-export TERM='xterm-256color'
-
-alias ls='ls -G'
-alias ll='ls -lG'
-alias la='ls -laG'
-alias grep='grep --color -E'
-alias show='find . -name "*.*"'
-alias ls='ls -lhG'
-alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
-alias timestamp='date +%Y%m%d%H%M%S'
-
-function make-list() {
-  make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'
-}
-
-function yo() {
-  if type ruby &>/dev/null; then
-    ruby ~/dfbin/shellshock.rb;
-  else
-    source ~/dfbin/see-you.sh;
-  fi
-}
-
-source $workspace/utils/markdown/markdown.sh
-
-source $workspace/apps/git-forest/git-forest.sh
-configuration_set $workspace/config/user_conf.forest
-list_set $workspace/sergeant/seed/sergeant.forest
-
-if [ "$(uname)" == "Darwin" ]; then
-  source $workspace/utils/dotfiles/.osxbash
-elif [ "$(uname -n)" == "AMDP2X4945" ]; then
-  source $workspace/utils/dotfiles/.mintbash
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  source $workspace/utils/dotfiles/.debbash
-else
-  echo "FUCK! WINDOWS!"
-  source $workspace/utils/dotfiles/.cygbash
-fi
+case $(uname) in
+  Linux)
+    USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_GIT_STAT$PS1_PROMPT"
+    ;;
+  Darwin)
+    USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_GIT_STAT$PS1_PROMPT"
+    ;;
+  *)
+    USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_PROMPT_RST"
+    ;;
+esac
 
 export PS1="$USR_PROMPT"
 export PS2='> '
 export PS4='+ '
-
-
-
-
