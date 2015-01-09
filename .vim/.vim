@@ -1,1 +1,1 @@
-/cygdrive/e/workspace/utils/dotfiles/dfbin/../.vim
+/home/cosgrma/workspace/utils/dotfiles/dfbin/../.vim

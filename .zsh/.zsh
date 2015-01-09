@@ -1,1 +1,1 @@
-/cygdrive/e/workspace/utils/dotfiles/dfbin/../.zsh
+/home/cosgrma/workspace/utils/dotfiles/dfbin/../.zsh
