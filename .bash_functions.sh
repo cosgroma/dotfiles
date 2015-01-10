@@ -74,6 +74,7 @@ function test_proxy(){
 function subl {
   case $_myos in
     Linux)
+      /usr/bin/subl $1
       ;;
     Darwin)
       /usr/bin/subl $1

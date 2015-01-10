@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ## Source user settings
+
 source ~/.userrc
 
 source ~/dfbin/bash_colors.sh
@@ -23,9 +24,7 @@ shopt -s histappend
 
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r;"
 
-
 source ~/.ps1_components.sh
-
 
 # source $workspace/apps/git-forest/git-forest.sh
 # configuration_set $workspace/config/user_conf.forest
