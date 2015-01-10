@@ -32,7 +32,7 @@ case $(uname) in
     ;;
   Linux)
     case $(uname -n) in
-      lcae1.northgrum.com )
+      lcae*.northgrum.com )
         if ! [[ $(whoami) = "cosgrma" ]]; then
           USR_PATH=/home/cosgrma/bin:$USR_PATH
           LD_LIBRARY_PATH=/home/cosgrma/lib64:/home/cosgrma/lib:$LD_LIBRARY_PATH
