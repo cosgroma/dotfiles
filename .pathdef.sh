@@ -33,6 +33,10 @@ case $(uname) in
   Linux)
     case $(uname -n) in
       lcae1.northgrum.com )
+        if ! [[ $(whoami) = "cosgrma" ]]; then
+          USR_PATH=/home/cosgrma/bin:$USR_PATH
+          LD_LIBRARY_PATH=/home/cosgrma/lib64:/home/cosgrma/lib:$LD_LIBRARY_PATH
+        fi
         export PATH=$USR_PATH:$BASE_UNIX_PATH:$CLUSTER_PATH
         export LD_LIBRARY_PATH=$HOME/lib:$HOME/lib64:$LD_LIBRARY_PATH
         _northrop_proxy
