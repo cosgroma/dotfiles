@@ -13,7 +13,7 @@ bash will fail at interpreting that code.
 ### Online documentation
 
 Doxygen documentation is available online
-[here](http://argsparse.livna.org/doxygen/1.6.1/).
+[here](http://argsparse.livna.org/doxygen/1.6.2/).
 
 
 ### Tarballs
@@ -23,6 +23,9 @@ Though Bash Argsparse is hosted at
 tarballs at the following URL:
 [http://argsparse.livna.org/](http://argsparse.livna.org/)
 
+### RPMS
+
+Though you can build your own package using the provided spec file, a bash-argsparse is actually available in fedora repositories, for all releases from 19 to rawhide.
 
 ### Features
 
@@ -52,8 +55,11 @@ extended (ksh-like) globbing.
 The "extglob" shell option is automatically enabled when loading
 the argsparse library.
 
-The code has been tested on bash 4.1 and 4.2 and is definitely not
-POSIX-compliant.
+The code has been tested on bash 4.1, 4.2 and 4.3 and is definitely
+not POSIX-compliant.
+
+Compliance with the "nounset" and "failglob" bash settings is
+supported.
 
 Content
 -------
@@ -88,7 +94,7 @@ Known limitations (or bugs)
 
 * You cannot have a short option without a long option.
 * Too few verifications about property values are made.
-* Compliance against some bash settings like nounset and errexit has
-  not (yet) been proved, but is wished.
+* Compliance against some bash settings like errexit has not (yet)
+  been proved, but is wished.
 * Compliance with Non-bind versions of the "host" command has not been
   tested.
