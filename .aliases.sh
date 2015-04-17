@@ -75,11 +75,11 @@ alias fastping='ping -c 100 -s.2'
 alias ports='netstat -tulanp'
 
 # Git
-case $(uname) in
-   Darwin)
-    alias git='hub'
-    ;;
-esac
+# case $(uname) in
+#    Darwin)
+#     alias git='hub'
+#     ;;
+# esac
 alias git-prune='for f in $(git ls-files --deleted); do git rm $f; done;'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 
@@ -121,3 +121,5 @@ alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T"'
 alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
+alias make='gmake'
+alias gdump='gcc -E -dM - < /dev/null'
