@@ -731,8 +731,10 @@ argsparse_usage() {
 	printf "\n"
 	# This will print option descriptions.
 	argsparse_usage_long
-	[[ -v "argsparse_usage_description" ]] && \
-		printf "\n%s\n" "$argsparse_usage_description" || :
+	# [[ -v "argsparse_usage_description" ]] && \
+	# 	printf "\n%s\n" "$argsparse_usage_description" || :
+	[[ -z "$argsparse_usage_description" ]] || \
+		printf "\n%s\n" "$argsparse_usage_description"
 }
 
 ## @fn usage()
