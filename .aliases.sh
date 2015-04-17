@@ -122,3 +122,4 @@ alias now='date +"%T"'
 alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
 alias make='gmake'
+alias gdump='gcc -E -dM - < /dev/null'
