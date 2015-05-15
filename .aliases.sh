@@ -25,6 +25,7 @@
 
 alias ls='ls --color=auto'
 alias ll='ls -lhG'
+alias la='ls -la'
 alias grep='grep --color -E'
 alias show='find . -name "*.*"'
 
