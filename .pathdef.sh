@@ -36,8 +36,10 @@ case $(uname) in
         if ! [[ $(whoami) = "cosgrma" ]]; then
           USR_PATH=/home/cosgrma/bin:$USR_PATH
           LD_LIBRARY_PATH=/home/cosgrma/lib64:/home/cosgrma/lib:$LD_LIBRARY_PATH
+          PKG_CONFIG_PATH=/home/cosgrma/lib64/pkgconfig:/home/cosgrma/lib/pkgconfig
         fi
         export PATH=$USR_PATH:$BASE_UNIX_PATH:$CLUSTER_PATH
+        export XILINXD_LICENSE_FILE=2100@ecae1:28039@rsemd1-btriad1.nges.northgrum.com,28039@rsemd1-btriad2.nges.northgrum.com,28039@rsemd1-btriad3.nges.northgrum.com:2100@rseil1-eng4,2100@rseil1-eng3,2100@rseil1-eng2
         export LD_LIBRARY_PATH=$HOME/lib:$HOME/lib64:$LD_LIBRARY_PATH
         _northrop_proxy
         ;;

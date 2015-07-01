@@ -26,9 +26,11 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; histor
 
 source ~/.ps1_components.sh
 
-# source $workspace/apps/git-forest/git-forest.sh
-# configuration_set $workspace/config/user_conf.forest
-# list_set $workspace/sergeant/seed/sergeant.forest
+workspace=$HOME/workspace
+
+source $workspace/apps/git-forest/git-forest.sh
+configuration_set $workspace/config/user_conf.forest
+list_set $workspace/sergeant/seed/sergeant.forest
 
 case $(uname) in
   Linux)
@@ -45,3 +47,4 @@ esac
 export PS1="$USR_PROMPT"
 export PS2='> '
 export PS4='+ '
+

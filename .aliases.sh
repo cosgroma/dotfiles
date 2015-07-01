@@ -25,6 +25,8 @@
 
 alias ls='ls --color=auto'
 alias ll='ls -lhG'
+alias la='ls -la'
+alias lt='ls -lat'
 alias grep='grep --color -E'
 alias show='find . -name "*.*"'
 
@@ -120,4 +122,5 @@ alias timestamp='date +%Y%m%d%H%M%S'
 alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T"'
 alias nowtime=now
-alias nowdate='date +"%d-%m-%Y"'
+alias nowdate='date +"%d-%m-%Y"u'
+alias gcc-specs='echo | gcc -v -x c -E -'
