@@ -26,6 +26,7 @@
 alias ls='ls --color=auto'
 alias ll='ls -lhG'
 alias la='ls -la'
+alias lt='ls -lat'
 alias grep='grep --color -E'
 alias show='find . -name "*.*"'
 
@@ -126,3 +127,4 @@ alias nowdate='date +"%d-%m-%Y"'
 alias make='gmake'
 alias gdump='gcc -E -dM - < /dev/null'
 alias lcae1='ssh cosgrma@lcae1'
+alias gcc-specs='echo | gcc -v -x c -E -'
