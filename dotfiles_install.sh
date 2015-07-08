@@ -71,7 +71,7 @@ function set_links() {
   ln -s $workspace/utils/dotfiles/.mutt ~/.mutt;
   ln -s $workspace/utils/dotfiles/.proxybash ~/.proxybash;
   ln -s $workspace/utils/dotfiles/.ps1rc ~/.ps1rc;
-  ln -s $workspace/utils/dotfiles/.ps1components.sh ~/.ps1components.sh;
+  ln -s $workspace/utils/dotfiles/.ps1_components.sh ~/.ps1_components.sh;
   ln -s $workspace/utils/dotfiles/.offlineimap.py ~/.offlineimap.py;
   ln -s $workspace/utils/dotfiles/.offlineimaprc ~/.offlineimaprc;
   ln -s $workspace/utils/dotfiles/.rvmrc ~/.rvmrc;
