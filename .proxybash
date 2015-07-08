@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export http_proxy=http://$user:$(echo -n $userpass64 | base64 -d)@centralproxy.northgrum.com:80/
+export https_proxy=http://$user:$(echo -n $userpass64 | base64 -d)@westproxy.northgrum.com:80/
+

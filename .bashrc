@@ -28,8 +28,8 @@ source ~/.ps1_components.sh
 
 workspace=$HOME/workspace
 source $workspace/apps/git-forest/git-forest.sh
-configuration_set $workspace/config/user_conf.forest
-list_set $workspace/sergeant/seed/sergeant.forest
+#configuration_set $workspace/config/user_conf.forest
+#list_set $workspace/sergeant/seed/sergeant.forest
 
 case $(uname) in
   Linux)

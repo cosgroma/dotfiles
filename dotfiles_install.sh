@@ -53,6 +53,9 @@ function dotfiles_install() {
 
 function set_links() {
   ln -s $workspace/utils/dotfiles/.ackrc ~/.ackrc;
+  ln -s $workspace/utils/dotfiles/.aliases.sh ~/.aliases.sh;
+  ln -s $workspace/utils/dotfiles/.bash_functions.sh ~/.bash_functions.sh;
+  ln -s $workspace/utils/dotfiles/.pathdef.sh ~/.pathdef.sh;
   ln -s $workspace/utils/dotfiles/.autotest ~/.autotest;
   ln -s $workspace/utils/dotfiles/.bashrc ~/.bashrc;
   ln -s $workspace/utils/dotfiles/.bash_logout ~/.bash_logout;
@@ -68,6 +71,7 @@ function set_links() {
   ln -s $workspace/utils/dotfiles/.mutt ~/.mutt;
   ln -s $workspace/utils/dotfiles/.proxybash ~/.proxybash;
   ln -s $workspace/utils/dotfiles/.ps1rc ~/.ps1rc;
+  ln -s $workspace/utils/dotfiles/.ps1components.sh ~/.ps1components.sh;
   ln -s $workspace/utils/dotfiles/.offlineimap.py ~/.offlineimap.py;
   ln -s $workspace/utils/dotfiles/.offlineimaprc ~/.offlineimaprc;
   ln -s $workspace/utils/dotfiles/.rvmrc ~/.rvmrc;
@@ -81,7 +85,7 @@ function set_links() {
   ln -s $workspace/utils/dotfiles/.zsh ~/.zsh;
   ln -s $workspace/utils/dotfiles/.zshenv ~/.zshenv;
   ln -s $workspace/utils/dotfiles/.zshrc ~/.zshrc;
-  ln -s $workspace/utils/dotfiles/bin ~/dfbin;
+  ln -s $workspace/utils/dotfiles/dfbin ~/dfbin;
 }
 
 function rm_links() {
