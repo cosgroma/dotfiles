@@ -44,7 +44,7 @@ function dotfiles_install() {
   echo "email=$email" >> .userrc
   echo "userpass64=$userpass64" >> .userrc
 
-  sed -e "s/user_name/$name/g" -e "s/user_email/$email/g" .gitconfig_default > .gitconfig
+  #sed -e "s/user_name/$name/g" -e "s/user_email/$email/g" .gitconfig_default > .gitconfig
 
   rm_links
   set_links
@@ -92,6 +92,9 @@ function rm_links() {
   dirstamp=$(date +%Y%m%d%H%M%S);
   mkdir -p ~/.oldrcs/$dirstamp;
   mv ~/.ackrc ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.aliases.sh ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.bash_functions.sh ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.pathdef.sh ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.autotest  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.badvimrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.bashrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
@@ -108,12 +111,13 @@ function rm_links() {
   mv ~/.mutt  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.proxybash ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.ps1rc ~/.oldrcs/$dirstamp/ 2>/dev/null;
+  mv ~/.ps1_components.sh ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.offlineimap.py ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.offlineimaprc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.rvmrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.screenrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.tmux.conf ~/.oldrcs/$dirstamp/ 2>/dev/null;
-  mv ~/.userrc  ~/.oldrcs/$dirstamp/ 2>/dev/.userrc;
+  mv ~/.userrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.vim  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.vimrc  ~/.oldrcs/$dirstamp/ 2>/dev/null;
   mv ~/.zprofile  ~/.oldrcs/$dirstamp/ 2>/dev/null;

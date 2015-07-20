@@ -23,3 +23,4 @@ Scrollbar=none
 Term=xterm-256color
 Font=Consolas
 FontSmoothing=full
+CursorType=block

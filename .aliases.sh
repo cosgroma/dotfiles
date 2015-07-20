@@ -40,7 +40,7 @@ alias reset='exec /bin/bash -l'
 ## Linux Stuff
 alias lsusr='cat /etc/passwd | grep /home |cut -d: -f1'
 alias mplayer='mplayer -fs'
-alias hexdump='od -txa -w16 -Ax'
+alias hd='od -txa -w16 -Ax'
 alias mount='mount |column -t'
 
 ## pass options to free ##
