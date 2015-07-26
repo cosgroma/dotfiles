@@ -42,6 +42,7 @@ case $(uname) in
         _northrop_proxy
         ;;
       * )
+        export PYTHONPATH=/home/cosgroma/workspace/libs/python/modules:$PYTHONPATH
         export PATH=$USR_PATH:$BASE_UNIX_PATH
         ;;
     esac

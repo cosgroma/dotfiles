@@ -101,7 +101,7 @@ alias w2d='python /home/cosgroma/Dropbox/workspace/eclipse_workspace/what_to_dow
 
 # Environments
 alias xenv='source /opt/Xilinx/14.6/ISE_DS/settings64.sh'
-alias xenv='source /apps/xilinx147/14.7/ISE_DS/settings64.sh'
+#alias xenv='source /apps/xilinx147/14.7/ISE_DS/settings64.sh'
 alias matlab='/usr/local/MATLAB/R2013a/bin/matlab'
 
 alias reset='exec /bin/bash -l'
@@ -121,3 +121,7 @@ alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T"'
 alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
+alias rpi='ssh pi@192.168.2.15'
+alias tdownload='sudo mount -t cifs -o user=cosgroma,password=Pgatour60 //192.168.2.58/download /mnt/download'
+alias srs='du -h -d 1 | sort -h'
+alias xvenv='source /opt/Xilinx/Vivado/2014.2/settings64.sh '
