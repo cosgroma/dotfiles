@@ -6,8 +6,8 @@
 ## @brief
 ## @copyright
 ## @version
-## @Last Modified by:   cosgrma
-## @Last Modified time: 2015-01-09 13:11:18
+## @Last Modified by:   Mathew Cosgrove
+## @Last Modified time: 2015-07-25 03:04:51
 #
 ## @details
 ## @par URL
@@ -25,6 +25,8 @@
 
 alias ls='ls --color=auto'
 alias ll='ls -lhG'
+alias la='ls -la'
+alias lt='ls -lat'
 alias grep='grep --color -E'
 alias show='find . -name "*.*"'
 
@@ -75,11 +77,11 @@ alias fastping='ping -c 100 -s.2'
 alias ports='netstat -tulanp'
 
 # Git
-case $(uname) in
-   Darwin)
-    alias git='hub'
-    ;;
-esac
+# case $(uname) in
+#    Darwin)
+#     alias git='hub'
+#     ;;
+# esac
 alias git-prune='for f in $(git ls-files --deleted); do git rm $f; done;'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 
@@ -95,22 +97,26 @@ alias dca='deluge-console add'
 alias dci='deluge-console info'
 alias dnldng='deluge-console info | grep -B 2 Downloading'
 alias transd='sudo transmission-daemon -g /etc/transmission-daemon'
-alias tr-cli='transmission-remote-cli -c cosgroma:Pgatour60@localhost:9091'
-alias tr-dam='sudo transmission-daemon -t -u cosgroma -v Pgatour60 -g /etc/transmission-daemon/'
-alias w2d='python /home/cosgroma/Dropbox/workspace/eclipse_workspace/what_to_download/src/what_to_download.py'
+alias tr-cli='transmission-remote-cli -c $user:$(echo -n $userpass64 | base64 -d)@localhost:9091'
+alias tr-dam='sudo transmission-daemon -t -u $user -v $(echo -n $userpass64 | base64 -d) -g /etc/transmission-daemon/'
+alias w2d='python /home/$user/Dropbox/workspace/eclipse_workspace/what_to_download/src/what_to_download.py'
 
 # Environments
-alias xenv='source /opt/Xilinx/14.6/ISE_DS/settings64.sh'
+#alias xenv='source /opt/Xilinx/14.6/ISE_DS/settings64.sh'
 #alias xenv='source /apps/xilinx147/14.7/ISE_DS/settings64.sh'
+# alias xenv='source /opt/Xilinx/14.6/ISE_DS/settings64.sh'
+# alias xenv='source /apps/xilinx147/14.7/ISE_DS/settings64.sh'
+#alias xenv='source /cygdrive/c/Apps/Xilinx/14.7/ISE_DS/settings64.sh'
+
 alias matlab='/usr/local/MATLAB/R2013a/bin/matlab'
 
 alias reset='exec /bin/bash -l'
 alias chrome='open -a /Applications/Google\ Chrome.app'
-alias ftp-amd='lftp -u cosgroma,Pgatour60 192.168.2.58'
+alias ftp-amd='lftp -u $user,$(echo -n $userpass64 | base64 -d) tesla.local'
 
 # Computers
-alias tesla='ssh cosgroma@192.168.2.58'
-alias teslax='ssh -X cosgroma@192.168.2.58'
+alias tesla='ssh $user@tesla.local'
+alias teslax='ssh -X $user@tesla.local'
 
 ## this one saved by butt so many times ##
 alias wget='wget -c'
@@ -122,6 +128,10 @@ alias now='date +"%T"'
 alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
 alias rpi='ssh pi@192.168.2.15'
-alias tdownload='sudo mount -t cifs -o user=cosgroma,password=Pgatour60 //192.168.2.58/download /mnt/download'
+alias tdownload='sudo mount -t cifs -o user=$user,password=$(echo -n $userpass64 | base64 -d) //tesla.local/download /mnt/download'
 alias srs='du -h -d 1 | sort -h'
 alias xvenv='source /opt/Xilinx/Vivado/2014.2/settings64.sh '
+alias make='gmake'
+alias gdump='gcc -E -dM - < /dev/null'
+alias lcae1='ssh cosgrma@lcae1'
+alias gcc-specs='echo | gcc -v -x c -E -'

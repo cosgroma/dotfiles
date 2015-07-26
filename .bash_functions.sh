@@ -35,21 +35,21 @@ function aalias(){
 }
 
 
-function which () {
-  case $_myos in
-  Linux)
-    /usr/bin/which $1 | xargs -i ls -l {}
-    ;;
-  Darwin)
-    /usr/bin/which $1 | xargs -I {} ls -l {}
-    ;;
-  *)
-    /usr/bin/which $1 | xargs -i ls -l {}
-    # /cygdrive/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe $(cygpath -aw $1)
-    ;;
-  esac
+# function which () {
+#   case $_myos in
+#   Linux)
+#     /usr/bin/which $1 | xargs -i ls -l {}
+#     ;;
+#   Darwin)
+#     /usr/bin/which $1 | xargs -I {} ls -l {}
+#     ;;
+#   *)
+#     /usr/bin/which $1 | xargs -i ls -l {}
+#     # /cygdrive/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe $(cygpath -aw $1)
+#     ;;
+#   esac
 
-}
+# }
 
 function make-list() {
   make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'

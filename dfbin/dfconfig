@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 # Load argsparse library.
 . argsparse.sh
 
@@ -145,15 +143,18 @@ function show_files() {
   done;
 }
 
+
 if argsparse_is_option_set "show"
 then
   show_files
 elif argsparse_is_option_set "install"
 then
+  echo "running install"
   set_user
   backup_links
   set_links
   write_user_config_file
+
 elif argsparse_is_option_set "backup"
 then
   backup_links

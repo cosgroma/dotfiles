@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/opt/local/bin/bash
 # -*- tab-width: 4; encoding: utf-8 -*-
 #
 ## @file
 ## @author Damien Nadé <bash-argsparse@livna.org>
 ## @brief Bash Argsparse Library
 ## @copyright WTFPLv2
-## @version 1.6.1
+## @version 1.6.2
 #
 #########
 # License:
@@ -105,7 +105,7 @@
 ## @code
 ##   file directory pipe terminal socket link char unsignedint uint
 ##   integer int hexa ipv4 ipv6 ip hostname host portnumber port
-##   username group
+##   username group date
 ## @endcode
 ##
 ## @li "exclude:<option> <option>" @n
@@ -273,7 +273,7 @@ fi
 ## @var ARGSPARSE_VERSION
 ## @brief argsparse version number
 ## @showinitializer
-declare -r ARGSPARSE_VERSION=1.6.1
+declare -r ARGSPARSE_VERSION=1.6.2
 
 # Enable required features
 shopt -s extglob
@@ -451,8 +451,13 @@ argsparse_set_cumulative_option() {
 	local array="$(argsparse_get_cumulative_array_name "$option")"
 	local size temp="$array[@]"
 	local -a copy
-	copy=( "${!temp}" )
-	size=${#copy[@]}
+	if __argsparse_has_array_item "$array" 0
+	then
+		copy=( "${!temp}" )
+		size=${#copy[@]}
+	else
+		size=0
+	fi
 	printf -v "$array[$size]" %s "$value"
 	argsparse_set_option_without_value "$option"
 }
@@ -469,8 +474,10 @@ argsparse_set_cumulativeset_option() {
 	[[ $# -eq 2 ]] || return 1
 	local option=$1
 	local value=$2
-	local array="$(argsparse_get_cumulative_array_name "$option")[@]"
-	if ! __argsparse_index_of "$value" "${!array}" >/dev/null
+	local array_name="$(argsparse_get_cumulative_array_name "$option")"
+	local array="$array_name[@]"
+	if ! __argsparse_has_array_item "$array_name" || \
+		   ! __argsparse_index_of "$value" "${!array}" >/dev/null
 	then
 		# The value is not already in the array, so add it.
 		argsparse_set_cumulative_option "$option" "$value"
@@ -544,12 +551,27 @@ argsparse_set_option() {
 
 # The usage-related functions.
 
+__argsparse_usage_short_line_management() {
+	[[ $# -eq 1 ]] || return 1
+	local next_token=$1
+	local max_length=78
+	local bigger_line
+	bigger_line="$current_line $next_token"
+	if [[ "${#bigger_line}" -gt "$max_length" ]]
+	then
+		printf -- '%s \\\n' "$current_line"
+		printf -v current_line "\t%s" "$next_token"
+	else
+		current_line=$bigger_line
+	fi
+}
+
 ## @fn argsparse_usage_short()
 ## @details Generate and print the "short" description of the program
 ## usage.
 ## @ingroup ArgsparseUsage
 argsparse_usage_short() {
-	local option values current_line current_option bigger_line
+	local option values current_line current_option param
 	local max_length=78
 	current_line=$argsparse_pgm
 	for option in "${!__argsparse_options_descriptions[@]}"
@@ -573,16 +595,42 @@ argsparse_usage_short() {
 		then
 			current_option="[ $current_option ]"
 		fi
-		bigger_line="$current_line $current_option"
-		if [[ "${#bigger_line}" -gt "$max_length" ]]
-		then
-			printf -- '%s \\\n' "$current_line"
-			printf -v current_line "\t%s" "$current_option"
-		else
-			current_line=$bigger_line
-		fi
+		__argsparse_usage_short_line_management "$current_option"
 	done
+	if __argsparse_has_array_item __argsparse_parameters_description
+	then
+	   for param in "${__argsparse_parameters_description[@]}"
+	   do
+		   __argsparse_usage_short_line_management "$param"
+	   done
+	fi
 	printf -- "%s\n" "$current_line"
+}
+
+declare -a __argsparse_parameters_description
+
+__argsparse_describe_parameters() {
+	[[ $# -eq 0 ]] && return
+	local param last name
+	__argsparse_parameter_description=( "[--]" )
+	for param in "$@"
+	do
+		name=${param%?}
+		last=${param#$name}
+		case "$last" in
+			'?')
+				__argsparse_parameters_description+=( "[ $name ]" )
+				;;
+			'*')
+				__argsparse_parameters_description+=( "[ $name ... ]" )
+				;;
+			+)
+				__argsparse_parameters_description+=( "$name [ $name ... ]" )
+				;;
+			*)
+				__argsparse_parameters_description+=( "$param" )
+		esac
+	done
 }
 
 ## @fn argsparse_usage_long()
@@ -595,6 +643,7 @@ argsparse_usage_long() {
 	local q=\' bol='\t\t  '
 	local -A long_to_short=()
 	local -a values
+	# Reverse the __argsparse_short_options array.
 	for short in "${!__argsparse_short_options[@]}"
 	do
 		long=${__argsparse_short_options["$short"]}
@@ -616,11 +665,12 @@ argsparse_usage_long() {
 			sep="\n$bol"
 		fi
 		# Define format according to the presence of the short option.
-		short=${long_to_short["$long"]}
-		if [[ -n "$short" ]]
+		if __argsparse_has_array_item long_to_short "$long"
 		then
+			short="${long_to_short[$long]}"
 			format=" -%s | %- 11s$sep%s\n"
 		else
+			short=""
 			format=" %s     %- 11s$sep%s\n"
 		fi
 		printf -- "$format" "$short" "--$long" \
@@ -681,6 +731,8 @@ argsparse_usage() {
 	printf "\n"
 	# This will print option descriptions.
 	argsparse_usage_long
+	# [[ -v "argsparse_usage_description" ]] && \
+	# 	printf "\n%s\n" "$argsparse_usage_description" || :
 	[[ -z "$argsparse_usage_description" ]] || \
 		printf "\n%s\n" "$argsparse_usage_description"
 }
@@ -708,12 +760,19 @@ set_option_help() {
 	usage
 }
 
+## @fn __argsparse_values_array_identifier()
+## @private
+## @brief Prints the name of the array containing all user-declared
+## acceptable values for an option.
+## @details from "opt" or "opt-name" string, prints
+## "option_opt_values[@]" or "option_opt_name_values[@]", unless array
+## is not declared, in which case function will return an error.
+## @param option an option name.
+## @retval 1 if array has not been declared
+## @retval 0 else. Array name will written to stdout.
 __argsparse_values_array_identifier() {
-	# Prints the name of the array which will contain all the values
-	# of an option with the cumulative or cumulativeset property.
-	# @param option an option name.
 	local option=$1
-	local array="option_${option}_values"
+	local array="option_$(argsparse_option_to_identifier "$option")_values"
 	__argsparse_is_array_declared "$array" || return 1
 	printf %s "$array[@]"
 }
@@ -726,6 +785,20 @@ __argsparse_is_array_declared() {
 	local array_name=$1
 	[[ "$(declare -p "$array_name" 2>/dev/null)" = \
 		"declare -"[aA]" $array_name='("* ]]
+}
+
+__argsparse_has_array_item() {
+	# @param an array name.
+	# @retval 0 if an array has been already declared by the name of
+	# the parameter.
+	[[ $# = [12] ]] || return 1
+	local array_name=$1
+	local index=${2:-@}
+	local var="$array_name[$index]"
+	(
+		set +o nounset
+		[[ ${!var+set} = set ]]
+	)
 }
 
 __argsparse_check_requires() {
@@ -843,6 +916,10 @@ argsparse_check_option_type() {
 		group)
 			getent group "$value" >/dev/null 2>&1
 			;;
+		date)
+			date --date "$value"  >/dev/null 2>&1
+			return 
+			;;
 		*)
 			# Invoke user-defined type-checking function if available.
 			if ! declare -f "check_option_type_$option_type" >/dev/null
@@ -857,22 +934,23 @@ argsparse_check_option_type() {
 	esac
 }
 
+## @fn __argsparse_parse_options_valuecheck()
+## @private
+## @brief Check a value given to an option.
+## @details If an enumeration has been defined for the option, check
+## against that. If there's no enumeration, but option has a type
+## property, then check against the type. In the end, check against
+## check_value_of_<option> function, if it's been defined.
+## @param option an option name.
+## @param value anything.
+## @retval 0 if value is correct for given option.
 __argsparse_parse_options_valuecheck() {
-	# Check a value.
-	# If an enumeration has been defined for the option, check against
-	# that. If there's no enumeration, but option has a type property,
-	# then check against the type.
-	# In the end, check against check_value_of_<option> function, if
-	# it's been defined.
-	# @param option an option name.
-	# @param value anything.
-	# @retval 0 if value is correct for given option.
 	[[ $# -eq 2 ]] || return 1
 	local option=$1
 	local value=$2
 	local identifier possible_values option_type
 	identifier="$(argsparse_option_to_identifier "$option")"
-	if possible_values=$(__argsparse_values_array_identifier "$identifier")
+	if possible_values=$(__argsparse_values_array_identifier "$option")
 	then
 		__argsparse_index_of "$value" "${!possible_values}" >/dev/null || \
 			return 1
@@ -959,17 +1037,27 @@ __argsparse_parse_options_check_exclusions() {
 
 	for option in "${!program_options[@]}"
 	do
-	if [[ "${exclusions["$option"]}" =~ ^(.* )?"$new_option"( .*)?$ ]]
-	then
-		printf %s "$option"
-		return 0
-	fi
+		if [[ "${exclusions["$option"]-}" =~ ^(.* )?"$new_option"( .*)?$ ]]
+		then
+			printf %s "$option"
+			return 0
+		fi
 	done
 	return 1
 }
 
+## @fn __argsparse_set_option()
+## @private
+## @brief Resolv option-specific setter function and invoke it.
+## @details Check if a user-defined option setting function
+## (set_option_<optionname>) has been defined or if the generic
+## argsparse_set_option function is to be used. Then invoke the that
+## function with the option name as first parameter. If a value for
+## the option is involved, it is passed as a second parameter.
+## @param option an option name.
+## @return the setter function return code
+## @ingroup ArgsparseOptionSetter
 __argsparse_set_option() {
-	# @param an option
 	[[ $# -eq 1 || $# -eq 2 ]] || return 1
 	local option=$1
 	local set_hook identifier
@@ -986,9 +1074,8 @@ __argsparse_set_option() {
 	else
 		set_hook=argsparse_set_option
 	fi
-	# Invoke setting hook, and if it returns returns some non-zero
-	# status, send the user back to usage, if declared, and return
-	# with error.
+	# Invoke setting hook, and if it returns some non-zero status,
+	# send the user back to usage, if declared, and return with error.
 	# The specific $value substitution, here, is to distinguish an
 	# empty value from a no-value.
 	"$set_hook" "$option" ${value+"$value"}
@@ -1205,12 +1292,13 @@ argsparse_set_option_property() {
 			mandatory|hidden|value|cumulative|cumulativeset)
 				# We use the comma as the property character separator
 				# in the __argsparse_options_properties array.
-				p=${__argsparse_options_properties["$option"]}
+				p=${__argsparse_options_properties["$option"]:-}
 				__argsparse_options_properties["$option"]="${p:+$p,}$property"
 				;;
 			short:?)
 				short=${property#short:}
-				if [[ -n "${__argsparse_short_options[$short]}" ]]
+				if __argsparse_has_array_item \
+					__argsparse_short_options "$short"
 				then
 					printf >&2 \
 						"%s: %s: short option for %s conflicts with already-configured short option for %s.\n" \
@@ -1303,7 +1391,8 @@ __argsparse_check_declaration_conflict() {
 	local identifier=$(argsparse_option_to_identifier "$option")
 	local -a identifiers=("${!__argsparse_tmp_identifiers[@]}")
 	local conflict
-	if conflict=$(__argsparse_index_of "$identifier" "${identifiers[@]}")
+	if __argsparse_has_array_item identifiers && \
+		   conflict=$(__argsparse_index_of "$identifier" "${identifiers[@]}")
 	then
 		printf %s "${__argsparse_tmp_identifiers[${identifiers[$conflict]}]}"
 		return 0
@@ -1457,7 +1546,8 @@ argsparse_report() {
 		if argsparse_is_option_set "$option"
 		then
 			printf "yes (%s" "${program_options[$option]}"
-			if argsparse_has_option_property "$option" cumulative
+			if argsparse_has_option_property "$option" cumulative || \
+				argsparse_has_option_property "$option" cumulativeset
 			then
 				array_name="$(argsparse_get_cumulative_array_name "$option")[@]"
 				array=( "${!array_name}" )
