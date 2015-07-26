@@ -1,0 +1,614 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"args",
+				"argsparse_is_option_set"
+			],
+			[
+				"remo",
+				"remote_repos"
+			],
+			[
+				"fo",
+				"forin	for … in … done"
+			],
+			[
+				"center",
+				"center_frequency	param"
+			],
+			[
+				"cen",
+				"center_frequency"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": ".bashrc",
+			"settings":
+			{
+				"buffer_size": 1117,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				],
+				[
+					"Packages/SublimeREPL/sublimerepl_build_system_hack.sublime-build",
+					""
+				],
+				[
+					"Packages/User/bash.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 400.0,
+		"last_filter": "Proje",
+		"selected_items":
+		[
+			[
+				"Proje",
+				"Project: Save As"
+			],
+			[
+				"add",
+				"Project: Add Folder"
+			],
+			[
+				"Add ",
+				"Project: Add Folder"
+			],
+			[
+				"rein",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"Code",
+				"CodeFormatter: Format Code"
+			],
+			[
+				"Disa",
+				"Package Control: Disable Package"
+			],
+			[
+				"Enabl Pa",
+				"Package Control: Enable Package"
+			],
+			[
+				"IN Pa",
+				"Package Control: Install Package"
+			],
+			[
+				"Instal",
+				"Package Control: Install Package"
+			],
+			[
+				"GIt Pul",
+				"Git: Pull Current Branch"
+			],
+			[
+				"Add",
+				"Project: Add Folder"
+			],
+			[
+				"Close",
+				"Project: Close"
+			],
+			[
+				"Disabl P",
+				"Package Control: Disable Package"
+			],
+			[
+				"Dis Pa",
+				"Package Control: Disable Package"
+			],
+			[
+				"Pack",
+				"Package Control: List Packages"
+			],
+			[
+				"Code IN",
+				"SublimeCodeIntel: Disable Plugin"
+			],
+			[
+				"code ",
+				"SublimeCodeIntel: Reset"
+			],
+			[
+				"IN Pack",
+				"Package Control: Install Package"
+			],
+			[
+				"CTAg",
+				"CTags: Rebuild Tags"
+			],
+			[
+				"Snip",
+				"Snippet: main()"
+			],
+			[
+				"set sy C",
+				"Set Syntax: C"
+			],
+			[
+				"in ap",
+				"Package Control: Install Package"
+			],
+			[
+				"Glue ",
+				"Glue - Launch"
+			],
+			[
+				"Pack IN",
+				"Package Control: Install Package"
+			],
+			[
+				"SET sy C",
+				"Set Syntax: C"
+			]
+		],
+		"width": 610.0
+	},
+	"console":
+	{
+		"height": 401.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/cosgroma/workspace/utils/dotfiles"
+	],
+	"file_history":
+	[
+		"/Users/cosgroma/workspace/apps/git-forest/scripts/install.sh",
+		"/Users/cosgroma/workspace/sergeant/modules/host/src/osx/cpu.c",
+		"/Users/cosgroma/workspace/sergeant/modules/host/src/osx/devcfg.c",
+		"/Users/cosgroma/.ba",
+		"/Users/cosgroma/workspace/apps/git-forest/configure.ac",
+		"/Users/cosgroma/workspace/apps/git-forest/config.log",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/gitf",
+		"/Users/cosgroma/.gitfconfig",
+		"/Users/cosgroma/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/gitf-include/gitf-remote.sh",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/libs/bash-utils/utils.sh",
+		"/Users/cosgroma/Library/Application Support/Sublime Text 3/Packages/CodeFormatter/CodeFormatter.sublime-settings",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/libs/bash-utils/list_utils.sh",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/gitf-include/gitf-config.sh",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/gitf-include/gitf-local.sh",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/gitf-include/gitf-resolve.sh",
+		"/Users/cosgroma/Library/Application Support/Sublime Text 3/Packages/User/CodeFormatter.sublime-settings",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/libs/bash-argsparse/Doxyfile",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/test/testf1/.gitf/tf2.forest",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/gitf-include/gitf-seed.sh",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/gitf-include/gitf-forest.sh",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/gitf-include/gitf-shell.sh",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/gitf-include/gitf-subshell.sh",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/sandbox/scratch.sh",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/gitf-include/gitf-config-forest.sh",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/test_forest.sh",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/gitf-include/gitf-list.sh",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/gitf-include/gitf-config-remote.sh",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/test.file",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/test/testf2/.gitf/workspace.forest",
+		"/Users/cosgroma/.bashrc",
+		"/Users/cosgroma/workspace/apps/in-development/git-forest/install/install.sh",
+		"/Users/cosgroma/workspace/sergeant/make/makefile",
+		"/Users/cosgroma/workspace/libs/python/modules/phasor/sandbox/zmq_testing.py",
+		"/Users/cosgroma/workspace/libs/python/modules/phasor/sandbox/analysis.py",
+		"/Users/cosgroma/workspace/libs/python/modules/phasor/tests/src/algoritms/test_acquisition.py",
+		"/Users/cosgroma/workspace/libs/python/modules/phasor/sandbox/tcp_server.c",
+		"/Users/cosgroma/workspace/libs/python/modules/phasor/blocks/tests/test_block_filter.py",
+		"/Users/cosgroma/workspace/libs/python/modules/phasor/blocks/source/hw/RTL2832U.py",
+		"/Users/cosgroma/workspace/libs/python/modules/phasor/sandbox/fft_performance.py",
+		"/Users/cosgroma/workspace/libs/python/modules/phasor/blocks/source/sim/signal.py",
+		"/Users/cosgroma/workspace/libs/python/modules/phasor/algorithms/acquisition/acquisition.py",
+		"/Users/cosgroma/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/cosgroma/workspace/libs/python/modules/phasor/tests/src/algoritms/tests_channel.py",
+		"/Users/cosgroma/workspace/libs/python/modules/phasor/tests/src/algoritms/test_kml.py",
+		"/Users/cosgroma/workspace/libs/python/modules/QtBooty/app.py",
+		"/Users/cosgroma/workspace/libs/python/modules/QtBooty/QtBooty.sublime-project",
+		"/Users/cosgroma/workspace/libs/python/modules/QtBooty/graph/line.py",
+		"/Users/cosgroma/Library/Application Support/Sublime Text 3/Packages/User/Anaconda.sublime-settings",
+		"/Users/cosgroma/workspace/libs/python/modules/QtBooty/tests/graphs/test_line.py",
+		"/Users/cosgroma/Library/Application Support/Sublime Text 3/Packages/CTags/CTags.sublime-settings",
+		"/Users/cosgroma/Library/Application Support/Sublime Text 3/Packages/User/CTags.sublime-settings",
+		"/Users/cosgroma/Library/Application Support/Sublime Text 3/Packages/GitSavvy/GitSavvy.sublime-settings",
+		"/Users/cosgroma/workspace/utils/dotfiles/dfbin/new_project",
+		"/Users/cosgroma/workspace/testc/src/main.c",
+		"/Users/cosgroma/workspace/testc/makefile",
+		"/Users/cosgroma/workspace/testc/config/config.mk",
+		"/Users/cosgroma/workspace/tmatrix/src/invtest.c",
+		"/Users/cosgroma/Library/Application Support/Sublime Text 3/Packages/SublimeCodeIntel/SublimeCodeIntel.sublime-settings",
+		"/Users/cosgroma/Library/Application Support/Sublime Text 3/Packages/User/SublimeCodeIntel.sublime-settings"
+	],
+	"find":
+	{
+		"height": 30.0
+	},
+	"find_in_files":
+	{
+		"height": 130.0,
+		"where_history":
+		[
+			"/Users/cosgroma/workspace/apps/in-development/git-forest"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			") {",
+			"int Dma_",
+			");",
+			"); ",
+			"() {",
+			"(void) {",
+			"() {",
+			"void",
+			"Platform_GetCpuTicks",
+			"int DevCfg_",
+			"DevCfg_",
+			") {",
+			"int Platform",
+			"UNAME_P",
+			"PROCESSOR_ARCHITECTURE",
+			"$r",
+			"branches",
+			"pushed",
+			"status",
+			" )",
+			"for a",
+			"for a s",
+			"result",
+			"repos",
+			"repo_index",
+			"local_repos",
+			"get_local_repos",
+			"local_repos",
+			"get_local_repos",
+			"          # git_command=(git --work-tree=$r --git-dir=$r/.git pull osx_patriot develop)\n          # run_git_command pulled",
+			"gitf_remotes",
+			"get_remote_repos",
+			"seed",
+			"get_workspace_repos",
+			"fpath",
+			"seed",
+			"repo_index",
+			"sed",
+			"forest_name",
+			"repo_file",
+			"update",
+			"refpath",
+			"fpath",
+			"lpath",
+			"get_workspace_repos",
+			"show_workspace_list",
+			"| ",
+			">>",
+			"> ",
+			"mismatch()",
+			"|  ",
+			":",
+			"username",
+			"|   ",
+			"\"$",
+			"write_config_file",
+			" = ${",
+			"= (${",
+			"sed",
+			"workspace",
+			"username",
+			"write_config_file",
+			"show_",
+			"get_remote_repos",
+			"load_seed",
+			"get_remote_repos",
+			"load_remote",
+			"load_forest",
+			"seed",
+			"create_config_file",
+			"gitf_remotes",
+			"show_list",
+			"repos",
+			"workspace_repos",
+			"remote_repos",
+			"repo_index",
+			"remote_list",
+			"local_repos",
+			"local_list",
+			"not_list",
+			"get_workspace_repos",
+			"not_list",
+			"get_local_repos",
+			"write_list",
+			"load_list",
+			"get_workspace_repos",
+			"seed",
+			"config-",
+			"load_config_file",
+			"gitf_initialize",
+			"get_workspace_repos",
+			"workspace",
+			"gitf_parse_params",
+			"get_remote_repos",
+			"show_remote_repos",
+			"local",
+			"get_remote_repos",
+			"remote_repos",
+			"get_remote_repos",
+			"synced",
+			"date",
+			"check_remote_options",
+			"dirty",
+			"ttys000",
+			"delete",
+			"echo",
+			"read",
+			"ans",
+			"<<<",
+			">>>",
+			"<<<",
+			"GraphS",
+			"graphs",
+			"progress_callback",
+			"       '",
+			"\n       ",
+			"offset_frequency",
+			"center_frequency",
+			"sample_frequency",
+			"ident",
+			"center_frequency",
+			"None",
+			"Height",
+			"height",
+			"home"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"path_repos",
+			"get_all_repos_on_path",
+			"fpath",
+			"show_workspace_repos",
+			"show_seed",
+			"write_seed",
+			"load_seed"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": ".bashrc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1117,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								231,
+								231
+							]
+						],
+						"settings":
+						{
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								7,
+								7,
+								22,
+								21,
+								0,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monocyanide - Contrasted.tmTheme",
+							"git_savvy.file_path": "/Users/cosgroma/workspace/utils/dotfiles/.bashrc",
+							"git_savvy.repo_path": "/Users/cosgroma/workspace/utils/dotfiles",
+							"origPos": 0.0,
+							"syncScroll": false,
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 46.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.GitSavvy":
+	{
+		"height": 140.0
+	},
+	"output.astyle_error_message":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 291.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 140.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "dotfiles.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/workspace/libs/librtk/librtk.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 298.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

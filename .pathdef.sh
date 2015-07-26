@@ -5,9 +5,9 @@ function _northrop_proxy() {
 }
 
 function _osx_exports() {
-  export ANDROID_HOME="/Applications/Android Studio.app/sdk"
+  # export ANDROID_HOME="/Applications/Android Studio.app/sdk"
   current_python=$(echo $(which python) | cut -d'>' -f2 | cut -d'/' -f5)
-  export PYTHONPATH=/usr/local/lib/$current_python/site-packages:/Users/cosgroma/workspace/libs/python/modules:/Users/cosgroma/workspace/sergeant/guis
+  # export PYTHONPATH=/usr/local/lib/$current_python/site-packages:/Users/cosgroma/workspace/libs/python/modules:/Users/cosgroma/workspace/sergeant/guis
 }
 
 DEF_PATH=$PATH
@@ -44,6 +44,7 @@ case $(uname) in
         _northrop_proxy
         ;;
       * )
+        export PYTHONPATH=/home/cosgroma/workspace/libs/python/modules:$PYTHONPATH
         export PATH=$USR_PATH:$BASE_UNIX_PATH
         ;;
     esac
