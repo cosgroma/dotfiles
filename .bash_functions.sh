@@ -28,8 +28,6 @@ function extract () {
   fi
 }
 
-
-
 function aalias(){
   echo "alias $1='$(fc -ln -2 | head -1 | sed "1s/^[[:space:]]*//")'" >> ~/.aliases.sh
 }
