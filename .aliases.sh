@@ -135,3 +135,7 @@ alias make='gmake'
 alias gdump='gcc -E -dM - < /dev/null'
 alias lcae1='ssh cosgrma@lcae1'
 alias gcc-specs='echo | gcc -v -x c -E -'
+
+
+alias sg='cd ~/workspace/sergeant'
+
