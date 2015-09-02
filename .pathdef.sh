@@ -17,7 +17,8 @@ BASE_UNIX_PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
 
 CYG_PATH=/usr/lib/lapack
 CYG_WINPATH=/cygdrive/c/Windows:/cygdrive/c/Windows/system32:/cygdrive/c/Windows/System32/Wbem
-CYG_PYTHON=/cygdrive/c/Python27:/cygdrive/c/Python27/Lib/site-packages:/cygdrive/c/Python27/Scripts
+CYG_PYTHON=/cygdrive/c/Python27:/cygdrive/c/Python27/Lib/site-packages:/cygdrive/c/Python27/Scripts:/cygdrive/c/Program\ Files\ \(x86\)/Graphviz2.38/bin
+
 
 OSX_PATH=/opt/local//usr/local/pgsql/bin:/Library/PostgreSQL/8.3/bin:/opt/X11/bin:/usr/texbin
 OSX_PORT_PATH=/opt/local/libexec/gnubin:/opt/local/bin
