@@ -44,7 +44,7 @@ function dotfiles_install() {
   echo "email=$email" >> .userrc
   echo "userpass64=$userpass64" >> .userrc
 
-  #sed -e "s/user_name/$name/g" -e "s/user_email/$email/g" .gitconfig_default > .gitconfig
+  sed -e "s/user_name/$name/g" -e "s/user_email/$email/g" .gitconfig_default > .gitconfig
 
   rm_links
   set_links
