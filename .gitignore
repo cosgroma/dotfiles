@@ -121,3 +121,4 @@
 /talks
 /var
 /work
+*.sublime-*

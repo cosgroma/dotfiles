@@ -24,3 +24,4 @@ Term=xterm-256color
 Font=Consolas
 FontSmoothing=full
 CursorType=block
+FontHeight=10

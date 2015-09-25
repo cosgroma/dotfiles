@@ -30,7 +30,7 @@ workspace=$HOME/workspace
 if [[ -e $workspace/apps/git-forest/git-forest.sh ]]; then
   source $workspace/apps/git-forest/git-forest.sh
   configuration_set $workspace/config/user_conf.forest
-  list_set $workspace/sergeant/seed/sergeant.forest
+  list_set $workspace/seed/sergeant.forest
 fi
 
 case $(uname) in

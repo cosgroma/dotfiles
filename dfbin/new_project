@@ -5,7 +5,7 @@ workspace=$HOME/workspace
 . argsparse.sh
 
 argsparse_use_option project-type "project type" short:t value
-option_project_values=(c python)
+option_project_type_values=(c python)
 
 argsparse_use_option name "project name" short:n value
 argsparse_use_option output "output directory" short:o value
@@ -66,10 +66,10 @@ function process_options() {
 ## @ingroup
 ############################################################################
 function new_c_project() {
-  mkdir -p $odir/build $odir/config $odir/doc $odir/src $odir/tests $odir/deploy;
-  cp $workspace/utils/makefile/makefile $odir;
-  cp $workspace/utils/makefile/config.mk $odir/config/;
-  sed -e "s@outdir@$odir@g" -e "s/prog/$name/g" < $workspace/utils/makefile/sublime_project_template.json > $odir/$name.sublime-project
+  mkdir -p $odir/config $odir/doc $odir/src $odir/tests;
+  cp $workspace/utils/templates/makefile/makefile $odir;
+  cp $workspace/utils/templates/makefile/config/* $odir/config/;
+  sed -e "s@outdir@$odir@g" -e "s/prog/$name/g" < $workspace/utils/templates/makefile/sublime_project_template.json > $odir/$name.sublime-project
   subl --project $odir/$name.sublime-project;
 }
 
