@@ -683,4 +683,8 @@ if &term =~ 'xterm-256color'
   " 6 -> solid vertical bar
 endif
 
+" force markdown extension to be recognized
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd BufNewFile,BufReadPost *.inc set filetype=make
+
 
