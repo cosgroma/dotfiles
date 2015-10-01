@@ -688,3 +688,15 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.inc set filetype=make
 
 
+
+
+
+" sh automatic header stuff
+"autocmd bufnewfile *.sh so ~/.vim/sh-support/templates/sh-header.txt
+"autocmd bufnewfile *.sh exe "1," . 8 . "g/File Name :.*/s//File Name : " .expand("%")
+"autocmd bufnewfile *.sh exe "1," . 8 . "g/Creation Date :.*/s//Creation Date : " .strftime("%Y-%m-%d")
+"autocmd Bufwritepre,filewritepre *.sh execute "normal ma"
+"autocmd Bufwritepre,filewritepre *.sh exe "1," . 10 . "g/Last Modified :.*/s/Last Modified :.*/Last Modified : " .strftime("%c")
+"autocmd bufwritepost,filewritepost *.sh execute "normal `a"
+
+
