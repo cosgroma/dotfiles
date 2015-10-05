@@ -108,7 +108,7 @@ alias w2d='python /home/$user/Dropbox/workspace/eclipse_workspace/what_to_downlo
 # alias xenv='source /apps/xilinx147/14.7/ISE_DS/settings64.sh'
 #alias xenv='source /cygdrive/c/Apps/Xilinx/14.7/ISE_DS/settings64.sh'
 
-alias matlab='/usr/local/MATLAB/R2013a/bin/matlab'
+alias matlab='/usr/local/MATLAB/R2015a/bin/matlab'
 
 alias reset='exec /bin/bash -l'
 alias chrome='open -a /Applications/Google\ Chrome.app'
