@@ -768,3 +768,9 @@ command! PrettyXML call DoPrettyXML()
 
 
 
+" ctrlp stuff
+"
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+set wildignore+=*.so,*.swp,*.zip
+
