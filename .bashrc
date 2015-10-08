@@ -15,6 +15,8 @@ source ~/.pathdef.sh
 export TERM='xterm-256color'
 export CLICOLOR=1
 
+eval "`dircolors -b ~/.dircolorsrc`"
+
 # Erase duplicates in history
 export HISTCONTROL=erasedups
 # Store 10k history entries

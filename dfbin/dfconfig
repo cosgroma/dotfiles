@@ -36,6 +36,7 @@ dflist=(.ackrc \
 .badvimrc \
 .bashrc \
 .bash_logout \
+.dircolors \
 .emacs \
 .emacs-lisp \
 .gemrc \
