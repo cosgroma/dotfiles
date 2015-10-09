@@ -1,1 +1,1 @@
-/home/cosgrma/workspace/utils/dotfiles/dfbin/../.vim
+/home/cosgroma/dfbin/../.vim

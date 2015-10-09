@@ -30,13 +30,6 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; histor
 
 source ~/.ps1_components.sh
 
-workspace=$HOME/workspace
-if [[ -e $workspace/apps/git-forest/git-forest.sh ]]; then
-  source $workspace/apps/git-forest/git-forest.sh
-  configuration_set $workspace/config/user_conf.forest
-  list_set $workspace/seed/sergeant.forest
-fi
-
 case $(uname) in
   Linux)
     USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_GIT_STAT$PS1_PROMPT_RST"
