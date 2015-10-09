@@ -12,7 +12,9 @@ source ~/.bash_functions.sh
 source ~/.pathdef.sh
 
 # Unbreak broken, non-colored terminal
-export TERM='xterm-256color'
+#export TERM='xterm-256color'
+export TERM='screen-256color'
+
 export CLICOLOR=1
 
 eval "`dircolors -b ~/.dircolorsrc`"
