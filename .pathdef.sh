@@ -44,6 +44,12 @@ case $(uname) in
         export LD_LIBRARY_PATH=$HOME/lib:$HOME/lib64:$LD_LIBRARY_PATH
         _northrop_proxy
         ;;
+          faraday )
+            export PATH=$USR_PATH:$BASE_UNIX_PATH
+            export PYTHONPATH=/home/cosgroma/workspace/libs/python/modules:/usr/local/lib/python2.7/dist-packages:$PYTHONPATH
+            _northrop_proxy
+            _xil_exports
+            ;;
       * )
         export PYTHONPATH=/home/cosgroma/workspace/libs/python/modules:$PYTHONPATH
         export PATH=$USR_PATH:$BASE_UNIX_PATH
