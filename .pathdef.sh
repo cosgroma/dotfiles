@@ -52,6 +52,7 @@ case $(uname) in
     ;;
   *)
     export PATH=$USR_PATH:$CYG_PYTHON:$BASE_UNIX_PATH:$CYG_PATH:$CYG_WINPATH
+    export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
     _northrop_proxy
     ;;
 esac
