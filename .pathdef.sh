@@ -24,6 +24,7 @@ OSX_PATH=/opt/local//usr/local/pgsql/bin:/Library/PostgreSQL/8.3/bin:/opt/X11/bi
 OSX_PORT_PATH=/opt/local/libexec/gnubin:/opt/local/bin
 CLUSTER_PATH=/apps/mentor/modelsim/10.1a/modeltech/bin:/apps/mentor/modelsim/10.1a/modeltech/gcc:/apps/xilinx/ISE_DS/common/bin/lin64:/apps/xilinx/ISE_DS/ISE/sysgen/bin:/apps/xilinx/ISE_DS/PlanAhead/bin:/apps/xilinx/ISE_DS/ISE/bin/lin64:/apps/xilinx/ISE_DS/ISE/sysgen/util:/apps/xilinx/ISE_DS/EDK/bin/lin64:/apps/xilinx/ISE_DS/EDK/gnu/microblaze/lin64/bin:/apps/xilinx/ISE_DS/EDK/gnu/powerpc-eabi/lin64/bin:/apps/synplicity/fpga_e201103sp2/bin:/apps/identify/linux/identify_e201103sp1-1/bin:/apps/libero/Libero/bin:/apps/cadence/tools.lnx86/pcb/bin:/apps/cadence/tools.lnx86/specctra/bin:/apps/cadence/tools.lnx86/bin:/apps/cadence/tools.lnx86/fet/bin:/usr/local:/usr/lib:/usr/local/bin:.:/apps/EDA:/usr/local:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/apps/altera/quartus/bin:/apps/altera/nios2eds/bin:/apps/altera/nios2eds/sdk2/bin
 
+MATLAB_PATH=/usr/local/MATLAB/R2013a/bin
 export LD_LIBRARY_PATH=/usr/local/lib
 
 case $(uname) in
@@ -52,7 +53,7 @@ case $(uname) in
             ;;
       * )
         export PYTHONPATH=/home/cosgroma/workspace/libs/python/modules:$PYTHONPATH
-        export PATH=$USR_PATH:$BASE_UNIX_PATH
+        export PATH=$USR_PATH:$BASE_UNIX_PATH:$MATLAB_PATH
         ;;
     esac
     ;;

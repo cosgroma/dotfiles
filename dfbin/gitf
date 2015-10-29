@@ -1,0 +1,17 @@
+
+workspace=$HOME/workspace
+if [[ -e $workspace/apps/git-forest/git-forest.sh ]]; then
+  source $workspace/apps/git-forest/git-forest.sh
+  # User Configuration file
+  if [[ -e $workspace/config/user_conf.forest ]]; then
+    configuration_set $workspace/config/user_conf.forest
+  else
+    echo "no user configuration, pull from the template and put at $workspace/config/user_conf.forest";
+  fi
+  # User seed file
+  if [[ -e $workspace/seed/sergeant.forest ]]; then
+    list_set $workspace/seed/sergeant.forest
+  else
+    echo "no default seed file, put your forest seeds in $workspace/seed/"
+  fi
+fi

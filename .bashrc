@@ -12,8 +12,12 @@ source ~/.bash_functions.sh
 source ~/.pathdef.sh
 
 # Unbreak broken, non-colored terminal
-export TERM='xterm-256color'
+#export TERM='xterm-256color'
+export TERM='screen-256color'
+
 export CLICOLOR=1
+
+eval "`dircolors -b ~/.dircolorsrc`"
 
 # Erase duplicates in history
 export HISTCONTROL=erasedups
@@ -25,13 +29,6 @@ shopt -s histappend
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r;"
 
 source ~/.ps1_components.sh
-
-workspace=$HOME/workspace
-if [[ -e $workspace/apps/git-forest/git-forest.sh ]]; then
-  source $workspace/apps/git-forest/git-forest.sh
-  configuration_set $workspace/config/user_conf.forest
-  list_set $workspace/seed/sergeant.forest
-fi
 
 case $(uname) in
   Linux)

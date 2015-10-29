@@ -39,6 +39,42 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vundle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" cpp enhanced
+" github.com/octol/vim-cpp-enhanced-highlight
+Plugin 'octol/vim-cpp-enhanced-highlight'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+Plugin 'L9'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -683,4 +719,58 @@ if &term =~ 'xterm-256color'
   " 6 -> solid vertical bar
 endif
 
+" force markdown extension to be recognized
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd BufNewFile,BufReadPost *.inc set filetype=make
+
+
+
+
+
+" sh automatic header stuff
+"autocmd bufnewfile *.sh so ~/.vim/sh-support/templates/sh-header.txt
+"autocmd bufnewfile *.sh exe "1," . 8 . "g/File Name :.*/s//File Name : " .expand("%")
+"autocmd bufnewfile *.sh exe "1," . 8 . "g/Creation Date :.*/s//Creation Date : " .strftime("%Y-%m-%d")
+"autocmd Bufwritepre,filewritepre *.sh execute "normal ma"
+"autocmd Bufwritepre,filewritepre *.sh exe "1," . 10 . "g/Last Modified :.*/s/Last Modified :.*/Last Modified : " .strftime("%c")
+"autocmd bufwritepost,filewritepost *.sh execute "normal `a"
+
+
+
+function! DoPrettyXML()
+  " save the filetype so we can restore it later
+  let l:origft = &ft
+  set ft=
+  " delete the xml header if it exists. This will
+  " permit us to surround the document with fake tags
+  " without creating invalid xml.
+  1s/<?xml .*?>//e
+  " insert fake tags around the entire document.
+  " This will permit us to pretty-format excerpts of
+  " XML that may contain multiple top-level elements.
+  0put ='<PrettyXML>'
+  $put ='</PrettyXML>'
+  silent %!xmllint --format -
+  " xmllint will insert an <?xml?> header. it's easy enough to delete
+  " if you don't want it.
+  " delete the fake tags
+  2d
+  $d
+  " restore the 'normal' indentation, which is one extra level
+  " too deep due to the extra tags we wrapped around the document.
+  silent %<
+  " back to home
+  1
+  " restore the filetype
+  exe "set ft=" . l:origft
+endfunction
+command! PrettyXML call DoPrettyXML()
+
+
+
+" ctrlp stuff
+"
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+set wildignore+=*.so,*.swp,*.zip
 

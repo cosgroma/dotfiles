@@ -34,10 +34,28 @@ function get_columns {
 
 DIGITS="\[\e[38;5;160m\]"
 BORDER="\[\033[1;37m\]"
-CLOCK="\[\033[s\033[1;\$(echo -n \$(get_columns))H\]$BORDER[$DIGITS\$(date +%H:%M:%S)$BORDER]\[\033[u\]"
+CLOCK="\[\033[s\033[1;\$(echo -n \$(get_columns))\]$BORDER[$DIGITS\$(date +%H:%M:%S)$BORDER]\[\033[u\]"
+
+# PS1_USER_HOST="\[\e[38;5;15m\]\u\[\e[38;5;160m\]@\[\e[38;5;249m\]\h"
+# PS1_WORK_DIR="\[\e[38;5;160m\][\[\e[00;34m\]\W\[\e[38;5;160m\]]"
+# PS1_GIT_STAT="\[\e[0m\]\$(grb_git_prompt)"
+# PS1_RET_STAT="\[\e[00;33m\]{\$?}"
+# PS1_PROMPT_RST="\[\e[0m\]\$ "
+
+function show_time() {
+    printf $CLOCK
+}
+
 
 PS1_USER_HOST="\[\e[38;5;15m\]\u\[\e[38;5;160m\]@\[\e[38;5;249m\]\h"
 PS1_WORK_DIR="\[\e[38;5;160m\][\[\e[00;34m\]\W\[\e[38;5;160m\]]"
 PS1_GIT_STAT="\[\e[0m\]\$(grb_git_prompt)"
 PS1_RET_STAT="\[\e[00;33m\]{\$?}"
 PS1_PROMPT_RST="\[\e[0m\]\$ "
+
+if [[ `whoami` == "root" ]]; then
+    PS1_USER_HOST="\[\e[38;5;196m\]\u\[\e[38;5;15m\]@\[\e[38;5;15m\]\h"
+    PS1_PROMPT_RST="\[\e[38;5;9m\]# "
+fi
+
+    

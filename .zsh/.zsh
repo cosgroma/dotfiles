@@ -1,1 +1,1 @@
-/home/cosgrma/workspace/utils/dotfiles/dfbin/../.zsh
+/home/cosgroma/dfbin/../.zsh
