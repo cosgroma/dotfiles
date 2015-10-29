@@ -10,6 +10,17 @@ function _osx_exports() {
   # export PYTHONPATH=/usr/local/lib/$current_python/site-packages:/Users/cosgroma/workspace/libs/python/modules:/Users/cosgroma/workspace/sergeant/guis
 }
 
+
+function _xil_exports() {
+  export XILINXD_LICENSE_FILE=28039@rsemd1-btriad1.nges.northgrum.com:28039@rsemd1-btriad2.nges.northgrum.com:28039@rsemd1-btriad3.nges.northgrum.com
+  export LM_LICENSE_FILE=28041@rsemd1-btriad1.NGES.Northgrum.com:28041@rsemd1-btriad2:28039@rsemd1-btriad1.nges.northgrum.com:28039@rsemd1-btriad2.nges.northgrum.com:28039@rsemd1-btriad3.nges.northgrum.com:2100@rseil1-eng4:2100@rseil1-eng3:2100@rseil1-eng2
+  #export XILINXD_LICENSE_FILE=28013@rsemd1-btriad1.northgrum.com:28013@rsemd1-btriad2.northgrum.com:28013@rsemd1-btriad3.northgrum.com
+}
+
+function _wind_exports() {
+  export LM_LICENSE_FILE=28041@rsemd1-btriad1.NGES.Northgrum.com,28041@rsemd1-btriad2
+}
+
 DEF_PATH=$PATH
 
 USR_PATH=$HOME/dfbin:$HOME/bin:$HOME/usr/bin
