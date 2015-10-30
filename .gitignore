@@ -75,6 +75,7 @@
 /.tox
 /.trc
 /.userrc
+/.userpath
 /.vim-fuf-data
 /.vim-tmp
 /.vim/.netrwhist

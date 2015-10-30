@@ -113,6 +113,9 @@ function write_user_config_file() {
   echo "name=\"$name\"" >> $usrfile
   echo "email=$email" >> $usrfile
   echo "userpass64=$userpass64" >> $usrfile
+  touch ~/.userpath.sh
+  touch ~/.useraliases.sh
+  env > ~/.userenv.sh
 }
 
 function set_links() {

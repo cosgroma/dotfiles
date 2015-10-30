@@ -9,7 +9,20 @@ source ~/dfbin/git-completion.bash
 
 source ~/.aliases.sh
 source ~/.bash_functions.sh
-source ~/.pathdef.sh
+
+DEF_PATH=$PATH
+
+if [[ -e ~/.userpath.sh ]]; then
+  source ~/.userpath.sh
+else
+  touch ~/.userpath.sh
+fi
+
+if [[ -e ~/.useraliases.sh ]]; then
+  source ~/.useraliases.sh
+else
+  touch ~/.useraliases.sh
+fi
 
 # Unbreak broken, non-colored terminal
 #export TERM='xterm-256color'
