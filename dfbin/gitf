@@ -10,7 +10,7 @@ if [[ -e $workspace/apps/git-forest/git-forest.sh ]]; then
   fi
   # User seed file
   if [[ -e $workspace/seed/sergeant.forest ]]; then
-    list_set $workspace/seed/sergeant.forest
+    list_set $workspace/seed/sergeant.core.forest
   else
     echo "no default seed file, put your forest seeds in $workspace/seed/"
   fi
