@@ -15,7 +15,8 @@ DEF_PATH=$PATH
 if [[ -e ~/.userpath.sh ]]; then
   source ~/.userpath.sh
 else
-  touch ~/.userpath.sh
+  echo "There is no user path"
+  cp ~/.userpath.template.sh ~/.userpath.sh
 fi
 
 if [[ -e ~/.useraliases.sh ]]; then
