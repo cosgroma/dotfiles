@@ -28,13 +28,9 @@ function extract () {
   fi
 }
 
-function aalias(){
-  echo "alias $1='$(fc -ln -2 | head -1 | sed "1s/^[[:space:]]*//")'" >> ~/.useraliases.sh
-}
+function aalias() { echo "alias $1='$(fc -ln -2 | head -1 | sed "1s/^[[:space:]]*//")'" >> ~/.useraliases.sh }
 
-function make-list() {
-  make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'
-}
+function make-list() { make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}' | sort}
 
 function yo() {
   if type ruby &>/dev/null; then
@@ -45,33 +41,24 @@ function yo() {
 }
 
 function test_proxy(){
-  if wget -q --spider www.google.com;then
-    echo -e "$(color_good PASS): Proxy in good order";
+  if wget -q --spider www.google.com; then
+    echo -e $GREEN"PASS"$RESET;
   else
-    echo -e "$(color_problem FAIL): Proxy test failed, perhaps update your password";
+    echo -e $RED"FAIL"$RESET": using proxy "$YELLOW$http_proxy$RESET;
   fi;
 }
 
 function subl {
   case $_myos in
-    Linux)
-      /usr/bin/subl $1
-      ;;
-    Darwin)
-      /usr/bin/subl $1
-      ;;
-    *)
-      /cygdrive/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe $(cygpath -aw $1)
-      ;;
+     Linux) /usr/bin/subl $1 ;;
+    Darwin) /usr/bin/subl $1 ;;
+         *) /cygdrive/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe $(cygpath -aw $1) ;;
   esac
 
 }
 
 
-function rstenv() {
-    export PATH=$DEF_PATH
-}
-
+function rstenv() { export PATH=$DEF_PATH }
 
 # function exit() {
 #   if type ruby 2>/dev/null; then

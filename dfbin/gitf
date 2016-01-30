@@ -1,7 +1,7 @@
 
 workspace=$HOME/workspace
-if [[ -e $workspace/apps/git-forest/git-forest.sh ]]; then
-  source $workspace/apps/git-forest/git-forest.sh
+if [[ -e /opt/git-forest/git-forest.sh ]]; then
+  source /opt/git-forest/git-forest.sh
   # User Configuration file
   if [[ -e $workspace/config/user_conf.forest ]]; then
     configuration_set $workspace/config/user_conf.forest
