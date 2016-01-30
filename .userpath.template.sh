@@ -43,6 +43,7 @@ case $(uname) in
         fi
         export PATH=$USR_PATH:$BASE_UNIX_PATH:$CLUSTER_PATH
         export XILINXD_LICENSE_FILE=2100@ecae1:28039@rsemd1-btriad1.nges.northgrum.com,28039@rsemd1-btriad2.nges.northgrum.com,28039@rsemd1-btriad3.nges.northgrum.com:2100@rseil1-eng4,2100@rseil1-eng3,2100@rseil1-eng2
+        export LM_LICENSE_FILE=28041@rsemd1-btriad1.NGES.Northgrum.com,28041@rsemd1-btriad2
         export LD_LIBRARY_PATH=$HOME/lib:$HOME/lib64:$LD_LIBRARY_PATH
         _northrop_proxy
         ;;
