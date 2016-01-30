@@ -26,16 +26,20 @@ argsparse_parse_options "$@"
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-usrfile=$DIR/../.userrc
+# usrfile=$DIR/../.userrc
+usrfile=$HOME/.userrc
 
-touch $usrfile
+if ! [[ -e $usrfile ]]; then echo "No userfile"; touch $usrfile; fi;
+
 source $usrfile
 
 dflist=(.ackrc \
+.aliases.sh \
 .autotest \
 .badvimrc \
-.bashrc \
+.bash_functions.sh \
 .bash_logout \
+.bashrc \
 .dircolorsrc \
 .emacs \
 .emacs-lisp \
@@ -47,31 +51,25 @@ dflist=(.ackrc \
 .hgrc \
 .minttyrc \
 .mutt \
-.proxybash \
-.ps1rc \
 .offlineimap.py \
 .offlineimaprc \
+.ps1_components.sh \
+.ps1rc \
 .rvmrc \
 .screenrc \
 .tmux.conf \
-.userrc \
 .vim \
 .vimrc \
 .zprofile \
 .zsh \
 .zshenv \
 .zshrc \
-dfbin \
-.ps1_components.sh \
-.aliases.sh \
-.bash_functions.sh \
-.pathdef.sh)
-
+dfbin )
 
 function set_user_name() {
-  echo "enter name for .gitconfig";
-  read name
-  echo "name set to $name"
+  echo "enter name for .gitconfig"; read name && echo "name set to $name"
+  echo "enter username for network access (default: $(whoami))"; read nuser
+  if [[ $nuser == "" ]]; then nuser=$(whoami); fi;
 }
 
 function set_user_email() {
@@ -110,6 +108,7 @@ function set_user() {
 function write_user_config_file() {
   sed -e "s/user_name/$name/g" -e "s/user_email/$email/g" $DIR/../.gitconfig_default > $DIR/../.gitconfig
   echo "user=$(whoami)" > $usrfile
+  echo "nuser=\"$nuser\"" >> $usrfile
   echo "name=\"$name\"" >> $usrfile
   echo "email=$email" >> $usrfile
   echo "userpass64=$userpass64" >> $usrfile
@@ -119,7 +118,7 @@ function write_user_config_file() {
 }
 
 function set_links() {
-  echo "Setting up symlinks : ~/.oldrcs/$dirstamp"
+  echo "Setting up symlinks"
   for f in ${dflist[@]}; do
     ln -fs $DIR/../$f ~/$f
   done;
@@ -135,52 +134,42 @@ function backup_links() {
 }
 
 function remove_links() {
-  echo "REMOVING SYMLINKS TO : ~/.oldrcs/$dirstamp"
+  echo "REMOVING SYMLINKS"
   for f in ${dflist[@]}; do
     rm -rf ~/$f
   done;
 }
 
-function show_files() {
+function show_config() {
+  echo "Scripts Directory = $DIR"
+  echo "Dotfiles List:"
   for f in ${dflist[@]}; do
     echo $f
   done;
 }
 
+function show_userrc() {
+  echo "USER Configuration:"
+  cat $usrfile
+}
 
-if argsparse_is_option_set "show"
-then
-  show_files
-elif argsparse_is_option_set "install"
-then
-  echo "running install"
-  set_user
+if argsparse_is_option_set "show"; then
+  echo "SHOWING CONFIGURATION"
+  show_config && show_userrc;
+elif argsparse_is_option_set "install"; then
+  echo "RUNNING INSTALL"
+  set_user && backup_links && set_links && write_user_config_file
+elif argsparse_is_option_set "backup"; then
   backup_links
-  set_links
-  write_user_config_file
-
-elif argsparse_is_option_set "backup"
-then
-  backup_links
-elif argsparse_is_option_set "remove"
-then
+elif argsparse_is_option_set "remove"; then
   remove_links
-elif argsparse_is_option_set "update"
-then
+elif argsparse_is_option_set "update"; then
   case "${program_options[update]}" in
-    name )
-      set_user_name;
-      ;;
-    email )
-      set_user_email;
-      ;;
-    password )
-      set_user_password;
-      ;;
+    name ) set_user_name; ;;
+    email ) set_user_email; ;;
+    password ) set_user_password; ;;
   esac
-  write_user_config_file
+  write_user_config_file;
 fi
 
 exec /bin/bash -l
-
-

@@ -32,23 +32,6 @@ function aalias(){
   echo "alias $1='$(fc -ln -2 | head -1 | sed "1s/^[[:space:]]*//")'" >> ~/.useraliases.sh
 }
 
-
-# function which () {
-#   case $_myos in
-#   Linux)
-#     /usr/bin/which $1 | xargs -i ls -l {}
-#     ;;
-#   Darwin)
-#     /usr/bin/which $1 | xargs -I {} ls -l {}
-#     ;;
-#   *)
-#     /usr/bin/which $1 | xargs -i ls -l {}
-#     # /cygdrive/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe $(cygpath -aw $1)
-#     ;;
-#   esac
-
-# }
-
 function make-list() {
   make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'
 }
@@ -84,6 +67,12 @@ function subl {
 
 }
 
+
+function rstenv() {
+    export PATH=$DEF_PATH
+}
+
+
 # function exit() {
 #   if type ruby 2>/dev/null; then
 #     ruby ~/dfbin/shellshock.rb; sleep 2; builtin exit
@@ -91,11 +80,7 @@ function subl {
 #     source ~/dfbin/see-you.sh; sleep 2; builtin exit
 #   fi
 # }
-
-function rstenv() {
-    export PATH=$DEF_PATH
-}
-
+#
 # function python() {
 #   case $(uname) in
 #     Darwin|Linux)

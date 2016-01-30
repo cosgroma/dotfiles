@@ -12,18 +12,16 @@ source ~/.bash_functions.sh
 
 DEF_PATH=$PATH
 
-if [[ -e ~/.userpath.sh ]]; then
-  source ~/.userpath.sh
-else
+if ! [[ -e ~/.userpath.sh ]]; then
   echo "There is no user path"
   cp ~/.userpath.template.sh ~/.userpath.sh
 fi
 
-if [[ -e ~/.useraliases.sh ]]; then
-  source ~/.useraliases.sh
-else
-  touch ~/.useraliases.sh
-fi
+source ~/.userpath.sh
+
+if ! [[ -e ~/.useraliases.sh ]]; then touch ~/.useraliases.sh; fi
+
+source ~/.useraliases.sh
 
 # Unbreak broken, non-colored terminal
 #export TERM='xterm-256color'
