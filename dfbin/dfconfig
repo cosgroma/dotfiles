@@ -160,9 +160,10 @@ function show_userrc() {
 if argsparse_is_option_set "show"; then
   echo "SHOWING CONFIGURATION"
   show_config && show_userrc;
+  exit;
 elif argsparse_is_option_set "install"; then
   echo "RUNNING INSTALL"
-  set_user && set_links &&  add_templates && write_user_config_file
+  ! [[ set_user && set_links && add_templates && write_user_config_file ]] && exit
 elif argsparse_is_option_set "backup"; then
   backup_links
 elif argsparse_is_option_set "remove"; then
