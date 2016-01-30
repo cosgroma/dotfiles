@@ -1,1 +1,0 @@
-/home/cosgroma/dfbin/../.vim
