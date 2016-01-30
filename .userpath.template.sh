@@ -3,8 +3,8 @@ USR_PATH=$HOME/dfbin:$HOME/bin:$HOME/usr/bin
 BASE_UNIX_PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
 
 function _northrop_proxy() {
-  export http_proxy=http://$user:$(echo -n $userpass64 | base64 -d)@centralproxy.northgrum.com:80/
-  export https_proxy=http://$user:$(echo -n $userpass64 | base64 -d)@westproxy.northgrum.com:80/
+  export http_proxy=http://$nuser:$(echo -n $userpass64 | base64 -d)@centralproxy.northgrum.com:80/
+  export https_proxy=http://$nuser:$(echo -n $userpass64 | base64 -d)@westproxy.northgrum.com:80/
 }
 
 function _osx_exports() {
