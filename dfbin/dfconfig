@@ -24,9 +24,9 @@ printf -v argsparse_usage_description "%s\n" \
 # Command line parsing is done here.
 argsparse_parse_options "$@"
 
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+DIR=$(echo $(cd $(dirname $(readlink -f ${BASH_SOURCE%/*})/../../) && pwd))
 
-# usrfile=$DIR/../.userrc
+# usrfile=$DIR/.userrc
 usrfile=$HOME/.userrc
 
 if ! [[ -e $usrfile ]]; then echo "No userfile"; touch $usrfile; fi;
@@ -36,7 +36,6 @@ source $usrfile
 dflist=(.ackrc \
 .aliases.sh \
 .autotest \
-.badvimrc \
 .bash_functions.sh \
 .bash_logout \
 .bashrc \
@@ -54,7 +53,6 @@ dflist=(.ackrc \
 .offlineimap.py \
 .offlineimaprc \
 .ps1_components.sh \
-.ps1rc \
 .rvmrc \
 .screenrc \
 .tmux.conf \
@@ -105,14 +103,20 @@ function set_user() {
   write_user_config_file
 }
 
+function add_templates() {
+  if ! [[ -e ~/.userpath.sh ]]; then
+    echo "There is no user path"
+    cp $DIR/.userpath.template.sh ~/.userpath.sh
+  fi
+}
+
 function write_user_config_file() {
-  sed -e "s/user_name/$name/g" -e "s/user_email/$email/g" $DIR/../.gitconfig_default > $DIR/../.gitconfig
+  sed -e "s/user_name/$name/g" -e "s/user_email/$email/g" $DIR/.gitconfig_default > $DIR/.gitconfig
   echo "user=$(whoami)" > $usrfile
   echo "nuser=\"$nuser\"" >> $usrfile
   echo "name=\"$name\"" >> $usrfile
   echo "email=$email" >> $usrfile
   echo "userpass64=$userpass64" >> $usrfile
-  touch ~/.userpath.sh
   touch ~/.useraliases.sh
   env > ~/.userenv.sh
 }
@@ -120,7 +124,7 @@ function write_user_config_file() {
 function set_links() {
   echo "Setting up symlinks"
   for f in ${dflist[@]}; do
-    ln -fs $DIR/../$f ~/$f
+    ln -fs $DIR/$f ~/$f
   done;
 }
 
@@ -158,7 +162,7 @@ if argsparse_is_option_set "show"; then
   show_config && show_userrc;
 elif argsparse_is_option_set "install"; then
   echo "RUNNING INSTALL"
-  set_user && backup_links && set_links && write_user_config_file
+  set_user && set_links &&  add_templates && write_user_config_file
 elif argsparse_is_option_set "backup"; then
   backup_links
 elif argsparse_is_option_set "remove"; then

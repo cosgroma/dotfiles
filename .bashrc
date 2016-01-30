@@ -12,12 +12,11 @@ source ~/.bash_functions.sh
 
 DEF_PATH=$PATH
 
-if ! [[ -e ~/.userpath.sh ]]; then
-  echo "There is no user path"
-  cp ~/.userpath.template.sh ~/.userpath.sh
-fi
-
-source ~/.userpath.sh
+if [[ -e ~/.userpath.sh ]]; then
+  source ~/.userpath.sh
+else
+  PATH=$HOME/dfbin:$PATH
+fi;
 
 if ! [[ -e ~/.useraliases.sh ]]; then touch ~/.useraliases.sh; fi
 
