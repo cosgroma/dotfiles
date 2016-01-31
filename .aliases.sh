@@ -6,8 +6,8 @@
 ## @brief
 ## @copyright
 ## @version
-## @Last Modified by:   Mathew Cosgrove
-## @Last Modified time: 2015-07-25 03:04:51
+## @Last Modified by:   cosgrma
+## @Last Modified time: 2016-01-30 13:23:55
 #
 ## @details
 ## @par URL
@@ -136,4 +136,6 @@ alias gcc-specs='echo | gcc -v -x c -E -'
 
 alias ltr='ls -ltr'
 alias sg='cd ~/workspace/sergeant'
+
+alias dos2unix=''
 

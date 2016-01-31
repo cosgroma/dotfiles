@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [[ $# == 0 ]]; then
+    PDIR=`pwd`
+else
+    PDIR=$1
+fi;
+
+! [ -d "$PDIR" ] && echo "PDIR is not a directory" && exit
+
+function __convert() {
+  f=$1
+  cp $f $f.orig && tr -d '\015' <$f >$f.conv && mv $f.conv $f && chmod +x $f;
+  diff --strip-trailing-cr $f.orig $f && echo "output matches deleting tempfile" && rm $f.orig
+}
+
+for f in `find $PDIR -name "*" -type f`; do
+  file $f | grep CRLF &> /dev/null;
+  [[ $? == "0" ]] && echo "converting : $f" && __convert $f;
+done;
+
+# for f in `find $PDIR -name "*" -type  f`; do
+#   cp $f $f.orig && tr -d '\015' <$f >$f.conv && mv $f.conv $f;
+# done;
+# for f in `find . -name "*" -type  f`; do cp $f $f.orig && tr -d '\015' <$f >t$f && mv t$f $f; done;
+# for f in `find . -name "*" -type  f`; do cp $f $f.orig && tr -d '\015' <$f >$f.conv && mv $f.conv $f; done;
