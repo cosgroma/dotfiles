@@ -29,9 +29,8 @@ DIR=$(echo $(cd $(dirname $(readlink -f ${BASH_SOURCE%/*})/../../) && pwd))
 # usrfile=$DIR/.userrc
 usrfile=$HOME/.userrc
 
-if ! [[ -e $usrfile ]]; then echo "No userfile"; touch $usrfile; fi;
+if [[ -e $usrfile ]]; then source $usrfile; fi #touch $usrfile; fi;
 
-source $usrfile
 
 dflist=(.ackrc \
 .aliases.sh \
@@ -97,6 +96,7 @@ function set_user_password() {
 }
 
 function set_user() {
+  echo "setting up user"
   if [[ -z $name ]];       then set_user_name;     fi;
   if [[ -z $email ]];      then set_user_email;    fi;
   if [[ -z $userpass64 ]]; then set_user_password; fi;
@@ -163,7 +163,8 @@ if argsparse_is_option_set "show"; then
   exit;
 elif argsparse_is_option_set "install"; then
   echo "RUNNING INSTALL"
-  ! [[ set_user && set_links && add_templates && write_user_config_file ]] && exit
+  set_user && set_links && add_templates && write_user_config_file
+  exit
 elif argsparse_is_option_set "backup"; then
   backup_links
 elif argsparse_is_option_set "remove"; then
