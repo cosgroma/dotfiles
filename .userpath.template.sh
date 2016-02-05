@@ -5,6 +5,7 @@ BASE_UNIX_PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
 function _northrop_proxy() {
   export http_proxy=http://$nuser:$(echo -n $userpass64 | base64 -d)@centralproxy.northgrum.com:80/
   export https_proxy=http://$nuser:$(echo -n $userpass64 | base64 -d)@westproxy.northgrum.com:80/
+  export no_proxy=.northgrum.com
 }
 
 function _osx_exports() {
@@ -15,12 +16,12 @@ function _osx_exports() {
 
 function _xil_exports() {
   export XILINXD_LICENSE_FILE=28039@rsemd1-btriad1.nges.northgrum.com:28039@rsemd1-btriad2.nges.northgrum.com:28039@rsemd1-btriad3.nges.northgrum.com
-  export LM_LICENSE_FILE=28041@rsemd1-btriad1.NGES.Northgrum.com:28041@rsemd1-btriad2:28039@rsemd1-btriad1.nges.northgrum.com:28039@rsemd1-btriad2.nges.northgrum.com:28039@rsemd1-btriad3.nges.northgrum.com:2100@rseil1-eng4:2100@rseil1-eng3:2100@rseil1-eng2
+  export LM_LICENSE_FILE=28041@rsemd1-btriad1.NGES.northgrum.com:28041@rsemd1-btriad2:28039@rsemd1-btriad1.nges.northgrum.com:28039@rsemd1-btriad2.nges.northgrum.com:28039@rsemd1-btriad3.nges.northgrum.com:2100@rseil1-eng4:2100@rseil1-eng3:2100@rseil1-eng2
   #export XILINXD_LICENSE_FILE=28013@rsemd1-btriad1.northgrum.com:28013@rsemd1-btriad2.northgrum.com:28013@rsemd1-btriad3.northgrum.com
 }
 
 function _wind_exports() {
-  export LM_LICENSE_FILE=28041@rsemd1-btriad1.NGES.Northgrum.com,28041@rsemd1-btriad2
+  export LM_LICENSE_FILE=28041@rsemd1-btriad1.NGES.northgrum.com,28041@rsemd1-btriad2
 }
 
 
@@ -43,7 +44,7 @@ case $(uname) in
         fi
         export PATH=$USR_PATH:$BASE_UNIX_PATH:$CLUSTER_PATH
         export XILINXD_LICENSE_FILE=2100@ecae1:28039@rsemd1-btriad1.nges.northgrum.com,28039@rsemd1-btriad2.nges.northgrum.com,28039@rsemd1-btriad3.nges.northgrum.com:2100@rseil1-eng4,2100@rseil1-eng3,2100@rseil1-eng2
-        export LM_LICENSE_FILE=28041@rsemd1-btriad1.NGES.Northgrum.com,28041@rsemd1-btriad2
+        export LM_LICENSE_FILE=28041@rsemd1-btriad1.NGES.northgrum.com,28041@rsemd1-btriad2
         export LD_LIBRARY_PATH=$HOME/lib:$HOME/lib64:$LD_LIBRARY_PATH
         _northrop_proxy
         ;;

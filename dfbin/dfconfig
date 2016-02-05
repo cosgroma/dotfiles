@@ -113,7 +113,7 @@ function add_templates() {
 function write_user_config_file() {
   sed -e "s/user_name/$name/g" -e "s/user_email/$email/g" $DIR/.gitconfig_default > $DIR/.gitconfig
   echo "user=$(whoami)" > $usrfile
-  echo "nuser=\"$nuser\"" >> $usrfile
+  echo "nuser=$nuser" >> $usrfile
   echo "name=\"$name\"" >> $usrfile
   echo "email=$email" >> $usrfile
   echo "userpass64=$userpass64" >> $usrfile
@@ -164,7 +164,6 @@ if argsparse_is_option_set "show"; then
 elif argsparse_is_option_set "install"; then
   echo "RUNNING INSTALL"
   set_user && set_links && add_templates && write_user_config_file
-  exit
 elif argsparse_is_option_set "backup"; then
   backup_links
 elif argsparse_is_option_set "remove"; then
