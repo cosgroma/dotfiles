@@ -44,6 +44,7 @@ source ~/.ps1_components.sh
 case $(uname) in
   Linux)
     USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_GIT_STAT$PS1_PROMPT_RST"
+    export PLATFORM=linux
     ;;
   Darwin)
     USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_GIT_STAT$PS1_PROMPT_RST"
@@ -57,3 +58,6 @@ export PS1="$USR_PROMPT"
 export PS2='> '
 export PS4='+ '
 
+
+export NVM_DIR="/home/cosgroma/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

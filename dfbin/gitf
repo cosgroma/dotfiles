@@ -1,5 +1,16 @@
+#!/bin/bash
 
 workspace=$HOME/workspace
+if [[ $# = 1 ]]; then
+  if [ -d "$1" ]; then
+    workspace=$1
+  else
+    echo "WARNING: $1 not a valid workspace path, falling back to default"
+  fi
+fi;
+
+echo "using $workspace as root workspace"
+
 if [[ -e /opt/git-forest/git-forest.sh ]]; then
   source /opt/git-forest/git-forest.sh
   # User Configuration file

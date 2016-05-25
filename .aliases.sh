@@ -1,13 +1,13 @@
 #!/bin/bash
 ################################################################################
-## @file    .aliases.sh
+## @file    .aliases.sh - {{project_name}}
 ## @author  Mathew Cosgrove mathew.cosgrove@ngc.com
 ## @Date:   2014-12-24 10:32:33
 ## @brief
 ## @copyright
 ## @version
-## @Last Modified by:   cosgrma
-## @Last Modified time: 2016-01-30 13:23:55
+## @Last Modified by:   Mathew Cosgrove
+## @Last Modified time: 2016-05-12 22:03:00
 #
 ## @details
 ## @par URL

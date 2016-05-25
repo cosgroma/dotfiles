@@ -11,15 +11,34 @@ csf=$PDIR/cscope.files
 t_csf=$PDIR/temp.cscope.files
 [ -e "$csf" ] && echo "cleaning previous scope files" && rm $csf
 
-find $PDIR -name "*.[chxsS]" -print > $t_csf
-echo "making cscope for $PDIR, please wait..."
-while read line; do
+function find_source() {
+  find $PDIR -name "*.[chxsS]" -print > $t_csf
+}
+
+function windows_filter() {
+  while read line; do
     echo $(cygpath -aw $line) >> $csf;
-done < $t_csf
+  done < $t_csf
+}
+
+echo "making cscope for $PDIR, please wait..."
+
+find_source
+
+case $(uname) in
+  Linux | Darwin)
+    cat $t_csf > $csf
+    ;;
+  *)
+    windows_filter
+    ;;
+esac
+
 echo "finished processing source files... running cscope"
-pushd .
+
+pushd . > /dev/null
 cd $PDIR
 cscope -b
-popd
+popd > /dev/null
 
 rm $t_csf

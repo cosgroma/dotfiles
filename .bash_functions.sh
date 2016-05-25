@@ -6,27 +6,27 @@ _myos="$(uname)"
 function mktar() { tar cvf  "${1%%/}.tar"     "${1%%/}/"; }
 function mktgz() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 function mktbz() { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
-# Easy extract
-function extract () {
-  if [ -f $1 ] ; then
-      case $1 in
-          *.tar.bz2)   tar xvjf $1    ;;
-          *.tar.gz)    tar xvzf $1    ;;
-          *.bz2)       bunzip2 $1     ;;
-          *.rar)       rar x $1       ;;
-          *.gz)        gunzip $1      ;;
-          *.tar)       tar xvf $1     ;;
-          *.tbz2)      tar xvjf $1    ;;
-          *.tgz)       tar xvzf $1    ;;
-          *.zip)       unzip $1       ;;
-          *.Z)         uncompress $1  ;;
-          *.7z)        7z x $1        ;;
-          *)           echo "don't know how to extract '$1'..." ;;
-      esac
-  else
-      echo "'$1' is not a valid file!"
-  fi
-}
+# # Easy extract
+# function extract () {
+#   if [ -f $1 ] ; then
+#       case $1 in
+#           *.tar.bz2)   tar xvjf $1    ;;
+#           *.tar.gz)    tar xvzf $1    ;;
+#           *.bz2)       bunzip2 $1     ;;
+#           *.rar)       rar x $1       ;;
+#           *.gz)        gunzip $1      ;;
+#           *.tar)       tar xvf $1     ;;
+#           *.tbz2)      tar xvjf $1    ;;
+#           *.tgz)       tar xvzf $1    ;;
+#           *.zip)       unzip $1       ;;
+#           *.Z)         uncompress $1  ;;
+#           *.7z)        7z x $1        ;;
+#           *)           echo "don't know how to extract '$1'..." ;;
+#       esac
+#   else
+#       echo "'$1' is not a valid file!"
+#   fi
+# }
 
 function aalias() { echo "alias $1='$(fc -ln -2 | head -1 | sed "1s/^[[:space:]]*//")'" >> ~/.useraliases.sh; }
 
@@ -64,6 +64,14 @@ function subl() {
 
 
 function rstenv() { export PATH=$DEF_PATH; }
+
+function doc2text() {
+  if [ -f $1 ] ; then
+    unzip -p $1 word/document.xml | sed -e $'s/<\/w:t>/\\\n/g; s/<[^>]\{1,\}>//g; s/[^[:print:]]\{1,\}//g'
+  else
+    echo "cannot open $1"
+  fi
+}
 
 # function exit() {
 #   if type ruby 2>/dev/null; then
