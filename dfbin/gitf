@@ -1,28 +1,81 @@
 #!/bin/bash
 
-workspace=$HOME/workspace
-if [[ $# = 1 ]]; then
-  if [ -d "$1" ]; then
-    workspace=$1
-  else
-    echo "WARNING: $1 not a valid workspace path, falling back to default"
-  fi
-fi;
+unset workspace
+unset gitf_list
+OPTIND=1
 
-echo "using $workspace as root workspace"
+gitf_app=/opt/git-forest/git-forest.sh
+config_file=$HOME/.gitfconfig
 
-if [[ -e /opt/git-forest/git-forest.sh ]]; then
-  source /opt/git-forest/git-forest.sh
-  # User Configuration file
-  if [[ -e $workspace/config/user_conf.forest ]]; then
-    configuration_set $workspace/config/user_conf.forest
+# Check for valid gitf app
+if [[ -e $gitf_app ]]; then
+   source $gitf_app
+else
+  echo -e "\033[38;5;160mERROR\033[0m: gitf app not found at $gitf_app"
+  return 1;
+fi
+
+
+while getopts ":w:l:c:" opt; do
+  case $opt in
+    w)
+      # echo "-w was triggered, Parameter: $OPTARG" >&2
+      workspace=$OPTARG
+      ;;
+    l)
+      # echo "-l was triggered, Parameter: $OPTARG" >&2
+      gitf_list=$OPTARG
+      ;;
+    c)
+      # echo "-c was triggered, Parameter: $OPTARG" >&2
+      config_file=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      return 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      return 1
+      ;;
+  esac
+done
+
+# if [[ $# > 0 ]]; then
+#   if [ -d "$1" ]; then
+#     workspace=$1
+#   else
+#     echo "WARNING: $1 is not a valid workspace path, falling back to default"
+#   fi
+# fi
+
+# Check for valid config file
+if [[ -e $config_file ]]; then
+  configuration_set $config_file
+else
+  echo -e "$(color_problem ERROR:) no user configuration, pull from the template and put at $HOME/.gitfconfig";
+  return 1;
+fi
+
+if ! [[ -d $workspace ]]; then
+  echo -e "$(color_problem ERROR:) $workspace is not a valid path"
+  return 1;
+fi
+
+if ! [[ -z $gitf_list ]]; then
+  if [[ -e $gitf_list ]]; then
+    list_set $gitf_list
+    # echo "repo list set to $gitf_list"
   else
-    echo "no user configuration, pull from the template and put at $workspace/config/user_conf.forest";
-  fi
-  # User seed file
-  if [[ -e $workspace/seed/sergeant.forest ]]; then
-    list_set $workspace/seed/sergeant.core.forest
-  else
-    echo "no default seed file, put your forest seeds in $workspace/seed/"
+    echo -e "$(color_problem ERROR:) $gitf_list is not a valid path"
+    return 1;
   fi
 fi
+
+
+# # User seed file
+# if [[ -e $workspace/seed/sergeant.forest ]]; then
+#   list_set $workspace/seed/sergeant.core.forest
+# else
+#   echo "no default seed file, put your forest seeds in $workspace/seed/"
+# fi
