@@ -62,7 +62,7 @@ function get_xilinx_env() {
     if [ -z $XILINX_VIVADO ]; then
         printf "\e[0m\$ "
     else
-        printf "\e[38;5;150m(XILINX)\e[0m\$ "
+        printf "\e[38;5;150m(xlnx)\e[0m\$ "
     fi
 }
 
