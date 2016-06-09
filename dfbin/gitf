@@ -19,15 +19,12 @@ fi
 while getopts ":w:l:c:" opt; do
   case $opt in
     w)
-      # echo "-w was triggered, Parameter: $OPTARG" >&2
       workspace=$OPTARG
       ;;
     l)
-      # echo "-l was triggered, Parameter: $OPTARG" >&2
       gitf_list=$OPTARG
       ;;
     c)
-      # echo "-c was triggered, Parameter: $OPTARG" >&2
       config_file=$OPTARG
       ;;
     \?)

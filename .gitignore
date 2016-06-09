@@ -123,3 +123,4 @@
 /var
 /work
 *.sublime-*
+**xvhdl.pb

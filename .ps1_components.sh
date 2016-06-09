@@ -58,4 +58,13 @@ if [[ `whoami` == "root" ]]; then
     PS1_PROMPT_RST="\[\e[38;5;9m\]# "
 fi
 
-    
+function get_xilinx_env() {
+    if [ -z $XILINX_VIVADO ]; then
+        printf "\e[0m\$ "
+    else
+        printf "\e[38;5;150m(XILINX)\e[0m\$ "
+    fi
+}
+
+PS1_XILINX="\$(get_xilinx_env)"
+
