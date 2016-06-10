@@ -11,8 +11,8 @@ function minutes_since_last_commit {
 
 # export PS1="\[\033[01;32m\]\u\[\033[01;37m\]@\h \[\033[01;33m\]\T \w\[\033[38;5;40m\]\[\e[0m\] \$ "
 function grb_git_prompt() {
-    local g="$(__gitdir)"
-    if [ -n "$g" ]; then
+    # local g="$(__gitdir)"
+    if [ -e ".git" ]; then
         local MINUTES_SINCE_LAST_COMMIT=`minutes_since_last_commit`
         if [ "$MINUTES_SINCE_LAST_COMMIT" -gt 30 ]; then
             local COLOR=${RED}
