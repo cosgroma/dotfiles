@@ -44,6 +44,7 @@ dflist=(.ackrc \
 .gemrc \
 .getmail \
 .gitconfig \
+.gitmessage \
 .githelpers \
 .gitmodules \
 .hgrc \
