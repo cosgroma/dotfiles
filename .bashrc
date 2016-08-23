@@ -61,3 +61,5 @@ export PS4='+ '
 
 export NVM_DIR="/home/cosgroma/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+                                                 #
+source ~/dfbin/bash-wakatime/bash-wakatime.sh
