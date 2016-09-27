@@ -106,3 +106,4 @@ function doc2text() {
 #       ;;
 #   esac
 # }
+rmrb() { for r in `git remote`; do git push $r --delete $1; done; }
