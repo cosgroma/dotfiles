@@ -1,0 +1,45 @@
+#!/bin/bash
+################################################################################
+## @file    gource.sh - {{project_name}}
+## @author  Mathew Cosgrove cosgroma@gmail.com
+## @Date:   2016-05-03 02:57:44
+## @brief
+## @copyright
+## @version
+## @Last Modified by:   cosgroma
+## @Last Modified time: 2016-08-20 02:52:03
+#
+## @details
+## @par URL
+##  @n
+#
+## @par Purpose
+#
+##
+## @note
+##
+#
+## @par Usage
+##
+################################################################################
+
+for d in $(find . -name "*.git*" -type d); do
+  echo "processing" $d
+  gource --output-custom-log gource_$(echo $d | cut -d'.' -f2 | sed "s@/@_@g").txt $d;
+done
+
+# rm gource__kernels
+rm gource__*kernels*
+cat gource__* | sort -n > sergeant_log_combined.txt
+rm gource__*
+#
+# ffmpeg -y -b 3000K -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -vpre hq -crf 28 -threads 0 bugle.mp4
+#
+# git_users=$(cat sergeant_log_combined_processed.txt | cut -d'|' -f2 | sort | uniq | grep -v 'Mathew Cosgrove' | grep -v 'stu' | grep -v 'Stuart')
+#
+# IFS=$'\n' ; for u in ${git_users[*]}; do sed -i -r "s/$u/Mathew Cosgrove/g" sergeant_log_combined_processed.txt ; done;
+#
+# gource --start-date '2014-06-20' --user-scale 2.0 -800x600 --output-ppm-stream - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -vpre hq -crf 28 -threads 0 sergean_forest.mp4
+#
+gource sergeant_log_combined.txt --start-date '2016-01-00' --user-scale 2.0 -800x600 -o - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 gource.mp4
+gource sergeant_log_combined.txt --start-date '2016-01-00' --highlight-dirs --dir-name-depth 2 --user-scale 2.0 -1920x1080 -o - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 gource.mp4
