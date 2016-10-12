@@ -22,16 +22,32 @@
 ## @par Usage
 ##
 ################################################################################
-
+groupname=$(basename `pwd`)
 for d in $(find . -name "*.git*" -type d); do
   echo "processing" $d
-  gource --output-custom-log gource_$(echo $d | cut -d'.' -f2 | sed "s@/@_@g").txt $d;
+  base_folder=$(echo $d | cut -d'.' -f2)
+  filename=gource_$(echo $base_folder | sed "s@/@_@g").txt
+  gource --output-custom-log  $filename $d;
+  sed -i "s@|/@|/$groupname$base_folder@g" $filename
 done
 
+combined_filename=$groupname\_combined.txt
 # rm gource__kernels
-rm gource__*kernels*
-cat gource__* | sort -n > sergeant_log_combined.txt
+# rm gource__*kernels*
+cat gource__* | sort -n > $combined_filename
 rm gource__*
+
+echo "running gource"
+gource $combined_filename --title "$groupname" --highlight-dirs  --dir-name-depth 1 --hide-filenames --seconds-per-day .1 --output-framerate 60 --output-ppm-stream $groupname.ppm
+
+# gource engines_combined.txt --title "engines" --highlight-dirs  --dir-name-depth 1 --hide-filenames --seconds-per-day .1
+echo "running ffmpeg"
+ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i $groupname.ppm  -vcodec wmv1 -r 60 -qscale 0 $groupname.wmv
+rm $groupname.ppm
+timeatend=$(echo `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -sexagesimal $groupname.wmv` | cut -d'.' -f1)
+echo "running last frame to image"
+ffmpeg -ss $timeatend -i $groupname.wmv -qscale:v 2 -vframes 1 $groupname.jpg
+
 #
 # ffmpeg -y -b 3000K -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -vpre hq -crf 28 -threads 0 bugle.mp4
 #
@@ -41,5 +57,23 @@ rm gource__*
 #
 # gource --start-date '2014-06-20' --user-scale 2.0 -800x600 --output-ppm-stream - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -vpre hq -crf 28 -threads 0 sergean_forest.mp4
 #
-gource sergeant_log_combined.txt --start-date '2016-01-00' --user-scale 2.0 -800x600 -o - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 gource.mp4
-gource sergeant_log_combined.txt --start-date '2016-01-00' --highlight-dirs --dir-name-depth 2 --user-scale 2.0 -1920x1080 -o - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 gource.mp4
+# gource sergeant_log_combined.txt --start-date '2016-01-00' --user-scale 2.0 -800x600 -o - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 gource.mp4
+# gource sergeant_log_combined.txt --start-date '2016-01-00' --highlight-dirs --dir-name-depth 2 --user-scale 2.0 -1920x1080 -o - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 gource.mp4
+
+# gource -1024x768 --stop-position 1.0 --highlight-all-users --hide-filenames --seconds-per-day 5 --output-framerate 60 --output-ppm-stream output.ppm
+# ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i output.ppm  -vcodec wmv1 -r 60 -qscale 0 out.wmv
+# libx264
+# gource -1024x768 --stop-position 1.0 --highlight-all-users --hide-filenames --seconds-per-day .1 --output-framerate 60 --output-ppm-stream output.ppm
+
+#  gource -1024x768 --stop-position 1.0 --highlight-all-users --hide-filenames --seconds-per-day .1 --output-framerate 60 --output-ppm-stream output.ppm
+
+# --start-date '2016-01-00' --highlight-dirs --dir-name-depth 2 --user-scale 2.0 -1920x1080
+
+# gource sergeant_log_combined.txt --title "My Project" --highlight-dirs  --dir-name-depth 2 --hide-filenames --seconds-per-day .1 --key
+
+# $ ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 input.mp4
+
+# timeatend=$(echo `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -sexagesimal out.wmv` | cut -d'.' -f1)
+
+
+# ffmpeg -ss $timeatend -i out.wmv -qscale:v 2 -vframes 1 output.jpg

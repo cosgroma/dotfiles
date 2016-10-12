@@ -23,13 +23,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-if [ ${BASH_VERSINFO}${BASH_VERSINFO[1]} -lt 42 ]
-then
-  echo 'Bash version 4.2+ required'
-  exit
-fi
-
-usage="\
+mapfile usage <<+
 NAME
   apt-cyg - package manager utility
 
@@ -108,15 +102,15 @@ OPTIONS
 
   --version
     Display version and exit.
-"
++
 
-version="\
-apt-cyg version 1
+mapfile version <<+
+apt-cyg version 0.59
 
 The MIT License (MIT)
 
 Copyright (c) 2005-9 Stephen Jungels
-"
++
 
 function wget {
   if command wget -h &>/dev/null
@@ -134,12 +128,9 @@ function find-workspace {
   
   # work wherever setup worked last, if possible
   cache=$(awk '
-  BEGIN {
-    RS = "\n\\<"
-    FS = "\n\t"
-  }
-  $1 == "last-cache" {
-    print $2
+  /last-cache/ {
+    getline
+    print $1
   }
   ' /etc/setup/setup.rc)
 
@@ -634,7 +625,7 @@ do
     ;;
 
     --version)
-      printf "$version"
+      printf %s "${version[@]}"
       exit
     ;;
 
@@ -669,5 +660,5 @@ then
   readonly arch=${HOSTTYPE/i6/x}
   apt-$command
 else
-  printf "$usage"
+  printf %s "${usage[@]}"
 fi
