@@ -31,24 +31,35 @@ for d in $(find . -name "*.git*" -type d); do
   sed -i "s@|/@|/$groupname$base_folder@g" $filename
 done
 
+
+case $(uname) in
+  Linux) codec="-vcodec libx264";
+         ext="mp4";
+         ;;
+      *) codec="-vcodec wmv1";
+         ext="wmv";
+         ;;
+esac
+
 combined_filename=$groupname\_combined.txt
-# rm gource__kernels
-# rm gource__*kernels*
+
 cat gource__* | sort -n > $combined_filename
 rm gource__*
 
 echo "running gource"
 gource $combined_filename --title "$groupname" --highlight-dirs  --dir-name-depth 1 --hide-filenames --seconds-per-day .1 --output-framerate 60 --output-ppm-stream $groupname.ppm
 
-# gource engines_combined.txt --title "engines" --highlight-dirs  --dir-name-depth 1 --hide-filenames --seconds-per-day .1
 echo "running ffmpeg"
-ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i $groupname.ppm  -vcodec wmv1 -r 60 -qscale 0 $groupname.wmv
+ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i $groupname.ppm  $codec -r 60 -qscale 0 $groupname.$ext
 rm $groupname.ppm
-timeatend=$(echo `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -sexagesimal $groupname.wmv` | cut -d'.' -f1)
+timeatend=$(echo `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -sexagesimal $groupname.$ext` | cut -d'.' -f1)
 echo "running last frame to image"
-ffmpeg -ss $timeatend -i $groupname.wmv -qscale:v 2 -vframes 1 $groupname.jpg
+ffmpeg -ss $timeatend -i $groupname.$ext -qscale:v 2 -vframes 1 $groupname.jpg
 
+# rm gource__kernels
+# rm gource__*kernels*
 #
+## gource engines_combined.txt --title "engines" --highlight-dirs  --dir-name-depth 1 --hide-filenames --seconds-per-day .1
 # ffmpeg -y -b 3000K -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -vpre hq -crf 28 -threads 0 bugle.mp4
 #
 # git_users=$(cat sergeant_log_combined_processed.txt | cut -d'|' -f2 | sort | uniq | grep -v 'Mathew Cosgrove' | grep -v 'stu' | grep -v 'Stuart')
