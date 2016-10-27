@@ -30,6 +30,7 @@ export CLICOLOR=1
 
 eval "`dircolors -b ~/.dircolorsrc`"
 
+unset PROMPT_COMMAND;
 # Erase duplicates in history
 export HISTCONTROL=erasedups
 # Store 10k history entries
