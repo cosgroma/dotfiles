@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ## Source user settings
+unset PROMPT_COMMAND;
 
 source ~/.userrc
 
@@ -30,7 +31,6 @@ export CLICOLOR=1
 
 eval "`dircolors -b ~/.dircolorsrc`"
 
-unset PROMPT_COMMAND;
 # Erase duplicates in history
 export HISTCONTROL=erasedups
 # Store 10k history entries
@@ -60,7 +60,3 @@ export PS2='> '
 export PS4='+ '
 
 
-export NVM_DIR="/home/cosgroma/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-                                                 #
-source ~/dfbin/bash-wakatime/bash-wakatime.sh
