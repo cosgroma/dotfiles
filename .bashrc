@@ -58,6 +58,3 @@ esac
 export PS1="$USR_PROMPT"
 export PS2='> '
 export PS4='+ '
-
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function

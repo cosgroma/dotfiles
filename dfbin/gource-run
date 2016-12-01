@@ -23,13 +23,49 @@
 ##
 ################################################################################
 groupname=$(basename `pwd`)
+date='2013-01-01'
+ignore=''
+while getopts ":d:i:" opt; do
+  case $opt in
+    d)
+      echo "-d was triggered, Parameter: $OPTARG" >&2
+      date=$OPTARG
+      ;;
+    i)
+      echo "-i was triggered, Parameter: $OPTARG" >&2
+      ignore=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
+
 for d in $(find . -name "*.git*" -type d); do
+  skip=false;
+  for i in $ignore; do
+    if test $(echo "$d" | grep $i); then
+      skip=true;
+      echo "skipping" $d
+      break;
+    fi;
+  done;
+
+  if $skip; then continue; fi;
   echo "processing" $d
   base_folder=$(echo $d | cut -d'.' -f2)
   filename=gource_$(echo $base_folder | sed "s@/@_@g").txt
   gource --output-custom-log  $filename $d;
   sed -i "s@|/@|/$groupname$base_folder@g" $filename
 done
+
+
 
 
 case $(uname) in
@@ -46,15 +82,39 @@ combined_filename=$groupname\_combined.txt
 cat gource__* | sort -n > $combined_filename
 rm gource__*
 
-echo "running gource"
-gource $combined_filename --title "$groupname" --highlight-dirs  --dir-name-depth 1 --hide-filenames --seconds-per-day .1 --output-framerate 60 --output-ppm-stream $groupname.ppm
+outfile=$groupname-$(date +%Y%m%d%H%M%S)
+echo "running gource: $outfile-ffmpeg"
 
-echo "running ffmpeg"
-ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i $groupname.ppm  $codec -r 60 -qscale 0 $groupname.$ext
-rm $groupname.ppm
-timeatend=$(echo `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -sexagesimal $groupname.$ext` | cut -d'.' -f1)
-echo "running last frame to image"
-ffmpeg -ss $timeatend -i $groupname.$ext -qscale:v 2 -vframes 1 $groupname.jpg
+gource $combined_filename \
+  --start-date "$date"  \
+  --title "$groupname" \
+  --highlight-dirs  \
+  --dir-name-depth 1 \
+  --hide-filenames \
+  --seconds-per-day .2 \
+  --output-framerate 60 \
+  -1920x1080 \
+  --output-ppm-stream $outfile.ppm &> $outfile.log
+
+echo "running ffmpeg: $outfile.$ext"
+ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i $outfile.ppm  $codec -r 60 -qscale 0 $outfile.$ext &> $outfile-ffmpeg.log
+rm $outfile.ppm
+timeatend=$(echo `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -sexagesimal $outfile.$ext` | cut -d'.' -f1) &> $outfile-ffmpeg.log
+echo "running last frame to image $outfile.jpg"
+ffmpeg -ss $timeatend -i $outfile.$ext -qscale:v 2 -vframes 1 $outfile.jpg &> $outfile-ffmpeg.log
+
+# ffmpeg -i sergeant-2015-2016.mp4 -c:v libvpx -crf 10 -b:v 1M -c:a libvorbis sergeant-2015-2016.webm
+
+# gource $combined_filename \
+#   --start-date "$date"  \
+#   --title "$groupname" \
+#   --highlight-dirs  \
+#   --dir-name-depth 1 \
+#   --hide-filenames \
+#   --seconds-per-day .2 \
+#   --output-framerate 60 \
+
+#   --output-ppm-stream $outfile.ppm
 
 # rm gource__kernels
 # rm gource__*kernels*
