@@ -44,7 +44,7 @@ source ~/.ps1_components.sh
 
 case $(uname) in
   Linux)
-    USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_GIT_STAT$PS1_XILINX$PS1_END"
+    USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_GIT_STAT$PS1_XILINX$PS1_GITF$PS1_END"
     export PLATFORM=linux
     ;;
   Darwin)

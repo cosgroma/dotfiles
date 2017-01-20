@@ -73,7 +73,7 @@ function get_gitf_env() {
         # if [ -z $repo_file]; then
 
         # fi
-        printf "\e[38;5;150m(gitf)\e[0m"
+        printf "\e[38;5;150m(gitf-$remote_name)\e[0m"
     fi
 }
 
