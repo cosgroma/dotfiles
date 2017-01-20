@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# # Git prompt components
+# Git prompt components
 function minutes_since_last_commit {
     now=`date +%s`
     last_commit=`git log --pretty=format:'%at' -1`
@@ -52,6 +52,7 @@ PS1_WORK_DIR="\[\e[38;5;160m\][\[\e[00;34m\]\W\[\e[38;5;160m\]]"
 PS1_GIT_STAT="\[\e[0m\]\$(grb_git_prompt)"
 PS1_RET_STAT="\[\e[00;33m\]{\$?}"
 PS1_PROMPT_RST="\[\e[0m\]\$ "
+PS1_END="\e[0m\$ "
 
 if [[ `whoami` == "root" ]]; then
     PS1_USER_HOST="\[\e[38;5;196m\]\u\[\e[38;5;15m\]@\[\e[38;5;15m\]\h"
@@ -59,12 +60,23 @@ if [[ `whoami` == "root" ]]; then
 fi
 
 function get_xilinx_env() {
-    if [ -z $XILINX_VIVADO ]; then
-        printf "\e[0m\$ "
-    else
+    if ! [ -z $XILINX_VIVADO ]; then
         printf "\e[38;5;150m(xlnx)\e[0m\$ "
     fi
 }
 
 PS1_XILINX="\$(get_xilinx_env)"
+
+function get_gitf_env() {
+    if ! [ -z $GITF_VERSION ]; then
+        # rfile="-"
+        # if [ -z $repo_file]; then
+
+        # fi
+        printf "\e[38;5;150m(gitf)\e[0m"
+    fi
+}
+
+PS1_GITF="\$(get_gitf_env)"
+
 
