@@ -46,6 +46,11 @@ function yo() {
   fi
 }
 
+function ch () {
+    cd "$@"
+    export HISTFILE="$(pwd)/.bash_history"
+}
+
 function test_proxy() {
   if wget -q --spider www.google.com; then
     echo -e $GREEN"PASS"$RESET;
