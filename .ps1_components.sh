@@ -34,7 +34,8 @@ function get_columns {
 
 DIGITS="\[\e[38;5;160m\]"
 BORDER="\[\033[1;37m\]"
-CLOCK="\[\033[s\033[1;\$(echo -n \$(get_columns))\]$BORDER[$DIGITS\$(date +%H:%M:%S)$BORDER]\[\033[u\]"
+# CLOCK="\[\033[s\033[1;\$(echo -n \$(get_columns))\]$BORDER[$DIGITS\$(date +%H:%M:%S)$BORDER]\[\033[u\]"
+CLOCK="\033\ $(date +%H:%M:%S)"
 
 # PS1_USER_HOST="\[\e[38;5;15m\]\u\[\e[38;5;160m\]@\[\e[38;5;249m\]\h"
 # PS1_WORK_DIR="\[\e[38;5;160m\][\[\e[00;34m\]\W\[\e[38;5;160m\]]"
@@ -42,10 +43,14 @@ CLOCK="\[\033[s\033[1;\$(echo -n \$(get_columns))\]$BORDER[$DIGITS\$(date +%H:%M
 # PS1_RET_STAT="\[\e[00;33m\]{\$?}"
 # PS1_PROMPT_RST="\[\e[0m\]\$ "
 
-function show_time() {
-    printf $CLOCK
+get_time(){ printf "\033\e[38;5;118m$(date +%H:%M:%S) "; };
+time_on=false
+show_time() {
+    [[ $time_on == true ]] && export PS1=$PREV_PS1 && time_on=false && return
+    time_on=true
+    PREV_PS1=$PS1
+    export PS1=\$\(get_time\)$PS1
 }
-
 
 PS1_USER_HOST="\[\e[38;5;15m\]\u\[\e[38;5;160m\]@\[\e[38;5;249m\]\h"
 PS1_WORK_DIR="\[\e[38;5;160m\][\[\e[00;34m\]\W\[\e[38;5;160m\]]"
