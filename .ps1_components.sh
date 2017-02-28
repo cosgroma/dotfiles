@@ -66,7 +66,7 @@ fi
 
 function get_xilinx_env() {
     if ! [ -z $XILINX_VIVADO ]; then
-        printf "\e[38;5;150m(xlnx)\e[0m\$ "
+        printf "\e[38;5;150m(xlnx)\e[0m"
     fi
 }
 
@@ -74,10 +74,6 @@ PS1_XILINX="\$(get_xilinx_env)"
 
 function get_gitf_env() {
     if ! [ -z $GITF_VERSION ]; then
-        # rfile="-"
-        # if [ -z $repo_file]; then
-
-        # fi
         printf "\e[38;5;150m(gitf-$remote_name)\e[0m"
     fi
 }
