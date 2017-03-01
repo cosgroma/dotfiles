@@ -7,7 +7,7 @@
 ## @copyright
 ## @version
 ## @Last Modified by:   Mathew Cosgrove
-## @Last Modified time: 2016-05-12 22:03:00
+## @Last Modified time: 2017-03-01 15:14:45
 #
 ## @details
 ## @par URL
@@ -74,32 +74,13 @@ alias celar='clear'
 alias ping='ping -c 5'
 # Do not wait interval 1 second, go fast #
 alias fastping='ping -c 100 -s.2'
-alias ports='netstat -tulanp'
 
-# Git
-# case $(uname) in
-#    Darwin)
-#     alias git='hub'
-#     ;;
-# esac
+alias ports='netstat -tulanp'
 alias git-prune='for f in $(git ls-files --deleted); do git rm $f; done;'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 
 # Python
 alias pip-update='pip freeze --local | grep -v '\''^\-e'\'' | cut -d = -f 1 | xargs pip install -U'
-alias pypacks='cd /usr/local/Cellar/python/2.7.8/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/'
-alias swpy='. switchpy'
-
-alias unpack='find /media/download/seeding -name "*.r00" -mmin -240 -exec unrar x {} /media/download/videos/ \;'
-
-# Torrent Stuff
-alias dca='deluge-console add'
-alias dci='deluge-console info'
-alias dnldng='deluge-console info | grep -B 2 Downloading'
-alias transd='sudo transmission-daemon -g /etc/transmission-daemon'
-alias tr-cli='transmission-remote-cli -c $user:$(echo -n $userpass64 | base64 -d)@localhost:9091'
-alias tr-dam='sudo transmission-daemon -t -u $user -v $(echo -n $userpass64 | base64 -d) -g /etc/transmission-daemon/'
-alias w2d='python /home/$user/Dropbox/workspace/eclipse_workspace/what_to_download/src/what_to_download.py'
 
 # Environments
 #alias xenv='source /opt/Xilinx/14.6/ISE_DS/settings64.sh'
@@ -108,15 +89,8 @@ alias w2d='python /home/$user/Dropbox/workspace/eclipse_workspace/what_to_downlo
 # alias xenv='source /apps/xilinx147/14.7/ISE_DS/settings64.sh'
 #alias xenv='source /cygdrive/c/Apps/Xilinx/14.7/ISE_DS/settings64.sh'
 
-
 alias reset='exec /bin/bash -l'
 alias chrome='open -a /Applications/Google\ Chrome.app'
-alias ftp-amd='lftp -u $user,$(echo -n $userpass64 | base64 -d) tesla.local'
-
-# Computers
-alias tesla='ssh $user@tesla.local'
-alias teslax='ssh -X $user@tesla.local'
-
 ## this one saved by butt so many times ##
 alias wget='wget -c'
 
@@ -126,16 +100,9 @@ alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T"'
 alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
-alias rpi='ssh pi@192.168.2.15'
-alias tdownload='sudo mount -t cifs -o user=$user,password=$(echo -n $userpass64 | base64 -d) //tesla.local/download /mnt/download'
 alias srs='du -h -d 1 | sort -h'
-alias xvenv='source /opt/Xilinx/Vivado/2014.2/settings64.sh '
 alias gdump='gcc -E -dM - < /dev/null'
-alias lcae1='ssh cosgrma@lcae1'
 alias gcc-specs='echo | gcc -v -x c -E -'
-
 alias ltr='ls -ltr'
-alias sg='cd ~/workspace/sergeant'
-
 alias dos2unix=''
 
