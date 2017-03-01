@@ -7,7 +7,7 @@ argsparse_use_option show "show dotfiles list" short:s
 argsparse_use_option install "main installer" short:i
 argsparse_use_option remove "remove dotfiles" short:r
 argsparse_use_option update "parameterized update" short:u value
-option_update_values=(name email password)
+option_update_values=(name email password userpath)
 argsparse_use_option backup "backup current dotfiles" short:b
 
 printf -v argsparse_usage_description "%s\n" \
@@ -17,7 +17,7 @@ printf -v argsparse_usage_description "%s\n" \
   " $(basename $0) -i" \
   " $(basename $0) --install" \
   " $(basename $0) --backup" \
-  " $(basename $0) --update <name|email|password>" \
+  " $(basename $0) --update <name|email|password|userpath>" \
   " $(basename $0) --remove" \
   " $(basename $0) --show"
 
@@ -64,6 +64,13 @@ dflist=(.ackrc \
 .zshrc \
 dfbin )
 
+function set_user_path() {
+  if [[ -e ~/.userpath.sh ]]; then
+    cp $HOME/.userpath.sh $HOME/.oldrcs/.userpath.$(date +%Y%m%d%H%M%S).sh
+  fi
+  cp $DIR/.userpath.template.sh ~/.userpath.sh;
+}
+
 function set_user_name() {
   echo "enter name for .gitconfig"; read name && echo "name set to $name"
   echo "enter username for network access (default: $(whoami))"; read nuser
@@ -106,7 +113,7 @@ function set_user() {
 
 function add_templates() {
   if ! [[ -e ~/.userpath.sh ]]; then
-    echo "There is no user path"
+    echo "making ~/.userpath.sh from template"
     cp $DIR/.userpath.template.sh ~/.userpath.sh
   fi
 }
@@ -174,8 +181,11 @@ elif argsparse_is_option_set "update"; then
     name ) set_user_name; ;;
     email ) set_user_email; ;;
     password ) set_user_password; ;;
+    userpath ) set_user_path; ;;
   esac
   write_user_config_file;
 fi
-
-exec /bin/bash -l
+case $(uname) in
+  Linux|Darwin) exec /bin/bash -l ;;
+  *) echo "need to restart cygwin bash for changes to take effect";;
+esac
