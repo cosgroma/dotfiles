@@ -47,7 +47,7 @@ case $(uname) in
           export PKG_CONFIG_PATH=$HOME/lib64/pkgconfig:$HOME/lib/pkgconfig
           export NVM_DIR="$HOME/.nvm"
         fi
-        alias wenv='`eval `/home/cosgrma/opt/windriver/wrenv.sh -p vxworks-6.9 -o print_env -f sh`'
+        alias wenv='eval `/home/cosgrma/opt/windriver/wrenv.sh -p vxworks-6.9 -o print_env -f sh`'
         export PATH=$USR_PATH:$BASE_UNIX_PATH:$CLUSTER_PATH
         export XILINXD_LICENSE_FILE=2100@ecae1:28039@rsemd1-btriad1.nges.northgrum.com,28039@rsemd1-btriad2.nges.northgrum.com,28039@rsemd1-btriad3.nges.northgrum.com:2100@rseil1-eng4,2100@rseil1-eng3,2100@rseil1-eng2
         export LM_LICENSE_FILE=28041@rsemd1-btriad1.NGES.northgrum.com,28041@rsemd1-btriad2
