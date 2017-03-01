@@ -66,6 +66,7 @@ dfbin )
 
 function set_user_path() {
   if [[ -e ~/.userpath.sh ]]; then
+    mkdir -p ~/.oldrcs;
     cp $HOME/.userpath.sh $HOME/.oldrcs/.userpath.$(date +%Y%m%d%H%M%S).sh
   fi
   cp $DIR/.userpath.template.sh ~/.userpath.sh;
