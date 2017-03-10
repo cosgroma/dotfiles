@@ -22,9 +22,10 @@ function grb_git_prompt() {
             local COLOR=${GREEN}
         fi
         local SINCE_LAST_COMMIT="${COLOR}$(minutes_since_last_commit)m${NORMAL}"
+        # local SINCE_LAST_COMMIT="$(minutes_since_last_commit)m"
         # The __git_ps1 function inserts the current git branch where %s is
         local GIT_PROMPT=`__git_ps1 "(%s|${SINCE_LAST_COMMIT})"`
-        echo ${GIT_PROMPT}
+        echo "${GIT_PROMPT}"
     fi
 }
 
@@ -54,10 +55,11 @@ show_time() {
 
 PS1_USER_HOST="\[\e[38;5;15m\]\u\[\e[38;5;160m\]@\[\e[38;5;249m\]\h"
 PS1_WORK_DIR="\[\e[38;5;160m\][\[\e[00;34m\]\W\[\e[38;5;160m\]]"
+PS1_PROMPT_RST="\[\e[0m\]"
 PS1_GIT_STAT="\[\e[0m\]\$(grb_git_prompt)"
 PS1_RET_STAT="\[\e[00;33m\]{\$?}"
-PS1_PROMPT_RST="\[\e[0m\]\$ "
-PS1_END="\e[0m\$ "
+
+PS1_END="\[\e[0m\]\$ "
 
 if [[ `whoami` == "root" ]]; then
     PS1_USER_HOST="\[\e[38;5;196m\]\u\[\e[38;5;15m\]@\[\e[38;5;15m\]\h"
@@ -66,7 +68,7 @@ fi
 
 function get_xilinx_env() {
     if ! [ -z $XILINX_VIVADO ]; then
-        printf "\e[38;5;150m(xlnx)\e[0m"
+        echo -e "\e[38;5;150m(xlnx)\e[0m"
     fi
 }
 
@@ -74,10 +76,10 @@ PS1_XILINX="\$(get_xilinx_env)"
 
 function get_gitf_env() {
     if ! [ -z $GITF_VERSION ]; then
-        printf "\e[38;5;150m(gitf-$remote_name)\e[0m"
+        echo -e "\e[38;5;150m(gitf-$remote_name)\e[0m"
     fi
 }
 
-PS1_GITF="\$(get_gitf_env)"
+PS1_GITF="\[\$(get_gitf_env)\]"
 
 
