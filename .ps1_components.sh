@@ -82,4 +82,12 @@ function get_gitf_env() {
 
 PS1_GITF="\[\$(get_gitf_env)\]"
 
+function get_wind_env() {
+    if ! [ -z $WIND_PLATFORM ]; then
+        echo -e "\e[38;5;150m(wenv)\e[0m"
+    fi
+}
+
+PS1_WENV="\[\$(get_wind_env)\]"
+
 
