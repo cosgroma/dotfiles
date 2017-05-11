@@ -100,8 +100,12 @@ echo "running ffmpeg: $outfile.$ext"
 ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i $outfile.ppm  $codec -r 60 -qscale 0 $outfile.$ext &> $outfile-ffmpeg.log
 rm $outfile.ppm
 timeatend=$(echo `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -sexagesimal $outfile.$ext` | cut -d'.' -f1) &> $outfile-ffmpeg.log
+timeatend=$(date --date @$((`date '+%s' -d "$timeatend"`-1)) +%H:%M:%S).9
 echo "running last frame to image $outfile.jpg"
 ffmpeg -ss $timeatend -i $outfile.$ext -qscale:v 2 -vframes 1 $outfile.jpg &> $outfile-ffmpeg.log
+
+
+
 
 # ffmpeg -i sergeant-2015-2016.mp4 -c:v libvpx -crf 10 -b:v 1M -c:a libvorbis sergeant-2015-2016.webm
 
