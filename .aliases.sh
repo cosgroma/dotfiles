@@ -106,3 +106,4 @@ alias gcc-specs='echo | gcc -v -x c -E -'
 alias ltr='ls -ltr'
 alias dos2unix=''
 
+alias vxsim='vxsim -s startup.sh'
