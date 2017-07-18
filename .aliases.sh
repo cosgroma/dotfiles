@@ -7,7 +7,7 @@
 ## @copyright
 ## @version
 ## @Last Modified by:   Mathew Cosgrove
-## @Last Modified time: 2017-03-01 15:14:45
+## @Last Modified time: 2017-07-06 00:36:50
 #
 ## @details
 ## @par URL
@@ -104,6 +104,5 @@ alias srs='du -h -d 1 | sort -h'
 alias gdump='gcc -E -dM - < /dev/null'
 alias gcc-specs='echo | gcc -v -x c -E -'
 alias ltr='ls -ltr'
-alias dos2unix=''
 
 alias vxsim='vxsim -s startup.sh'
