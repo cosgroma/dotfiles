@@ -44,7 +44,7 @@ CLOCK="\033\ $(date +%H:%M:%S)"
 # PS1_RET_STAT="\[\e[00;33m\]{\$?}"
 # PS1_PROMPT_RST="\[\e[0m\]\$ "
 
-get_time(){ printf "\033\e[38;5;118m$(date +%H:%M:%S) "; };
+get_time(){ echo -en "\033\e[38;5;118m$(date +%H:%M:%S) \e[0m"; };
 time_on=false
 show_time() {
     [[ $time_on == true ]] && export PS1=$PREV_PS1 && time_on=false && return

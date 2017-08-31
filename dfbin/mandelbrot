@@ -13,12 +13,15 @@ function doBash {
 }
 
 function colorBox {
-  (($1==lastclr)) || printf %s "${colrs[lastclr=$1]:=$(tput setaf "$1")}"
-  printf '\u2588'
+  # (($1==lastclr)) || printf %s "${colrs[lastclr=$1]:=$(tput setaf "$1")}"
+  # printf '\u2588'
+  echo -en "\033[48;5;$1m \033[0m"
+  # (($1==lastclr)) ||
+  # echo -en "\033[48;5;$1m \033[0m"
 }
 
 unset -v lastclr
-((cols=$(tput cols)-1, lines=$(tput lines)))
+((cols=$(tput cols)-1, lines=$(tput lines) ))
 typeset -a colrs
 trap 'tput sgr0; echo' EXIT
 ${BASH_VERSION+doBash}
