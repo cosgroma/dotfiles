@@ -53,7 +53,9 @@ show_time() {
     export PS1=\$\(get_time\)$PS1
 }
 
-PS1_USER_HOST="\[\e[38;5;15m\]\u\[\e[38;5;160m\]@\[\e[38;5;249m\]\h"
+hostcolor=$(echo $(hostname | sum | awk -v ncolors=$(infocmp -1 | expand | sed -n -e "s/^ *colors#\([0-9][0-9]*\),.*/\1/p") 'ncolors>1 {print 1 + ($1 % (ncolors - 1))}')m)
+PS1_USER_HOST="\[\e[38;5;15m\]\u\[\e[38;5;160m\]@\[\e[38;5;$hostcolor\]\h"
+# PS1_USER_HOST="\[\e[38;5;15m\]\u\[\e[38;5;160m\]@\[\e[38;5;249m\]\h"
 PS1_WORK_DIR="\[\e[38;5;160m\][\[\e[00;34m\]\W\[\e[38;5;160m\]]"
 PS1_PROMPT_RST="\[\e[0m\]"
 PS1_GIT_STAT="\[\e[0m\]\$(grb_git_prompt)"
