@@ -11,7 +11,7 @@ option_update_values=(name email password userpath)
 argsparse_use_option backup "backup current dotfiles" short:b
 
 printf -v argsparse_usage_description "%s\n" \
-  "Dotfiles onfiguration utilitiy" \
+  "Dotfiles configuration utility" \
   "Usage Examples:" \
   " $(basename $0)" \
   " $(basename $0) -i" \
@@ -24,9 +24,8 @@ printf -v argsparse_usage_description "%s\n" \
 # Command line parsing is done here.
 argsparse_parse_options "$@"
 
-DIR=$(echo $(cd $(dirname $(readlink -f ${BASH_SOURCE%/*})/../../) && pwd))
+DOTFILES_BASE=$(echo $(cd $(dirname $(readlink -f ${BASH_SOURCE%/*})/../../) && pwd))
 
-# usrfile=$DIR/.userrc
 usrfile=$HOME/.userrc
 
 if [[ -e $usrfile ]]; then source $usrfile; fi #touch $usrfile; fi;
@@ -65,11 +64,11 @@ dflist=(.ackrc \
 dfbin )
 
 function set_user_path() {
-  if [[ -e ~/.userpath.sh ]]; then
-    mkdir -p ~/.oldrcs;
+  if [[ -e $HOME/.userpath.sh ]]; then
+    mkdir -p $HOME/.oldrcs;
     cp $HOME/.userpath.sh $HOME/.oldrcs/.userpath.$(date +%Y%m%d%H%M%S).sh
   fi
-  cp $DIR/.userpath.template.sh ~/.userpath.sh;
+  cp $DOTFILES_BASE/.userpath.template.sh $HOME/.userpath.sh;
 }
 
 function set_user_name() {
@@ -113,53 +112,60 @@ function set_user() {
 }
 
 function add_templates() {
-  if ! [[ -e ~/.userpath.sh ]]; then
-    echo "making ~/.userpath.sh from template"
-    cp $DIR/.userpath.template.sh ~/.userpath.sh
+  if ! [[ -e $HOME/.userpath.sh ]]; then
+    echo "making $HOME/.userpath.sh from template"
+    cp $DOTFILES_BASE/.userpath.template.sh $HOME/.userpath.sh
   fi
 }
 
 function write_user_config_file() {
-  sed -e "s/user_name/$name/g" -e "s/user_email/$email/g" $DIR/.gitconfig_default > $DIR/.gitconfig
   echo "user=$(whoami)" > $usrfile
   echo "nuser=$nuser" >> $usrfile
   echo "name=\"$name\"" >> $usrfile
   echo "email=$email" >> $usrfile
   echo "userpass64=$userpass64" >> $usrfile
-  touch ~/.useraliases.sh
-  env > ~/.userenv.sh
+  touch $HOME/.useraliases.sh
+  env > $HOME/.userenv.sh
+}
+
+function write_gitconfig() {
+  sed -e "s/user_name/$name/g" -e "s/user_email/$email/g" $DOTFILES_BASE/.gitconfig_default > $DOTFILES_BASE/.gitconfig
 }
 
 function set_links() {
   echo "Setting up symlinks"
   for f in ${dflist[@]}; do
-    ln -fs $DIR/$f ~/$f
+    ln -fs $DOTFILES_BASE/$f $HOME/$f
   done;
 }
 
 function backup_links() {
   dirstamp=$(date +%Y%m%d%H%M%S);
-  mkdir -p ~/.oldrcs/$dirstamp;
-  echo "BACKING UP SYMLINKS TO : ~/.oldrcs/$dirstamp"
+  mkdir -p $HOME/.oldrcs/$DOTFILES_BASE/$dirstamp;
+  echo "BACKING UP SYMLINKS TO : $HOME/.oldrcs/$DOTFILES_BASE/$dirstamp"
   for f in ${dflist[@]}; do
-    cp ~/$f ~/.oldrcs/$dirstamp/ 2>/dev/null;
+    cp $HOME/$f $HOME/.oldrcs/$DOTFILES_BASEstamp/ 2>/dev/null;
   done;
 }
 
 function remove_links() {
   echo "REMOVING SYMLINKS"
   for f in ${dflist[@]}; do
-    rm -rf ~/$f
+    rm -rf $HOME/$f
   done;
 }
 
 function show_config() {
-  echo "Scripts Directory = $DIR"
+  echo "Scripts Directory = $DOTFILES_BASE"
   echo "Dotfiles List:"
   for f in ${dflist[@]}; do
     echo $f
   done;
 }
+
+# function new_plugin() {
+#   mkdir -p
+# }
 
 function show_userrc() {
   echo "USER Configuration:"
@@ -172,9 +178,10 @@ if argsparse_is_option_set "show"; then
   exit;
 elif argsparse_is_option_set "install"; then
   echo "RUNNING INSTALL"
-  set_user && set_links && add_templates && write_user_config_file
+  set_user && set_links && add_templates && write_user_config_file;
 elif argsparse_is_option_set "backup"; then
-  backup_links
+  backup_links;
+  exit;
 elif argsparse_is_option_set "remove"; then
   remove_links
 elif argsparse_is_option_set "update"; then

@@ -7,7 +7,7 @@
 ## @copyright
 ## @version
 ## @Last Modified by:   Mathew Cosgrove
-## @Last Modified time: 2017-07-06 00:36:50
+## @Last Modified time: 2017-09-14 21:15:44
 #
 ## @details
 ## @par URL
@@ -27,15 +27,13 @@ alias ls='ls --color=auto'
 alias ll='ls -lhG'
 alias la='ls -la'
 alias lt='ls -lat'
+alias ltr='ls -ltr'
+
 alias grep='grep --color -E'
 alias show='find . -name "*.*"'
-
-# alias work='cd /cygdrive/e/workspace'
-# alias work='cd ~/workspace'
-# alias cpmk='cp /cygdrive/e/workspace/utils/Makefile-template/Makefile .'
-
 alias reset='exec /bin/bash -l'
-# alias reset='exec bash -l'
+
+alias vxsim='vxsim -s startup.sh'
 
 ## Linux Stuff
 alias lsusr='cat /etc/passwd | grep /home |cut -d: -f1'
@@ -55,7 +53,7 @@ alias pscpu='ps auxf | sort -nr -k 3'
 alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 
 ## Get server cpu info ##
-alias cpuinfo='lscpu'
+[[ "$(uname -o)" != "Cygwin" ]] && alias cpuinfo='lscpu'
 
 ## older system use /proc/cpuinfo ##
 ##alias cpuinfo='less /proc/cpuinfo' ##
@@ -71,26 +69,18 @@ alias celar='clear'
 
 # Network Stuff
 # Stop after sending count ECHO_REQUEST packets #
-alias ping='ping -c 5'
-# Do not wait interval 1 second, go fast #
-alias fastping='ping -c 100 -s.2'
 
-alias ports='netstat -tulanp'
+[[ "$(uname -o)" != "Cygwin" ]] && alias ping='ping -c 5'
+# Do not wait interval 1 second, go fast #
+[[ "$(uname -o)" != "Cygwin" ]] && alias fastping='ping -c 100 -s.2'
+[[ "$(uname -o)" != "Cygwin" ]] && alias ports='netstat -tulanp'
+
 alias git-prune='for f in $(git ls-files --deleted); do git rm $f; done;'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
 
 # Python
 alias pip-update='pip freeze --local | grep -v '\''^\-e'\'' | cut -d = -f 1 | xargs pip install -U'
 
-# Environments
-#alias xenv='source /opt/Xilinx/14.6/ISE_DS/settings64.sh'
-#alias xenv='source /apps/xilinx147/14.7/ISE_DS/settings64.sh'
-# alias xenv='source /opt/Xilinx/14.6/ISE_DS/settings64.sh'
-# alias xenv='source /apps/xilinx147/14.7/ISE_DS/settings64.sh'
-#alias xenv='source /cygdrive/c/Apps/Xilinx/14.7/ISE_DS/settings64.sh'
-
-alias reset='exec /bin/bash -l'
-alias chrome='open -a /Applications/Google\ Chrome.app'
 ## this one saved by butt so many times ##
 alias wget='wget -c'
 
@@ -100,9 +90,7 @@ alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T"'
 alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
+
 alias srs='du -h -d 1 | sort -h'
 alias gdump='gcc -E -dM - < /dev/null'
 alias gcc-specs='echo | gcc -v -x c -E -'
-alias ltr='ls -ltr'
-
-alias vxsim='vxsim -s startup.sh'

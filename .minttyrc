@@ -25,3 +25,4 @@ Font=Consolas
 FontSmoothing=full
 CursorType=block
 FontHeight=10
+Transparency=off
