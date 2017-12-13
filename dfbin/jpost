@@ -5,6 +5,7 @@
 # VARIABLES
 ######################################################
 set -e
+source ~/.bash_functions.sh
 
 # COLORS
 Color_Off='\033[0m'       # Text Reset
@@ -18,7 +19,6 @@ Blue='\033[0;34m'         # Blue
 Purple='\033[0;35m'       # Purple
 Cyan='\033[0;36m'         # Cyan
 White='\033[0;37m'        # White
-
 
 CUR_DIR=$PWD
 
@@ -79,6 +79,7 @@ OPTIONS
    -c,   add categories to post
    -i,   add an image to the post
    -d,   add a post description
+   -f,   file type
 
 EXAMPLE
 
@@ -108,12 +109,15 @@ description: ${DESCRIPTION}
 categories:
 $(createList ${CATEGORIES[*]})
 ---
-  " > ${FILEPATH}
+  " > ${FILEPATH};
+
 
   # success message
   echo -e "${Green}File was succesfully CREATED \n
   ${JEKYLL_POSTS_DIR}${FILENAME}${Color_Off}
   "
+  echo -e "${Green}Created img directory at  $CUR_DIR/assets/img/posts/${PERMALINK}"
+  mkdir -p $CUR_DIR/assets/img/posts/${PERMALINK}
 }
 
 
@@ -126,6 +130,7 @@ while getopts "lhot:c:d:" opt; do
     d) DESCRIPTION="$OPTARG" ;;
     i) IMAGE="$OPTARG" ;;
     c) CATEGORIES=( $OPTARG ) ;;
+    f) filetype=$OPTARG
     o) fopen=1 ;;
     l) list=1 ;;
   esac
@@ -154,6 +159,7 @@ else
   if [ ! -z $fopen ]; then
     # Open file in Sublime Text
     [[ $OS == "Windows_NT" ]] && FILEPATH=$(cygpath -aw $FILEPATH);
+
     [[ $(type -t subl) == function ]] || ( echo -e "${Red}ERROR: ${Color_Off} no sublime text, cannot open"; exit 1 )
     subl $FILEPATH
   fi
