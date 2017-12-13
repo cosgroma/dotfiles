@@ -57,37 +57,4 @@ function doc2text() {
   fi
 }
 
-# function exit() {
-#   if type ruby 2>/dev/null; then
-#     ruby ~/dfbin/shellshock.rb; sleep 2; builtin exit
-#   else
-#     source ~/dfbin/see-you.sh; sleep 2; builtin exit
-#   fi
-# }
-#
-# function python() {
-#   case $(uname) in
-#     Darwin|Linux)
-#       /usr/local/bin/python ${@}
-#       ;;
-#     *)
-#       declare -a cmd_list
-#       local i=0
-#       for arg in ${@}; do
-#         if [[ -e $arg ]]; then
-#           cmd_list[$i]=$(cygpath -aw $arg)
-#         else
-#           cmd_list[$i]=$arg
-#         fi
-#         i=$(($i + 1))
-#       done;
-#       /cygdrive/c/Python27/python.exe ${cmd_list[@]}
-#       # for c in ${cmd_list[*]}; do
-#       #   echo $c
-#       # done;
-#       # /cygdrive/c/Python27/python.exe
-#       # /cygdrive/c/Python27/python.exe $(cygpath -aw $@)
-#       ;;
-#   esac
-# }
 rmrb() { for r in `git remote`; do git push $r --delete $1; done; }

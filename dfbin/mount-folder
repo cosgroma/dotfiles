@@ -1,8 +1,10 @@
-#!/bin/sh 
+#!/bin/bash
 [ $# == 0 ] && echo "need folder name" && exit
 user=$(whoami);
 source $HOME/.userrc
-mountpoint=$HOME/$1
+ipaddr=$1
+netdir=$2
+mountpoint=$3
 mkdir -p ${mountpoint};
 
 if mount|grep ${mountpoint}; then
@@ -10,20 +12,21 @@ if mount|grep ${mountpoint}; then
     sudo umount ${mountpoint} -l
 fi
 
-# sudo pgkill.py -fq mount_cifs.sh 
-# rm ${mountpoint}/keepalive
 echo mounting
-# sudo mount -t cifs -o username=$2,password=$3,dir_mode=0777,file_mode=0777 $1 ${mountpoint}
 
 sudo mount -t cifs -o username=$nuser,password=$(echo -n $userpass64 | base64 -d),uid=$user,gid=$user \
-  //192.168.2.42/c/cygwin64/home/$nuser/$1 \
+  //$ipaddr/c/cygwin64/home/$nuser/$netdir \
   ${mountpoint}
+
+# sudo mount -t cifs -o username=$nuser,password=$(echo -n $userpass64 | base64 -d),rw,uid=vsftpd,gid=nogroup,file_mode=0770,dir_mode=0770 \
+#   //$ipaddr/c/cygwin64/home/$nuser/$netdir \
+#   ${mountpoint}
+
 #
 if test $? -eq 0;then
     echo mounted
 else
     echo unable to mount
     exit
-fi    
+fi
 { while true; do echo caca > ${mountpoint}/keepalive; sleep 30; done }&
-
