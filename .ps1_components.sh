@@ -70,26 +70,27 @@ fi
 
 function get_xilinx_env() {
     if ! [ -z $XILINX_VIVADO ]; then
-        echo -e "\e[38;5;150m(xlnx)\e[0m"
+        echo "(xlnx)"
     fi
 }
 
-PS1_XILINX="\$(get_xilinx_env)"
+PS1_XILINX="\[\e[38;5;150m\]\$(get_xilinx_env)\[\e[0m\]"
 
 function get_gitf_env() {
     if ! [ -z $GITF_VERSION ]; then
-        echo -e "\e[38;5;150m(gitf-$remote_name)\e[0m"
+        echo "(gitf-$remote_name)"
     fi
 }
 
-PS1_GITF="\[\$(get_gitf_env)\]"
+PS1_GITF="\[\e[38;5;150m\]\$(get_gitf_env)\[\e[0m\]"
 
 function get_wind_env() {
     if ! [ -z $WIND_PLATFORM ]; then
-        echo -e "\e[38;5;150m(wenv)\e[0m"
+        echo "(wenv)"
     fi
 }
 
-PS1_WENV="\[\$(get_wind_env)\]"
+PS1_WENV="\[\e[38;5;150m\]\$(get_wind_env)\[\e[0m\]"
 
 
+# export PS1="\n\[\e[0;36m\]\u@\h:\! <\t> \w\n\$ \[\e[0m\]"
