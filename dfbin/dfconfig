@@ -192,6 +192,7 @@ elif argsparse_is_option_set "update"; then
     userpath ) set_user_path; ;;
   esac
   write_user_config_file;
+  write_gitconfig;
 fi
 case $(uname) in
   Linux|Darwin) exec /bin/bash -l ;;
