@@ -7,7 +7,7 @@
 ## @copyright
 ## @version
 ## @Last Modified by:   Mathew Cosgrove
-## @Last Modified time: 2017-09-14 21:15:44
+## @Last Modified time: 2018-01-24 21:29:38
 #
 ## @details
 ## @par URL
@@ -64,6 +64,7 @@ alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
 # handy short cuts #
 alias h='history'
 alias j='jobs -l'
+alias clear='printf "\e[H\e[2J"'
 alias c='clear'
 alias celar='clear'
 

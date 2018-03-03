@@ -27,7 +27,11 @@ CUR_DIR=$PWD
 
 # Define the post directory (where to create the file)
 JEKYLL_POSTS_DIR=$CUR_DIR'/_posts/'
-[ -e $JEKYLL_POSTS_DIR ] || ( echo -e "${Red}ERROR: ${Color_Off} can find _posts directory at $CUR_DIR"; exit 1 )
+# [ -e $JEKYLL_POSTS_DIR ] || ( echo -e "${Red}ERROR: ${Color_Off} can find _posts directory at $CUR_DIR"; exit 1 )
+if ! [ -e $JEKYLL_POSTS_DIR ]; then
+  echo -e "${Yellow}WARNING:${Color_Off} can't find _posts directory at $CUR_DIR, creating $JEKYLL_POSTS_DIR";
+  mkdir -p $JEKYLL_POSTS_DIR
+fi
 # Post title
   # if more than one argument is provided then TITLE is the last argument
 if [ $# -gt 1 ]; then
@@ -76,20 +80,47 @@ OPTIONS
    -h,   show this help
    -o,   open file in sublime text
    -t,   add tags to post \"tag1 tag2 tag3\"
-   -c,   add categories to post
+   -c,   add category to post (only one)
    -i,   add an image to the post
    -d,   add a post description
    -f,   file type
 
 EXAMPLE
 
-jpost -t \"tag1 tag2\" -c \"cat1 cat2\" -d \"some small desc\" -i path/to/image -o \"some title\"
+jpost \"some title\"
+jpost -t \"tag1 tag2\" -c \"category\" -d \"some small desc\" -i path/to/image -o \"some title\"
 "
 }
 
 createList() {
+  [[ $# == 0 ]] && return;
+  printf "\n"
   printf " - %s\n" $@ | cut -d' ' -f2-
 }
+
+STATUS="
+
+## Problem
+
+* What are you working on and for what program
+
+## Status
+
+** Here are some questions that should be answer **
+
+* What have gotten to work and can you prove it?
+* What isn’t working yet and what is the problem?
+* What documentation/software do you have that needs reviewed?
+* Have you made any new repositories (apps, engines, etc.)?
+* What repositories are you currently using? ** if you are not using configuration management tell me why **
+
+## What is your plan for next week?
+
+## What do you need help on?
+
+## Extra
+
+"
 # CREATE POST
 #############
 createPost() {
@@ -103,36 +134,36 @@ title: ${TITLE}
 permalink: ${PERMALINK}
 image: ${IMAGE}
 date: ${DATETIME}
-tags:
-$(createList ${TAGS[*]})
+tags: $(createList ${TAGS[*]})
 description: ${DESCRIPTION}
-categories:
-$(createList ${CATEGORIES[*]})
+categories: $(createList ${CATEGORIES[*]})
 ---
-  " > ${FILEPATH};
+" > ${FILEPATH};
 
-
+  $status && (echo -e "${STATUS}" >> ${FILEPATH};
   # success message
-  echo -e "${Green}File was succesfully CREATED \n
-  ${JEKYLL_POSTS_DIR}${FILENAME}${Color_Off}
-  "
-  echo -e "${Green}Created img directory at  $CUR_DIR/assets/img/posts/${PERMALINK}"
-  mkdir -p $CUR_DIR/assets/img/posts/${PERMALINK}
+  echo -e "${Green}CREATED:${Color_Off} ${JEKYLL_POSTS_DIR}${FILENAME}${Color_Off}"
+  # echo -e "${Green}Created img directory at  $CUR_DIR/assets/img/posts/${PERMALINK}"
+  # mkdir -p $CUR_DIR/assets/img/posts/${PERMALINK}
+
+
 }
 
 
 # ARGUMENTS
 ###########
-while getopts "lhot:c:d:" opt; do
+status=false
+while getopts "lhost:c:d:" opt; do
   case $opt in
     h) showUsage; exit ;;
     t) TAGS=( $OPTARG ) ;;
     d) DESCRIPTION="$OPTARG" ;;
     i) IMAGE="$OPTARG" ;;
     c) CATEGORIES=( $OPTARG ) ;;
-    f) filetype=$OPTARG
+    f) filetype=$OPTARG ;;
     o) fopen=1 ;;
     l) list=1 ;;
+    s) status=true ;;
   esac
 done
 
@@ -146,7 +177,7 @@ else
     printf "%s\n" $(ls $JEKYLL_POSTS_DIR | cut -d '-' -f4-)
   # check if file alreday exists and is not empty
   elif [ -s ${FILEPATH} ]; then
-    echo -e "${Red}File already EXISTS and is NOT EMPTY${Color_Off}"
+    echo -e "${Red}ERROR:${Color_Off} File already EXISTS and is NOT EMPTY"
   #check if file already exists
   elif [ -e ${FILEPATH} ]; then
     echo -e "${Yellow}File already EXISTS${Color_Off}"
