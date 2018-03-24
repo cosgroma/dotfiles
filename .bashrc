@@ -23,9 +23,7 @@ if ! [[ -e ~/.useraliases.sh ]]; then touch ~/.useraliases.sh; fi
 
 source ~/.useraliases.sh
 
-# Unbreak broken, non-colored terminal
-export TERM='xterm-256color'
-# export TERM='screen-256color'
+export TERM='screen-256color'
 
 export CLICOLOR=1
 
