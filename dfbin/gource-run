@@ -49,8 +49,10 @@ done
 
 for d in $(find . -name "*.git*" -type d); do
   skip=false;
+  root_name=$(echo "$d" | cut -d '.' -f2 | cut -d '/' -f2)
   for i in $ignore; do
-    if test $(echo "$d" | grep $i); then
+    # if test $(echo "$d" | grep $i); then
+    if [[ $root_name == $i ]]; then
       skip=true;
       echo "skipping" $d
       break;
@@ -97,8 +99,11 @@ gource $combined_filename \
   --output-ppm-stream $outfile.ppm &> $outfile.log
 
 echo "running ffmpeg: $outfile.$ext"
+touch $outfile.$ext
+
+# YYYY-MM-DD hh:mm:ss +tz
 ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i $outfile.ppm  $codec -r 60 -qscale 0 $outfile.$ext &> $outfile-ffmpeg.log
-rm $outfile.ppm
+# rm $outfile.ppm
 timeatend=$(echo `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -sexagesimal $outfile.$ext` | cut -d'.' -f1) &> $outfile-ffmpeg.log
 timeatend=$(date --date @$((`date '+%s' -d "$timeatend"`-1)) +%H:%M:%S).9
 echo "running last frame to image $outfile.jpg"
