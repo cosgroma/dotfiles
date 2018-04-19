@@ -38,13 +38,13 @@ function test_proxy() {
   fi;
 }
 
-function subl() {
-  case $_myos in
-     Linux) /usr/bin/subl $1; ;;
-    Darwin) /usr/bin/subl $1; ;;
-         *) /cygdrive/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe $(cygpath -aw $1); ;;
-  esac
-}
+# function subl() {
+#   case $_myos in
+#      Linux) /usr/bin/subl $1; ;;
+#     Darwin) /usr/bin/subl $1; ;;
+#          *) /cygdrive/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe $(cygpath -aw $1); ;;
+#   esac
+# }
 
 
 function rstenv() { export PATH=$DEF_PATH; }

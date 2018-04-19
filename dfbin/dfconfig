@@ -178,7 +178,7 @@ if argsparse_is_option_set "show"; then
   exit;
 elif argsparse_is_option_set "install"; then
   echo "RUNNING INSTALL"
-  set_user && set_links && add_templates && write_user_config_file;
+  set_user && set_links && add_templates && write_user_config_file; write_gitconfig;
 elif argsparse_is_option_set "backup"; then
   backup_links;
   exit;

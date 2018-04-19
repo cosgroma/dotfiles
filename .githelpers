@@ -72,6 +72,7 @@ remote_remove_branch(){
 
 branch_kill(){
     [[ $# -ne 1 ]] && git branch && return;
-    git branch -d $1 && remote_remove_branch $1;
+    git branch -d $1;
+    remote_remove_branch $1;
 }
 

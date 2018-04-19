@@ -140,7 +140,7 @@ categories: $(createList ${CATEGORIES[*]})
 ---
 " > ${FILEPATH};
 
-  $status && (echo -e "${STATUS}" >> ${FILEPATH};
+  $status && (echo -e "${STATUS}" >> ${FILEPATH});
   # success message
   echo -e "${Green}CREATED:${Color_Off} ${JEKYLL_POSTS_DIR}${FILENAME}${Color_Off}"
   # echo -e "${Green}Created img directory at  $CUR_DIR/assets/img/posts/${PERMALINK}"
@@ -191,7 +191,7 @@ else
     # Open file in Sublime Text
     [[ $OS == "Windows_NT" ]] && FILEPATH=$(cygpath -aw $FILEPATH);
 
-    [[ $(type -t subl) == function ]] || ( echo -e "${Red}ERROR: ${Color_Off} no sublime text, cannot open"; exit 1 )
+    [[ $(type -t subl) == file ]] || ( echo -e "${Red}ERROR: ${Color_Off} no sublime text, cannot open"; exit 1 )
     subl $FILEPATH
   fi
 fi
