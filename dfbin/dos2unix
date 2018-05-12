@@ -25,7 +25,7 @@ else
   PDIR=$1
 fi
 
-! [ -d "$PDIR" ] && echo "[ERROR] $PDIR is not a directory" && exit
+# ! [ -d "$PDIR" ] && echo "[ERROR] $PDIR is not a directory" && exit
 
 function __convert() {
   f=$1

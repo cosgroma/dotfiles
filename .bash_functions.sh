@@ -38,15 +38,6 @@ function test_proxy() {
   fi;
 }
 
-# function subl() {
-#   case $_myos in
-#      Linux) /usr/bin/subl $1; ;;
-#     Darwin) /usr/bin/subl $1; ;;
-#          *) /cygdrive/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe $(cygpath -aw $1); ;;
-#   esac
-# }
-
-
 function rstenv() { export PATH=$DEF_PATH; }
 
 function doc2text() {
@@ -58,3 +49,32 @@ function doc2text() {
 }
 
 rmrb() { for r in `git remote`; do git push $r --delete $1; done; }
+
+function set_xilinx_version() {
+  case $_myos in
+     Linux) VIVADO_PATH=/opt/Xilinx/Vivado ;;
+         *) VIVADO_PATH=/cygdrive/c/Xilinx/Vivado ;;
+  esac
+  [[ -e $VIVADO_PATH ]] || (echo "ERROR: vivado not installed "; return)
+  printf -v str '%s ' `ls $VIVADO_PATH`;
+  IFS=' ' declare -a 'versions=($str)';
+  vlen=${#versions[@]};
+  while true; do
+    echo -e "Select Version ($GREEN[*]$RESET current):"
+    for (( i=0; i<${vlen}; i++ )); do
+      [[ -n $xilinx_version && $xilinx_version == ${versions[$i]} ]] && attr="[*] " || attr="    "
+      echo -e $i ':'$GREEN$attr$RESET${versions[$i]}
+    done
+    read version
+    [[ $version -lt $vlen && $version -ge 0 ]] && break;
+    echo -e $RED"ERROR"$RESET": bad selection $YELLOW$version$RESET"
+  done
+  xilinx_version=${versions[$version]}
+  echo -e "set version to: $GREEN$xilinx_version$RESET"
+}
+
+function xilinx() {
+  [[ -z $xilinx_version ]] && set_xilinx_version
+  source /opt/Xilinx/SDK/$xilinx_version/settings64.sh
+  source /opt/Xilinx/Vivado/$xilinx_version/settings64.sh
+}

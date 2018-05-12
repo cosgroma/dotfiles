@@ -1,6 +1,12 @@
 #!/bin/bash
 
-## Source user settings
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# Source user settings
 unset PROMPT_COMMAND;
 
 source ~/.userrc
@@ -23,9 +29,8 @@ if ! [[ -e ~/.useraliases.sh ]]; then touch ~/.useraliases.sh; fi
 
 source ~/.useraliases.sh
 
-# Unbreak broken, non-colored terminal
-export TERM='xterm-256color'
 # export TERM='screen-256color'
+export TERM='xterm-256color'
 
 export CLICOLOR=1
 
