@@ -11,12 +11,6 @@ function aalias() { echo "alias $1='$(fc -ln -2 | head -1 | sed "1s/^[[:space:]]
 
 function make-list() { make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}' | sort; }
 
-# function dos2unix() {
-#   for f in `find . -name "*" -type  f`; do
-#     cp $f $f.orig && tr -d '\015' <$f >$f.conv && mv $f.conv $f;
-#   done;
-# }
-
 function yo() {
   if type ruby &>/dev/null; then
     ruby ~/dfbin/shellshock.rb;
@@ -77,4 +71,9 @@ function xilinx() {
   [[ -z $xilinx_version ]] && set_xilinx_version
   source /opt/Xilinx/SDK/$xilinx_version/settings64.sh
   source /opt/Xilinx/Vivado/$xilinx_version/settings64.sh
+}
+
+function subdiff() {
+  sublime_text.exe -n --wait "$1" "$2" \
+  --command "sublimerge_diff_views {\"left_read_only\": true, \"right_read_only\": true}"
 }

@@ -1,0 +1,22 @@
+{
+  "AXI": "Arm eXtensible Interface",
+  "AXIS": "AXI Stream",
+  "DDR": "Double Data Rate",
+  "DMA": "Direct Memory Access",
+  "FIFO": "First In First Out",
+  "FPGA": "Field Programmable Gate Array",
+  "GEnCor": "GNSS Engine for Correlation",
+  "GPS": "Global Positioning System",
+  "HW": "Hardware",
+  "IFU": "Initial Frequency Uncertainty",
+  "ITU": "Initial Time Uncertainty",
+  "MBps": "Megabytes per second",
+  "MPSoC": "Multiprocessor System-on-Chip",
+  "PL": "Programmable Logic",
+  "PS": "Processing System",
+  "RF": "Radio Frequency",
+  "RTL": "Register Transfer Level",
+  "SDR": "Software Defined Receiver",
+  "TTAFS": "Time To Acquisition of First Satellite",
+  "TTFF": "Time To First Fix"
+}
