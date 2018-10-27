@@ -7,7 +7,7 @@
 ## @copyright
 ## @version
 ## @Last Modified by:   Mathew Cosgrove
-## @Last Modified time: 2018-01-24 21:29:38
+## @Last Modified time: 2018-10-20 11:25:13
 #
 ## @details
 ## @par URL
@@ -83,7 +83,7 @@ alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --a
 alias pip-update='pip freeze --local | grep -v '\''^\-e'\'' | cut -d = -f 1 | xargs pip install -U'
 
 ## this one saved by butt so many times ##
-alias wget='wget -c'
+alias wget='wget -c --no-check-certificate'
 
 # TIme Stuff
 alias timestamp='date +%Y%m%d%H%M%S'
