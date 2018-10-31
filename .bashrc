@@ -63,3 +63,13 @@ esac
 export PS1="$USR_PROMPT"
 export PS2='> '
 export PS4='+ '
+
+
+for f in `ls $HOME/.dfuser/*.sh`; do
+  echo "sourcing $f"
+  source $f;
+done;
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
