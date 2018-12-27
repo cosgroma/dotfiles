@@ -69,29 +69,36 @@ gradient = linear_gradient("#f0f0f0", finish_hex="#737373", n=10)
 
 ext_dict = {
     "": "lightgoldenrodyellow",
-    ".h": "#8dd3c7",
+    ".a": "#80b1d3",
+    ".bin": "#bebada",
     ".c": "#ffffb3",
-    ".cpp": "#bebada",
-    ".json": "#fb8072",
-    ".rst": "#80b1d3",
-    ".css": "#fdb462",
-    ".sty": "#b3de69",
-    ".cls": "#fccde5",
-    ".dox": "#d9d9d9",
-    ".js": "#bc80bd",
-    ".md": "#ccebc5",
-    ".yml": "#ffed6f",
     ".cloc": "antiquewhite",
+    ".cls": "#fccde5",
+    ".cpp": "#bebada",
+    ".css": "#fdb462",
+    ".dox": "#d9d9d9",
+    ".elf": "#ccebc5",
     ".geom": "bisque",
     ".gitignore": "lightblue",
+    ".h": "#8dd3c7",
     ".html": "lightcyan",
     ".inc": "lightgoldenrodyellow",
+    ".ini": "#ffed6f",
     ".jpeg": "lightgoldenrodyellow",
+    ".js": "#bc80bd",
+    ".json": "#fb8072",
+    ".md": "#ccebc5",
+    ".mk": "#bebada",
     ".mk": "lightsalmon",
+    ".out": "lightblue",
     ".png": "lightseagreen",
     ".py": "lightskyblue",
+    ".rst": "#80b1d3",
+    ".sh": "lightsalmon",
+    ".sty": "#b3de69",
     ".v0": "lightsteelblue",
     ".xml": "lightyellow",
+    ".yml": "#ffed6f",
 }
 
 # "#b3e2cd"
@@ -178,7 +185,6 @@ def main(arguments):
   add_folder(graph, basename, obj_node_name)
   process_path(root_path, graph, max_level)
   print(graph["dot_graph"].to_string())
-  graph["dot_graph"].write_svg('test.svg')
 
 
 if __name__ == '__main__':
