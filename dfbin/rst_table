@@ -3,7 +3,6 @@
 import sys
 import os
 import json
-from functools import reduce
 
 
 def make_table(grid):

@@ -1,0 +1,26 @@
+#!/bin/bash
+OIFS="$IFS"
+IFS=$'\n'
+for filename in `find $(pwd) -type f -name "*.pdf"`; do
+  filename=$(basename "$filename");
+  [[ "$filename" = "${filename%[[:space:]]*}" ]] && continue;
+  file_type=$(file --mime "$filename" | cut -d ':' -f2 | cut -d ' ' -f2);
+  [[ $file_type == "application/pdf;" ]] || (echo "not pdf" $(file --mime "$filename"); continue);
+  # nname=$(pdfinfo "$filename" | grep 'Title' | cut -d ':' -f2 |  sed -e 's/^[ \t]*//' | sed 's/ /-/g')
+  nname=$(echo "$filename" | sed 's/ /-/g' | tr -dc '[:alnum:]-_.' | tr -s '-')
+  [[ $nname != "" ]] && mv "$filename" $nname
+done
+IFS="$OIFS"
+
+
+# OIFS="$IFS"
+# IFS=$'\n'
+# for filename in `find . -type f -name "*.*"`; do
+#   filename=$(basename "$filename")
+#   # file_type=$(file --mime "$filename" | cut -d ':' -f2 | cut -d ' ' -f2)
+#   # [[ $file_type == "application/pdf;" ]] || echo "not pdf" $(file --mime "$filename")
+#   # nname=$(pdfinfo "$filename" | grep 'Title' | cut -d ':' -f2 |  sed -e 's/^[ \t]*//' | sed 's/ /-/g')
+#   nname=$(echo "$filename" | sed 's/ /-/g' | tr -dc '[:alnum:]-_.' | tr -s '-')
+#   [[ $nname != "" ]] && mv "$filename" $nname
+# done
+# IFS="$OIFS"

@@ -143,7 +143,7 @@ def process_path(root_path, graph, max_level):
     parentname = '_'.join(graph["tree_history"])
     obj_node_name = '_'.join(graph["tree_history"])
     obj_node_name += "_" + obj
-    if '.git' in obj or 'build' in obj:
+    if '.git' in obj or 'build' in obj or '.dep' in obj or '.archive' in obj or '.backup' in obj:
       continue
     if os.path.isdir(obj_path):
       parentname = '_'.join(graph["tree_history"])
