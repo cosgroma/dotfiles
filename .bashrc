@@ -9,32 +9,32 @@ esac
 # Source user settings
 unset PROMPT_COMMAND;
 
-source ~/.userrc
+source $HOME/.userrc
 
-source ~/dfbin/bash_colors.sh
-source ~/dfbin/git-completion.bash
+source $HOME/dfbin/bash_colors.sh
+source $HOME/dfbin/git-completion.bash
 
-source ~/.aliases.sh
-source ~/.bash_functions.sh
+source $HOME/.aliases.sh
+source $HOME/.bash_functions.sh
 
 DEF_PATH=$PATH
 
-if [[ -e ~/.userpath.sh ]]; then
-  source ~/.userpath.sh
+if [[ -e $HOME/.userpath.sh ]]; then
+  source $HOME/.userpath.sh
 else
   PATH=$HOME/dfbin:$PATH
 fi;
 
-if ! [[ -e ~/.useraliases.sh ]]; then touch ~/.useraliases.sh; fi
+if ! [[ -e $HOME/.useraliases.sh ]]; then touch $HOME/.useraliases.sh; fi
 
-source ~/.useraliases.sh
+source $HOME/.useraliases.sh
 
 # export TERM='screen-256color'
 export TERM='xterm-256color'
 
 export CLICOLOR=1
 
-eval "`dircolors -b ~/.dircolorsrc`"
+eval "`dircolors -b $HOME/.dircolorsrc`"
 
 # Erase duplicates in history
 export HISTCONTROL=erasedups
@@ -45,7 +45,7 @@ shopt -s histappend
 
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r;"
 
-source ~/.ps1_components.sh
+source $HOME/.ps1_components.sh
 
 case $(uname) in
   Linux)
@@ -64,8 +64,8 @@ export PS1="$USR_PROMPT"
 export PS2='> '
 export PS4='+ '
 
-
-for f in `ls $HOME/.dfuser/*.sh`; do
+[[ -e $HOME/.dfuser ]] || mkdir $HOME/.dfuser
+for f in `find $HOME/.dfuser -name "*.sh"`; do
   echo "sourcing $f"
   source $f;
 done;
