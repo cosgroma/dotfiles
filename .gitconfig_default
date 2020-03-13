@@ -1,9 +1,8 @@
 [user]
     name = user_name
     email = user_email
-[diff]
 [commit]
-  template = ~/.gitmessage
+    template = ~/.gitmessage
 [color]
     ui = auto
 [alias]
@@ -46,12 +45,7 @@
     la = !git l --all
     tree = !git log --oneline --graph --decorate --all
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
-[merge]
-    tool = sublimerge
-[mergetool "sublimerge"]
-    cmd = sublime_text.exe -n --wait \"$REMOTE\" \"$BASE\" \"$LOCAL\" \"$MERGED\" --command \"sublimerge_diff_views\"
-    trustExitCode = false
 [push]
-	default = matching
+    default = matching
 [credential]
     helper = store

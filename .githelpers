@@ -76,3 +76,8 @@ branch_kill(){
     remote_remove_branch $1;
 }
 
+
+
+__git_spull(){
+    git pull "$@" && git submodule sync --recursive && git submodule update --init --recursive;
+}
