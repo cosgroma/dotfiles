@@ -66,8 +66,11 @@ export PS4='+ '
 
 [[ -e $HOME/.dfuser ]] || mkdir $HOME/.dfuser
 for f in `find $HOME/.dfuser -name "*.sh"`; do
-  echo "sourcing $f"
-  source $f;
+  fn=$(basename $f)
+  [[ $fn =~ ^_ ]] && echo "skipping " $fn || {
+    echo "sourcing $fn"
+    source $f;
+  };
 done;
 
 export NVM_DIR="$HOME/.nvm"

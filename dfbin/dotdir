@@ -95,6 +95,7 @@ ext_dict = {
     ".py": "lightskyblue",
     ".rst": "#80b1d3",
     ".sh": "lightsalmon",
+    ".so": "#bebada",
     ".sty": "#b3de69",
     ".v0": "lightsteelblue",
     ".xml": "lightyellow",
