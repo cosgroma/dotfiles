@@ -30,7 +30,7 @@ alias lt='ls -lat'
 alias ltr='ls -ltr'
 
 alias grep='grep --color -E'
-alias show='find . -name "*.*"'
+alias show='find . -name "*"'
 alias reset='exec /bin/bash -l'
 
 alias vxsim='vxsim -s startup.sh'

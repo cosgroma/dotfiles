@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Usage:
-    dotdir [options]
+    dotdir [options] [PATH]
+
+Arguments:
+
+  PATH    optional path, uses current working directory as default
 
 Options:
   -h --help
@@ -87,6 +91,8 @@ ext_dict = {
     ".jpeg": "lightgoldenrodyellow",
     ".js": "#bc80bd",
     ".json": "#fb8072",
+    ".m": "#f08b84",
+    ".mat": "#ebd8ab",
     ".md": "#ccebc5",
     ".mk": "#bebada",
     ".mk": "lightsalmon",
@@ -167,7 +173,11 @@ def process_path(root_path, graph, max_level):
 
 
 def main(arguments):
-  root_path = os.getcwd()
+  if arguments["PATH"]:
+    if os.path.isdir(os.path.relpath(arguments["PATH"])):
+      root_path = os.path.relpath(arguments["PATH"])
+  else:
+    root_path = os.getcwd()
   max_level = int(arguments["--level"])
   tree_history = os.path.abspath(root_path).split(os.sep)
   home_index = tree_history.index("home")
@@ -190,5 +200,6 @@ def main(arguments):
 
 if __name__ == '__main__':
   arguments = docopt(__doc__)
+  # print(arguments)
   # print(arguments)
   main(arguments)
