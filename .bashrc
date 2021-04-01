@@ -11,8 +11,9 @@ unset PROMPT_COMMAND;
 
 source $HOME/.userrc
 
-source $HOME/dfbin/bash_colors.sh
-source $HOME/dfbin/git-completion.bash
+
+source $HOME/.dfbin/bash_colors.sh
+source $HOME/.dfbin/git-completion.bash
 
 source $HOME/.aliases.sh
 source $HOME/.bash_functions.sh
@@ -22,7 +23,7 @@ DEF_PATH=$PATH
 if [[ -e $HOME/.userpath.sh ]]; then
   source $HOME/.userpath.sh
 else
-  PATH=$HOME/dfbin:$PATH
+  PATH=$HOME/.dfbin:$PATH
 fi;
 
 if ! [[ -e $HOME/.useraliases.sh ]]; then touch $HOME/.useraliases.sh; fi
@@ -36,10 +37,12 @@ export CLICOLOR=1
 
 eval "`dircolors -b $HOME/.dircolorsrc`"
 
+shopt -s checkwinsize
+
 # Erase duplicates in history
 export HISTCONTROL=erasedups
 # Store 10k history entries
-export HISTSIZE=10000
+export HISTSIZE=50000
 # Append to the history file when exiting instead of overwriting it
 shopt -s histappend
 
@@ -76,3 +79,5 @@ done;
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export no_proxy=$no_proxy,192.168.2./16

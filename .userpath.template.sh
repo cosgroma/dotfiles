@@ -1,11 +1,11 @@
 
-USR_PATH=$HOME/dfbin:$HOME/bin:$HOME/usr/bin:$HOME/opt
+USR_PATH=$HOME/.dfbin:$HOME/bin:$HOME/usr/bin:$HOME/opt
 BASE_UNIX_PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
 
 function _northrop_proxy() {
-  export http_proxy=http://$nuser:$(echo -n $userpass64 | base64 -d)@centralproxy.northgrum.com:80/
-  export https_proxy=http://$nuser:$(echo -n $userpass64 | base64 -d)@westproxy.northgrum.com:80/
-  export no_proxy=.northgrum.com
+  export http_proxy=http://$nuser:$(echo -n $userpass64 | base64 -d | sed 's/;/%3B/g' )@westproxy.northgrum.com:80/
+  export https_proxy=http://$nuser:$(echo -n $userpass64 | base64 -d | sed 's/;/%3B/g' )@westproxy.northgrum.com:80/
+  export no_proxy=.northgrum.com,.ngc
 }
 
 function _osx_exports() {
@@ -55,7 +55,22 @@ case $(uname) in
         # _xil_exports
         _northrop_proxy
         ;;
-      faraday )
+      magellan.northgrum.com )
+        export PATH=$PATH:$USR_PATH:$BASE_UNIX_PATH:/opt/MATLAB/R2016a/bin
+        export MLM_LICENSE_FILE=28004@Matlab-BWI-1.ES.northgrum.com:28004@Matlab-BWI-2.ES.northgrum.com:28004@Matlab-BWI-3.ES.northgrum.com
+        export XILINXD_LICENSE_FILE=2100@ecae1:28039@rsemd1-btriad1.nges.northgrum.com,28039@rsemd1-btriad2.nges.northgrum.com,28039@rsemd1-btriad3.nges.northgrum.com:2100@rseil1-eng4,2100@rseil1-eng3,2100@rseil1-eng2
+        export LM_LICENSE_FILE=28041@rsemd1-btriad1.NGES.northgrum.com,28041@rsemd1-btriad2
+        export WRSD_LICENSE_FILE=28041@RSMVAG-EEDSLIC1
+        _northrop_proxy
+        # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+        # export PATH="$PATH:$HOME/.rvm/bin"
+        export PATH="$HOME/.rvm/bin:$PATH"
+	      export NVM_DIR="$HOME/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+        [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+        ;;
+      faraday|magellan )
         export PATH=$USR_PATH:$BASE_UNIX_PATH
         export PYTHONPATH=/home/cosgroma/workspace/libs/python/modules:/usr/local/lib/python2.7/dist-packages:$PYTHONPATH
         _northrop_proxy

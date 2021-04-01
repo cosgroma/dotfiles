@@ -1,10 +1,13 @@
 [user]
     name = user_name
     email = user_email
+
 [commit]
     template = ~/.gitmessage
+
 [color]
-    ui = auto
+    ui = true
+
 [alias]
     st = status
     ci = commit --verbose
@@ -29,6 +32,7 @@
     gn = goodness
     gnc = goodness --cached
 
+    bk = "!. ~/.githelpers && branch_kill"
     # Fancy logging.
     #   h = head
     #   hp = head with patch
@@ -44,8 +48,37 @@
     l = "!. ~/.githelpers && pretty_git_log"
     la = !git l --all
     tree = !git log --oneline --graph --decorate --all
+    ftree = !git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    hist = log --pretty=format:\"%Cred%h%Creset %Cgreen%ad%Creset | %s%C(yellow)%d%Creset %C(bold blue)[%an]%Creset\" --graph --date=short
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+    #state = !git describe --long --dirty --abbrev=1 --tags
+    state = !git describe --tags
+    reponame = !basename `pwd`
+    tarrelease = !NAME=`git reponame`-`git state | cut -c 2-` && git archive --prefix="$NAME"/ -o release/$NAME.tar.gz `git state`
+
 [push]
     default = matching
+
 [credential]
     helper = store
+
+[core]
+    autocrlf = input
+    fileMode = false
+
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+[color "diff"]
+    meta = 227
+    frag = magenta bold
+    commit = 227 bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+[http]
+    sslCAPath = /etc/pki/ca-trust/source/anchors/
+    sslcainfo = /etc/pki/ca-trust/source/anchors/NorthropGrummanCorporateSigningCA-G2_pem.crt
+    sslVerify = false

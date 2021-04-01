@@ -13,9 +13,9 @@ function make-list() { make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ 
 
 function yo() {
   if type ruby &>/dev/null; then
-    ruby ~/dfbin/shellshock.rb;
+    ruby ~/.dfbin/shellshock.rb;
   else
-    source ~/dfbin/see-you.sh;
+    source ~/.dfbin/see-you.sh;
   fi
 }
 
@@ -76,4 +76,11 @@ function xilinx() {
 function subdiff() {
   sublime_text.exe -n --wait "$1" "$2" \
   --command "sublimerge_diff_views {\"left_read_only\": true, \"right_read_only\": true}"
+}
+
+function utop() {
+  for u in $(who | cut -d ' ' -f1 | sort | uniq); do
+    echo -n "$u: ";
+    top -b -n 1 -u $u | awk 'NR>7 { sum += $9; } END { print sum; }';
+  done;
 }

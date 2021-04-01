@@ -7,7 +7,7 @@ argsparse_use_option show "show dotfiles list" short:s
 argsparse_use_option install "main installer" short:i
 argsparse_use_option remove "remove dotfiles" short:r
 argsparse_use_option update "parameterized update" short:u value
-option_update_values=(name email password userpath)
+option_update_values=(gitconfig password userpath links)
 argsparse_use_option backup "backup current dotfiles" short:b
 
 printf -v argsparse_usage_description "%s\n" \
@@ -17,7 +17,7 @@ printf -v argsparse_usage_description "%s\n" \
   " $(basename $0) -i" \
   " $(basename $0) --install" \
   " $(basename $0) --backup" \
-  " $(basename $0) --update <name|email|password|userpath>" \
+  " $(basename $0) --update <gitconfig|password|userpath|links>" \
   " $(basename $0) --remove" \
   " $(basename $0) --show"
 
@@ -61,7 +61,7 @@ dflist=(.ackrc \
 .zsh \
 .zshenv \
 .zshrc \
-dfbin )
+.dfbin )
 
 function set_user_path() {
   if [[ -e $HOME/.userpath.sh ]]; then
@@ -71,19 +71,16 @@ function set_user_path() {
   cp $DOTFILES_BASE/.userpath.template.sh $HOME/.userpath.sh;
 }
 
-function set_user_name() {
+function set_gitconfig() {
   echo "enter name for .gitconfig"; read name && echo "name set to $name"
-  echo "enter username for network access (default: $(whoami))"; read nuser
-  if [[ $nuser == "" ]]; then nuser=$(whoami); fi;
-}
-
-function set_user_email() {
   echo "enter email for .gitconfig";
   read email
   echo "email set to $email"
 }
 
 function set_user_password() {
+  echo "enter username for network access (default: $(whoami))"; read nuser
+  if [[ $nuser == "" ]]; then nuser=$(whoami); fi;
   local userpass
   local temp
   cont=0;
@@ -105,8 +102,7 @@ function set_user_password() {
 
 function set_user() {
   echo "setting up user"
-  if [[ -z $name ]];       then set_user_name;     fi;
-  if [[ -z $email ]];      then set_user_email;    fi;
+  if [[ -z $email ]];      then set_gitconfig;    fi;
   if [[ -z $userpass64 ]]; then set_user_password; fi;
   write_user_config_file
 }
@@ -186,10 +182,10 @@ elif argsparse_is_option_set "remove"; then
   remove_links
 elif argsparse_is_option_set "update"; then
   case "${program_options[update]}" in
-    name ) set_user_name; ;;
-    email ) set_user_email; ;;
+    gitconfig ) set_gitconfig; ;;
     password ) set_user_password; ;;
     userpath ) set_user_path; ;;
+    links ) set_links; exit; ;;
   esac
   write_user_config_file;
   write_gitconfig;
