@@ -43,7 +43,7 @@
   "CD": "Compact Disk",
   "CDD": "Capability Development Document",
   "CDRL": "Contract Data Requirements Lists",
-  "CI": "Critical Items",
+  "CI": ["Critical Items", "Continuous Integration"],
   "CI/CD": "Continuous Integration/Continuous Deployment",
   "CIF": "Crypto Initialization Facility",
   "CIMU": "Commercial IMU",

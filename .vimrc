@@ -161,7 +161,7 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
-
+set noeb vb t_vb=
 " Add a bit extra margin to the left
 set foldcolumn=1
 
