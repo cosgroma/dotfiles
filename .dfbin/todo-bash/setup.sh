@@ -6,8 +6,8 @@
 ## @brief
 ## @copyright
 ## @version
-## @Last Modified by:   Mathew Cosgrove
-## @Last Modified time: 2017-05-09 08:06:41
+## @Last Modified by:   cosgrma
+## @Last Modified time: 2021-04-01 02:13:22
 #
 ## @details
 ## @par URL
@@ -23,7 +23,7 @@
 ##
 ################################################################################
 
-export PATH=~/dfbin/todo-bash:~/dfbin/todo-bash/internals/:$PATH
+export PATH=~/.dfbin/todo-bash:~/.dfbin/todo-bash/internals/:$PATH
 export TODOFILE=~/workspace/notes/todo/todo
 export TODOHISTORY=~/workspace/notes/todo/todo-history
 alias t=todo

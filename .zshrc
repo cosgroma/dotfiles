@@ -10,8 +10,8 @@ compinit
 
 source ~/.userrc
 
-# source ~/dfbin/bash_colors.sh
-# source ~/dfbin/git-completion.bash
+# source ~/.dfbin/bash_colors.sh
+# source ~/.dfbin/git-completion.bash
 
 source ~/.aliases.sh
 source ~/.bash_functions.sh
@@ -21,7 +21,7 @@ DEF_PATH=$PATH
 if [[ -e ~/.userpath.sh ]]; then
   source ~/.userpath.sh
 else
-  PATH=$HOME/dfbin:$PATH
+  PATH=$HOME/.dfbin:$PATH
 fi;
 
 if ! [[ -e ~/.useraliases.sh ]]; then touch ~/.useraliases.sh; fi
