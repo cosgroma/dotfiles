@@ -67,16 +67,6 @@ function set_xilinx_version() {
   echo -e "set version to: $GREEN$xilinx_version$RESET"
 }
 
-function xilinx() {
-  [[ -z $xilinx_version ]] && set_xilinx_version
-  source /opt/Xilinx/SDK/$xilinx_version/settings64.sh
-  source /opt/Xilinx/Vivado/$xilinx_version/settings64.sh
-}
-
-function subdiff() {
-  sublime_text.exe -n --wait "$1" "$2" \
-  --command "sublimerge_diff_views {\"left_read_only\": true, \"right_read_only\": true}"
-}
 
 function utop() {
   for u in $(who | cut -d ' ' -f1 | sort | uniq); do

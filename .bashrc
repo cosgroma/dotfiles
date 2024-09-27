@@ -68,17 +68,10 @@ export PS2='> '
 export PS4='+ '
 
 [[ -e $HOME/.dfuser ]] || mkdir $HOME/.dfuser
-for f in `find $HOME/.dfuser -name "*.sh"`; do
+for f in `find $HOME/.dfuser -maxdepth 1 -name "*.sh" | sort | uniq`; do
+  echo $f
   fn=$(basename $f)
   [[ $fn =~ ^_ ]] && echo "skipping " $fn || {
     source $f && echo "sourcing $fn";
   };
 done;
-
-
-
-
-
-
-
-export no_proxy=$no_proxy,192.168.2.0/16
