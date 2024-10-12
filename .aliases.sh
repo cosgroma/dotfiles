@@ -33,16 +33,18 @@ alias grep='grep --color -E'
 alias show='find . -name "*"'
 alias reset='exec /bin/bash -l'
 
-alias vxsim='vxsim -s startup.sh'
-
 ## Linux Stuff
 alias lsusr='cat /etc/passwd | grep /home |cut -d: -f1'
-alias mplayer='mplayer -fs'
 alias hd='od -txa -w16 -Ax'
-alias mount='mount |column -t'
+alias mount='mount | column -t'
 
 ## pass options to free ##
 alias meminfo='free -m -l -t'
+alias df='df -H'
+alias du='du -ch'
+
+## find out if remote server is alive or not ##
+
 
 ## get top process eating memory
 alias psmem='ps auxf | sort -nr -k 4'
@@ -53,7 +55,7 @@ alias pscpu='ps auxf | sort -nr -k 3'
 alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 
 ## Get server cpu info ##
-[[ "$(uname -o)" != "Cygwin" ]] && alias cpuinfo='lscpu'
+alias cpuinfo='lscpu'
 
 ## older system use /proc/cpuinfo ##
 ##alias cpuinfo='less /proc/cpuinfo' ##
@@ -71,16 +73,13 @@ alias celar='clear'
 # Network Stuff
 # Stop after sending count ECHO_REQUEST packets #
 
-[[ "$(uname -o)" != "Cygwin" ]] && alias ping='ping -c 5'
+alias ping='ping -c 5'
 # Do not wait interval 1 second, go fast #
-[[ "$(uname -o)" != "Cygwin" ]] && alias fastping='ping -c 100 -s.2'
-[[ "$(uname -o)" != "Cygwin" ]] && alias ports='netstat -tulanp'
+alias fastping='ping -c 100 -s.2'
+alias ports='netstat -tulanp'
 
 alias git-prune='for f in $(git ls-files --deleted); do git rm $f; done;'
 alias git-tree='git log --graph --pretty=oneline --abbrev-commit --decorate  --all'
-
-# Python
-alias pip-update='pip freeze --local | grep -v '\''^\-e'\'' | cut -d = -f 1 | xargs pip install -U'
 
 ## this one saved by butt so many times ##
 alias wget='wget -c --no-check-certificate'
