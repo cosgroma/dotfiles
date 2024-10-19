@@ -1,0 +1,241 @@
+#!/bin/bash
+
+# This script generates a Graphviz .dot file representing the commit history of Git branches.
+# The output file is named based on the provided parameters and saved in the current directory.
+
+# Usage:
+#   ./git-graphviz2 [options]
+#
+# Options:
+#   --limit N           Show only the top N branches
+#   --since DATE        Show branches with commits since DATE
+#   --pattern PATTERN   Show branches matching PATTERN
+#   --author AUTHOR     Show branches with commits from AUTHOR
+#
+# The script fetches the list of branches and applies the specified filters:
+#   - Limits the number of branches if --limit is provided.
+#   - Filters branches with commits since the specified date if --since is provided.
+#   - Filters branches matching the specified pattern if --pattern is provided.
+#   - Filters branches with commits from the specified author if --author is provided.
+#
+# The script then generates a Graphviz .dot file with the following structure:
+#   - A subgraph for each branch, with the branch name as the label.
+#   - Nodes representing commits, with labels showing the commit message and relative date.
+#   - Edges representing parent-child relationships between commits.
+#
+# The generated .dot file can be visualized using Graphviz tools such as dot or neato.
+# Example usage:
+#   ./git-graphviz2 --limit 5 --since "1 month ago" --pattern "feature" --author "John Doe"
+#   ./git-graphviz2 --limit 10 --pattern "bugfix" --author "Jane Smith"
+
+# Function to print usage
+print_usage() {
+    echo "Usage: $0 [options]"
+    echo "Options:"
+    echo "  --limit N           Show only the top N branches"
+    echo "  --since DATE        Show branches with commits since DATE"
+    echo "  --pattern PATTERN   Show branches matching PATTERN"
+    echo "  --author AUTHOR     Show branches with commits from AUTHOR"
+}
+
+# Default values
+LIMIT=0
+SINCE=""
+PATTERN=""
+AUTHOR=""
+
+# Parse command-line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --limit)
+            LIMIT=$2
+            shift 2
+            ;;
+        --since)
+            SINCE=$2
+            shift 2
+            ;;
+        --pattern)
+            PATTERN=$2
+            shift 2
+            ;;
+        --author)
+            AUTHOR=$2
+            shift 2
+            ;;
+        *)
+            print_usage
+            exit 1
+            ;;
+    esac
+done
+
+# Generate filename based on parameters
+filename="git-graphviz"
+[[ $LIMIT -gt 0 ]] && filename="${filename}_limit${LIMIT}"
+[[ -n $SINCE ]] && filename="${filename}_since$(echo $SINCE | tr ' ' '_')"
+[[ -n $PATTERN ]] && filename="${filename}_pattern$(echo $PATTERN | tr ' ' '_')"
+[[ -n $AUTHOR ]] && filename="${filename}_author$(echo $AUTHOR | tr ' ' '_')"
+filename="${filename}.dot"
+
+# Fetch the list of branches
+branches=$(git for-each-ref --format="%(refname)" --sort=committerdate refs/heads)
+
+# Apply filters
+if [[ -n $SINCE ]]; then
+    branches=$(git for-each-ref --format="%(refname)" --sort=committerdate refs/heads --since="$SINCE")
+fi
+
+if [[ -n $PATTERN ]]; then
+    branches=$(echo "$branches" | grep "$PATTERN")
+fi
+
+if [[ -n $AUTHOR ]]; then
+    branches=$(echo "$branches" | while read branch; do
+        if git log "$branch" --author="$AUTHOR" -1 > /dev/null 2>&1; then
+            echo "$branch"
+        fi
+    done)
+fi
+
+if [[ $LIMIT -gt 0 ]]; then
+    branches=$(echo "$branches" | head -n $LIMIT)
+fi
+
+
+
+# Start writing to the file
+{
+    date=$(date)
+    echo "digraph GIT {"
+    echo "fontname=\"Helvetica\";"
+    echo "label=\"$0 $@\n$PWD\n$date\";"
+
+    # Process each branch
+    for branchname in $branches; do
+        cleanName=$(echo $branchname | sed 's/\//_/g' | sed 's/-/_/g')
+        branchLabelName=$(echo $branchname | sed 's/refs\/[A-Za-z]*\///')
+        log=$(git log "$branchname" --pretty="%H -> %P ;" "$@" 2> /dev/null)
+        if [[ $log ]]; then
+            echo "  subgraph cluster_$cleanName {"
+            echo "    label=\"$branchLabelName\";"
+            echo "    fontsize=24;"
+            echo "    color=blue;"
+            echo "    style=dotted;"
+            echo $log | \
+            sed 's/\( *[0-9a-f]\{40\} *-> *\)\([0-9a-f]\{40\}\) *\([0-9a-f]\{40\}\)/\1\2\;\1\3/g' | \
+            sed 's/\( *[0-9a-f]\{40\} *-> *\)\([0-9a-f]\{40\}\) *\([0-9a-f]\{40\}\) *\([0-9a-f]\{40\}\)/\1\2\;\1\3;\1\4/g' | \
+            sed 's/-> *;/-> \"root\";/' |\
+            sed 's/;/\[dir=back\];/g' |\
+            sed 's/[0-9a-f]\{40\}/\"&\"/g' |\
+            sed 's/\[dir=back\];/&\'$'\n/g'
+            echo "  }"
+        fi
+    done
+
+    # Write out all of the nodes with an appropriate label.
+    echo \# Node list
+    git log --decorate=full --all --boundary --pretty="  __HASH__%H [label=__DOUBLE_QUOTE__%d__NEW_LINE__%s__NEW_LINE__%cr__DOUBLE_QUOTE__,shape=__SHAPE__,style=__STYLE__,color=__COLOR__,fillcolor=__FILLCOLOR__]" "$@" |
+    sed 's/\\/\\\\/g' |
+    sed 's/\"/\\\"/g' |
+    sed 's/__DOUBLE_QUOTE____NEW_LINE__/__DOUBLE_QUOTE__/g' |
+    sed 's/__DOUBLE_QUOTE__/\"/g' |
+    sed 's/__NEW_LINE__/\\n/g' |
+    sed 's/__HASH__\([0-9a-f]\{40\}\)/\"\1\"/g' |
+    sed '/(.*\/heads\/.*)/s/__STYLE__/filled/' |
+    sed '/(.*\/heads\/.*)/s/__SHAPE__/tripleoctagon/' |
+    sed '/(.*\/heads\/.*)/s/__FILLCOLOR__/salmon/' |
+    sed '/(.*\/tags\/.*)/s/__STYLE__/filled/' |
+    sed '/(.*\/tags\/.*)/s/__SHAPE__/box/' |
+    sed '/(.*\/tags\/.*)/s/__FILLCOLOR__/palegreen1/' |
+    sed 's/__SHAPE__/box/' |
+    sed 's/__STYLE__/filled/' |
+    sed 's/__FILLCOLOR__/white/' |
+    sed 's/__COLOR__/black/'
+
+    # End the graph
+    echo "}"
+} > "$filename"
+
+echo "Graphviz output written to $filename"
+
+print_graph_header() {
+    local date=$(date)
+    echo "digraph GIT {"
+    echo "fontname=\"Helvetica\";"
+    echo "label=\"$0 $@\n$PWD\n$date\";"
+}
+
+process_branch() {
+    local branchname=$1
+    local cleanName=$(echo $branchname | sed 's/\//_/g' | sed 's/-/_/g')
+    local branchLabelName=$(echo $branchname | sed 's/refs\/[A-Za-z]*\///')
+    local log=$(git log "$branchname" --pretty="%H -> %P ;" "$@" 2> /dev/null)
+
+    if [[ $log ]]; then
+        generate_subgraph "$cleanName" "$branchLabelName" "$log"
+    fi
+}
+
+
+generate_subgraph() {
+    local cleanName=$1
+    local branchLabelName=$2
+    local log=$3
+
+    echo "  subgraph cluster_$cleanName {"
+    echo "    label=\"$branchLabelName\";"
+    echo "    fontsize=24;"
+    echo "    color=blue;"
+    echo "    style=dotted;"
+    format_commit_links "$log"
+    echo "  }"
+}
+
+format_commit_links() {
+    local log=$1
+
+    echo $log | \
+    sed 's/\( *[0-9a-f]\{40\} *-> *\)\([0-9a-f]\{40\}\) *\([0-9a-f]\{40\}\)/\1\2\;\1\3/g' | \
+    sed 's/\( *[0-9a-f]\{40\} *-> *\)\([0-9a-f]\{40\}\) *\([0-9a-f]\{40\}\) *\([0-9a-f]\{40\}\)/\1\2\;\1\3;\1\4/g' | \
+    sed 's/-> *;/-> \"root\";/' |\
+    sed 's/;/\[dir=back\];/g' |\
+    sed 's/[0-9a-f]\{40\}/\"&\"/g' |\
+    sed 's/\[dir=back\];/&\'$'\n/g'
+}
+
+print_node_list() {
+    echo \# Node list
+    git log --decorate=full --all --boundary --pretty="  __HASH__%H [label=__DOUBLE_QUOTE__%d__NEW_LINE__%s__NEW_LINE__%cr__DOUBLE_QUOTE__,shape=__SHAPE__,style=__STYLE__,color=__COLOR__,fillcolor=__FILLCOLOR__]" "$@" |
+    sed 's/\\/\\\\/g' |
+    sed 's/\"/\\\"/g' |
+    sed 's/__DOUBLE_QUOTE____NEW_LINE__/__DOUBLE_QUOTE__/g' |
+    sed 's/__DOUBLE_QUOTE__/\"/g' |
+    sed 's/__NEW_LINE__/\\n/g' |
+    sed 's/__HASH__\([0-9a-f]\{40\}\)/\"\1\"/g' |
+    sed '/(.*\/heads\/.*)/s/__STYLE__/filled/' |
+    sed '/(.*\/heads\/.*)/s/__SHAPE__/tripleoctagon/' |
+    sed '/(.*\/heads\/.*)/s/__FILLCOLOR__/salmon/' |
+    sed '/(.*\/tags\/.*)/s/__STYLE__/filled/' |
+    sed '/(.*\/tags\/.*)/s/__SHAPE__/box/' |
+    sed '/(.*\/tags\/.*)/s/__FILLCOLOR__/palegreen1/' |
+    sed 's/__SHAPE__/box/' |
+    sed 's/__STYLE__/filled/' |
+    sed 's/__FILLCOLOR__/white/' |
+    sed 's/__COLOR__/black/'
+}
+
+main() {
+    print_graph_header "$@"
+    for branchname in $(git for-each-ref --format="%(refname)" --sort=committerdate refs/heads); do
+        process_branch "$branchname" "$@"
+    done
+    print_node_list "$@"
+    echo "}"
+}
+
+for branch in $(git for-each-ref --format="%(refname:short)" refs/heads/); do
+    if git log -1 --since="1 month ago" "$branch" > /dev/null; then
+        echo "$branch"
+    fi
+done
