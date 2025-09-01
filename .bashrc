@@ -49,23 +49,7 @@ shopt -s histappend
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r;"
 # export HISTIGNORE="history:ls:pwd:"
 # export HISTFILE=/home/$USER/.bash_history
-source $HOME/.ps1_components.sh
 
-
-
-case $(uname) in
-  Linux)
-    USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_GIT_STAT$PS1_XILINX$PS1_GITF$PS1_WENV$PS1_END"
-    export PLATFORM=linux
-    ;;
-  *)
-    USR_PROMPT="$PS1_USER_HOST$PS1_WORK_DIR$PS1_GITF$PS1_END"
-    ;;
-esac
-
-export PS1="$USR_PROMPT"
-export PS2='> '
-export PS4='+ '
 
 [[ -e $HOME/.dfuser ]] || mkdir $HOME/.dfuser
 for f in `find $HOME/.dfuser -maxdepth 1 -name "*.sh" | sort | uniq`; do
@@ -75,3 +59,6 @@ for f in `find $HOME/.dfuser -maxdepth 1 -name "*.sh" | sort | uniq`; do
     source $f && echo "sourcing $fn";
   };
 done;
+
+# Created by `pipx` on 2025-07-16 04:39:19
+export PATH="$PATH:/home/cosgroma/.local/bin"
