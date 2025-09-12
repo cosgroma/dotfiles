@@ -30,6 +30,8 @@
 #
 # -----------------------------------------------------------------------------
 
+DEFAULT_REMOTE_REPO_PATH="/srv/git"
+
 # Check if current directory is a Git repository:
 # A utility to verify that the script is being executed inside a valid Git repository. If not, the script should exit with an error.
 is_git_repo() {
@@ -61,9 +63,22 @@ create_remote_bare_repo() {
   echo "Bare repository created at $2 on $1."
 }
 
+check_remote_exists() {
+  git remote get-url "$1" > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    echo "Error: Remote '$1' already exists"
+    return 1
+  fi
+  return 0
+}
 #  Add the remote repository locally:
 # A utility to add the new remote repository to the local Git repository.
 add_remote() {
+  # check if remote already exists
+  if check_remote_exists "$1"; then
+    echo "Remote '$1' already exists"
+    git remote rm "$1"
+  fi
   git remote add "$1" "$2"
   if [ $? -ne 0 ]; then
     echo "Error: Failed to add the remote repository to the local Git repository."
@@ -92,13 +107,8 @@ print_usage() {
   exit 1
 }
 
-check_remote_exists() {
-  git remote get-url "$1" > /dev/null 2>&1
-  if [ $? -eq 0 ]; then
-    echo "Error: Remote '$1' already exists. Aborting."
-    exit 1
-  fi
-}
+
+
 
 verbose_mode=false
 
@@ -108,22 +118,16 @@ log() {
   fi
 }
 
-make_bare_repo_name_from_path() {
+make_repo_name() {
   local path="$1"
-  local repo_name=$(basename "$path")
-  if [ "$repo_name" = "/" ]; then
-    repo_name="root"
-  fi
-  echo "$repo_name.git"
-}
-
-make_bare_repo_name_from_path_long() {
-  local path="$1"
+  # remove home directory from path
+  path=$(echo "$path" | sed "s|$HOME/||")
   # remove ~/workspace from path
   # if path has workspace in it, then remove everything before workspace
   if [[ "$path" == *workspace* ]]; then
     path=$(echo "$path" | sed 's/.*workspace\///')
   fi
+  # remove trailing slash
   if [[ "$path" == *\/ ]]; then
     path=$(echo "$path" | sed 's/.$//')
   fi
@@ -135,7 +139,7 @@ make_bare_repo_name_from_path_long() {
   echo "$repo_name.git"
 }
 
-DEFAULT_REMOTE_REPO_PATH="/srv/git"
+
 
 parse_arguments() {
   # Default values
@@ -177,11 +181,7 @@ parse_arguments() {
   fi
   
 
-  # Final summary (optional in verbose mode)
-  log "Remote address: $remote_address"
-  log "Remote repo path: $remote_repo_path"
-  log "Remote name: $remote_name"
-  log "Verbose mode: $verbose_mode"
+
 }
 
 # Main script execution
@@ -193,9 +193,15 @@ main() {
   is_git_repo
 
   if [ "$remote_repo_path" = "." ]; then
-    remote_repo_path=$(make_bare_repo_name_from_path_long "$(pwd)")
+    remote_repo_path=$(make_repo_name "$(pwd)")
     remote_repo_path="$DEFAULT_REMOTE_REPO_PATH/$remote_repo_path"
   fi
+
+  # Final summary (optional in verbose mode)
+  log "Remote address: $remote_address"
+  log "Remote repo path: $remote_repo_path"
+  log "Remote name: $remote_name"
+  log "Verbose mode: $verbose_mode"
   # Check SSH connection to the remote server
   check_ssh_connection "$remote_address"
 
